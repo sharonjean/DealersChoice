@@ -42,7 +42,8 @@ tags = [
   "Fruity_2",
   "Herbal",
   "Stonefruit",
-  "Berry_2"]
+  "Berry_2",
+  "Gentle"]
 
 tags.each do |tag|
   Tag.create(name: tag, description: "This sure makes a tasty drink.")
@@ -96,3 +97,14 @@ Tag.find(25).children << Tag.find(33)
 # Fruity_2
 Tag.find(32).children << Tag.find(34)
 Tag.find(32).children << Tag.find(35)
+# Gentle
+Tag.find(36).children << Tag.find(14)
+Tag.find(36).children << Tag.find(15)
+
+50.times do
+  Drink.create(name: Faker::Hipster.word, description: Faker::Hipster.sentence)
+end
+
+250.times do
+  DrinksTag.create(drink_id: rand(1..50),tag_id: rand(1..36))
+end
