@@ -1,11 +1,12 @@
 class TagsController < ApplicationController
 
   def index
-    # fancy logic here for swiping
-    @returned_tag = Tag.find(params[:id])
-    @tags = Tag.where()
+
+    @selected_tag = Tag.find(params[:id])
+    @next_tags = @tag.children
 
     render json: @tag
+
   end
 
 end
