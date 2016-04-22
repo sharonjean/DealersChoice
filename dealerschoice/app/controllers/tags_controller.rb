@@ -3,9 +3,18 @@ class TagsController < ApplicationController
   def index
 
     @selected_tag = Tag.find(params[:id])
-    @next_tags = @tag.children
+    if session[:tags] == nil
+      session[:tags] = []
+    end
+    session[:tags] << @selected_tag
+    @next_tags = @selected_tag.children
 
-    render json: @tag
+    if @next_tags.length === 0
+      # return chosen drink
+      @drink_choices = nil
+    end
+
+    render json: @next_tags
 
   end
 
