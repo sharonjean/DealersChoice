@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160421230951) do
+ActiveRecord::Schema.define(version: 20160422044711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,13 @@ ActiveRecord::Schema.define(version: 20160421230951) do
 
   add_index "drinks", ["reviewable_type", "reviewable_id"], name: "index_drinks_on_reviewable_type_and_reviewable_id", using: :btree
 
+  create_table "families", force: :cascade do |t|
+    t.integer  "parent_id"
+    t.integer  "child_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.text     "description"
     t.integer  "reviewable_id"
@@ -50,9 +57,12 @@ ActiveRecord::Schema.define(version: 20160421230951) do
   create_table "tags", force: :cascade do |t|
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
+    t.integer  "parent_tag_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
   end
+
+  add_index "tags", ["parent_tag_id"], name: "index_tags_on_parent_tag_id", using: :btree
 
   create_table "tagsdrinks", force: :cascade do |t|
     t.integer  "tag_id"

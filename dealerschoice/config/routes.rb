@@ -1,4 +1,13 @@
 Rails.application.routes.draw do
+  resources :bars, except: [:new, :edit] do
+    resources :drinks, except: [:new, :edit]
+  end
+
+  resources :tags, except: [:new, :edit]
+
+  root 'bars#index'
+
+
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
