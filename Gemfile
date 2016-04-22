@@ -1,7 +1,9 @@
 source 'https://rubygems.org'
+gem 'dotenv-rails', groups: [:development, :test], require: 'dotenv/rails-now'
+gem 'pry-rails', group: :development
 gem 'devise'
+gem 'yelp', require: 'yelp'
 gem 'faker'
-gem 'pry-rails', :group => :development
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.6'
