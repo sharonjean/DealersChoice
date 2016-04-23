@@ -13,7 +13,7 @@ class BarsController < ApplicationController
       yelp_params.businesses.each do |bar|
         bars << bar.name
       end
-    return bars.join(" ")
+    return bars.join[" "]
   end
 
   def index

@@ -118,5 +118,10 @@ end
   user.save!
 end
 
+top_sf_bars = ["Barbarossa Lounge","Two Sisters Bar and Books","Hi-Lo Club","The Butterfly Lounge","Forgery","Bond","Oddjob","Bourbon + Branch","Blackbird","15 Romolo","Trick Dog","The European","Comstock Saloon","Cantina","Smuggler's Cove","The Alembic","Rickhouse","Maven","Rye","Tradition"]
+
+top_sf_bars.each do |bar|
+  Bar.create(name: bar)
+end
 
 
