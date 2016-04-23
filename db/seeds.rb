@@ -101,10 +101,19 @@ Tag.find(32).children << Tag.find(35)
 Tag.find(36).children << Tag.find(14)
 Tag.find(36).children << Tag.find(15)
 
-50.times do
+100.times do
   Drink.create(name: Faker::Hipster.word, description: Faker::Hipster.sentence)
 end
 
-250.times do
-  DrinksTag.create(drink_id: rand(1..50),tag_id: rand(1..36))
+500.times do
+  DrinksTag.create(drink_id: rand(1..100),tag_id: rand(1..36))
+end
+
+100.times do
+  user = User.new
+  user.username = Faker::Hipster.word
+  user.email = Faker::Internet.email
+  user.password = '123456'
+  user.password_confirmation = '123456'
+  user.save!
 end
