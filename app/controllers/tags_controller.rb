@@ -10,13 +10,14 @@ class TagsController < ApplicationController
     @next_tags = @selected_tag.children
 
     if @next_tags.length === 0
-      @all_drinks = Drinks.all
+      @all_drinks = Drink.all
       @all_drinks.each do |drink|
         @in_common = drink.tags.pluck(:id) & session[:tags]
         @drink_choices = []
-        if @in_common.length = session[:tags].length
+        if @in_common.length >= session[:tags].length - 1
           @drink_choices << drink
         end
+
       end
       render json: @drink_choices
     end
