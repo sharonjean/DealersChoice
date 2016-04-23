@@ -1,28 +1,24 @@
 class BarsController < ApplicationController
 
   def search
-    parameters = {
-      term: 'bar',
-      location: params[:location],
-      cll: '37.7749' '-122.4194',
-      limit: 15
+    parameters = { 
+      term: 'cocktail bars',
+      offset: 15,
+      sort: 2,
     }
 
-    yelp_par = Yelp.client.search('San Francisco')
-    return yelp_par
+    yelp_params = Yelp.client.search('San Francisco', parameters)
 
+    bars = []
+      yelp_params.businesses.each do |bar|
+        bars << bar.name
+      end
+    return bars.join(" ")
   end
 
   def index
-    # recieve json of longitude latitude
-    # api for local bars
-    # @bars = Bar.where(name: local_bar_name)
+    search
     render json: search
-  end
-
-  def show
-    @bar = Bar.find(params[:id])
-    render json: @bar
   end
 
 end
