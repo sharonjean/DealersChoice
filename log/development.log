@@ -3,3 +3,1309 @@
   [1m[36mTag Load (1.0ms)[0m  [1mSELECT "tags".* FROM "tags" INNER JOIN "drinks_tags" ON "tags"."id" = "drinks_tags"."tag_id" WHERE "drinks_tags"."drink_id" = $1[0m  [["drink_id", 1]]
   [1m[36mDrink Load (1.5ms)[0m  [1mSELECT  "drinks".* FROM "drinks"  ORDER BY "drinks"."id" ASC LIMIT 1[0m
   [1m[35mTag Load (1.0ms)[0m  SELECT "tags".* FROM "tags" INNER JOIN "drinks_tags" ON "tags"."id" = "drinks_tags"."tag_id" WHERE "drinks_tags"."drink_id" = $1  [["drink_id", 1]]
+  [1m[36m (15.4ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (1.6ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Migrating to DeviseCreateUsers (20160421230328)
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36m (21.4ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "username" character varying, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" inet, "last_sign_in_ip" inet, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.8ms)[0m  CREATE UNIQUE INDEX  "index_users_on_email" ON "users"  ("email")
+  [1m[36m (0.7ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users"  ("reset_password_token")[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160421230328"]]
+  [1m[36m (6.1ms)[0m  [1mCOMMIT[0m
+Migrating to CreateReviews (20160421230533)
+  [1m[35m (6.0ms)[0m  BEGIN
+  [1m[36m (8.9ms)[0m  [1mCREATE TABLE "reviews" ("id" serial primary key, "description" text, "reviewable_id" integer, "imageable_type" character varying, "user_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160421230533"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateDrinks (20160421230823)
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (2.2ms)[0m  [1mCREATE TABLE "drinks" ("id" serial primary key, "name" character varying, "description" text, "bar_id" integer, "reviewable_id" integer, "reviewable_type" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (0.8ms)[0m  CREATE  INDEX  "index_drinks_on_reviewable_type_and_reviewable_id" ON "drinks"  ("reviewable_type", "reviewable_id")
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "schema_migrations" ("version") VALUES ($1)[0m  [["version", "20160421230823"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+Migrating to CreateBars (20160421230836)
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35m (2.6ms)[0m  CREATE TABLE "bars" ("id" serial primary key, "name" character varying, "reviewable_id" integer, "reviewable_type" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (0.7ms)[0m  [1mCREATE  INDEX  "index_bars_on_reviewable_type_and_reviewable_id" ON "bars"  ("reviewable_type", "reviewable_id")[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160421230836"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateTags (20160421230951)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (3.7ms)[0m  [1mCREATE TABLE "tags" ("id" serial primary key, "name" character varying, "description" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160421230951"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Migrating to CreateFamilies (20160422044711)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (2.5ms)[0m  [1mCREATE TABLE "families" ("id" serial primary key, "parent_id" integer, "child_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160422044711"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Migrating to CreateDrinksTags (20160422222636)
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36m (2.5ms)[0m  [1mCREATE TABLE "drinks_tags" ("id" serial primary key, "tag_id" integer, "drink_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "schema_migrations" ("version") VALUES ($1)  [["version", "20160422222636"]]
+  [1m[36m (1.6ms)[0m  [1mCOMMIT[0m
+  [1m[35mActiveRecord::SchemaMigration Load (0.1ms)[0m  SELECT "schema_migrations".* FROM "schema_migrations"
+  [1m[36m (1.9ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'bars'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (1.5ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'drinks'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (1.4ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'drinks_tags'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (1.7ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'families'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (1.8ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'reviews'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[35m (1.7ms)[0m  SELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'tags'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+
+  [1m[36m (1.6ms)[0m  [1mSELECT t2.oid::regclass::text AS to_table, a1.attname AS column, a2.attname AS primary_key, c.conname AS name, c.confupdtype AS on_update, c.confdeltype AS on_delete
+FROM pg_constraint c
+JOIN pg_class t1 ON c.conrelid = t1.oid
+JOIN pg_class t2 ON c.confrelid = t2.oid
+JOIN pg_attribute a1 ON a1.attnum = c.conkey[1] AND a1.attrelid = t1.oid
+JOIN pg_attribute a2 ON a2.attnum = c.confkey[1] AND a2.attrelid = t2.oid
+JOIN pg_namespace t3 ON c.connamespace = t3.oid
+WHERE c.contype = 'f'
+  AND t1.relname = 'users'
+  AND t3.nspname = ANY (current_schemas(false))
+ORDER BY c.conname
+[0m
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Spirituous"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.058261"], ["updated_at", "2016-04-23 01:37:33.058261"]]
+  [1m[35m (6.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Straight_Forward_1"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.069189"], ["updated_at", "2016-04-23 01:37:33.069189"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Smokey_1"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.071941"], ["updated_at", "2016-04-23 01:37:33.071941"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Smooth_1"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.073796"], ["updated_at", "2016-04-23 01:37:33.073796"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Light_1"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.075485"], ["updated_at", "2016-04-23 01:37:33.075485"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Dark_1"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.077268"], ["updated_at", "2016-04-23 01:37:33.077268"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Complex_1"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.079020"], ["updated_at", "2016-04-23 01:37:33.079020"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Vegetal_1"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.080731"], ["updated_at", "2016-04-23 01:37:33.080731"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Bitter_1"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.082459"], ["updated_at", "2016-04-23 01:37:33.082459"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Smokey_2"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.084136"], ["updated_at", "2016-04-23 01:37:33.084136"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Smooth_2"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.085758"], ["updated_at", "2016-04-23 01:37:33.085758"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Dark_2"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.087450"], ["updated_at", "2016-04-23 01:37:33.087450"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Light_2"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.089140"], ["updated_at", "2016-04-23 01:37:33.089140"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Complex_2"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.090841"], ["updated_at", "2016-04-23 01:37:33.090841"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Straight_Forward_2"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.092501"], ["updated_at", "2016-04-23 01:37:33.092501"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Vegetal_2"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.094201"], ["updated_at", "2016-04-23 01:37:33.094201"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Bitter_2"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.095800"], ["updated_at", "2016-04-23 01:37:33.095800"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Light_3"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.097467"], ["updated_at", "2016-04-23 01:37:33.097467"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Dark_3"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.099077"], ["updated_at", "2016-04-23 01:37:33.099077"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Light_4"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.100752"], ["updated_at", "2016-04-23 01:37:33.100752"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Dark_4"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.102388"], ["updated_at", "2016-04-23 01:37:33.102388"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Fruity_1"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.104014"], ["updated_at", "2016-04-23 01:37:33.104014"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Crisp_1"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.105628"], ["updated_at", "2016-04-23 01:37:33.105628"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Decadent"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.107212"], ["updated_at", "2016-04-23 01:37:33.107212"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Crisp_2"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.108837"], ["updated_at", "2016-04-23 01:37:33.108837"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Citrus"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.110567"], ["updated_at", "2016-04-23 01:37:33.110567"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Clove"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.112161"], ["updated_at", "2016-04-23 01:37:33.112161"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Tropical"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.113809"], ["updated_at", "2016-04-23 01:37:33.113809"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Berry_1"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.115449"], ["updated_at", "2016-04-23 01:37:33.115449"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Bubbly"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.117119"], ["updated_at", "2016-04-23 01:37:33.117119"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Still"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.118781"], ["updated_at", "2016-04-23 01:37:33.118781"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Fruity_2"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.120415"], ["updated_at", "2016-04-23 01:37:33.120415"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Herbal"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.122145"], ["updated_at", "2016-04-23 01:37:33.122145"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Stonefruit"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.123830"], ["updated_at", "2016-04-23 01:37:33.123830"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Berry_2"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.125421"], ["updated_at", "2016-04-23 01:37:33.125421"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Gentle"], ["description", "This sure makes a tasty drink."], ["created_at", "2016-04-23 01:37:33.127039"], ["updated_at", "2016-04-23 01:37:33.127039"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 1], ["child_id", 2], ["created_at", "2016-04-23 01:37:33.159985"], ["updated_at", "2016-04-23 01:37:33.159985"]]
+  [1m[35m (6.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.4ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mTag Load (0.3ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 7]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 1], ["child_id", 7], ["created_at", "2016-04-23 01:37:33.171518"], ["updated_at", "2016-04-23 01:37:33.171518"]]
+  [1m[36m (6.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.4ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mTag Load (0.3ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 3]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 2], ["child_id", 3], ["created_at", "2016-04-23 01:37:33.182568"], ["updated_at", "2016-04-23 01:37:33.182568"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 2], ["child_id", 4], ["created_at", "2016-04-23 01:37:33.187414"], ["updated_at", "2016-04-23 01:37:33.187414"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 5]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 4], ["child_id", 5], ["created_at", "2016-04-23 01:37:33.190958"], ["updated_at", "2016-04-23 01:37:33.190958"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 6]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 4], ["child_id", 6], ["created_at", "2016-04-23 01:37:33.194375"], ["updated_at", "2016-04-23 01:37:33.194375"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 7]]
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 8]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 7], ["child_id", 8], ["created_at", "2016-04-23 01:37:33.197664"], ["updated_at", "2016-04-23 01:37:33.197664"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 7]]
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 9]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 7], ["child_id", 9], ["created_at", "2016-04-23 01:37:33.200925"], ["updated_at", "2016-04-23 01:37:33.200925"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 8]]
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 8], ["child_id", 12], ["created_at", "2016-04-23 01:37:33.204007"], ["updated_at", "2016-04-23 01:37:33.204007"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 8]]
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 13]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 8], ["child_id", 13], ["created_at", "2016-04-23 01:37:33.207194"], ["updated_at", "2016-04-23 01:37:33.207194"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 9]]
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 10]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 9], ["child_id", 10], ["created_at", "2016-04-23 01:37:33.210240"], ["updated_at", "2016-04-23 01:37:33.210240"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 9]]
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 11]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 9], ["child_id", 11], ["created_at", "2016-04-23 01:37:33.213288"], ["updated_at", "2016-04-23 01:37:33.213288"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 14]]
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 16]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 14], ["child_id", 16], ["created_at", "2016-04-23 01:37:33.216399"], ["updated_at", "2016-04-23 01:37:33.216399"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 14]]
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 17]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 14], ["child_id", 17], ["created_at", "2016-04-23 01:37:33.219467"], ["updated_at", "2016-04-23 01:37:33.219467"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 16]]
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 18]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 16], ["child_id", 18], ["created_at", "2016-04-23 01:37:33.222745"], ["updated_at", "2016-04-23 01:37:33.222745"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 16]]
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 19]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 16], ["child_id", 19], ["created_at", "2016-04-23 01:37:33.225978"], ["updated_at", "2016-04-23 01:37:33.225978"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 17]]
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 26]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 17], ["child_id", 26], ["created_at", "2016-04-23 01:37:33.229281"], ["updated_at", "2016-04-23 01:37:33.229281"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 17]]
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 27]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 17], ["child_id", 27], ["created_at", "2016-04-23 01:37:33.232475"], ["updated_at", "2016-04-23 01:37:33.232475"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 15]]
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 20]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 15], ["child_id", 20], ["created_at", "2016-04-23 01:37:33.235585"], ["updated_at", "2016-04-23 01:37:33.235585"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 15]]
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 21]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 15], ["child_id", 21], ["created_at", "2016-04-23 01:37:33.238660"], ["updated_at", "2016-04-23 01:37:33.238660"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 20]]
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 22]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 20], ["child_id", 22], ["created_at", "2016-04-23 01:37:33.241738"], ["updated_at", "2016-04-23 01:37:33.241738"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 20]]
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 23]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 20], ["child_id", 23], ["created_at", "2016-04-23 01:37:33.244768"], ["updated_at", "2016-04-23 01:37:33.244768"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 22]]
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 28]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 22], ["child_id", 28], ["created_at", "2016-04-23 01:37:33.247781"], ["updated_at", "2016-04-23 01:37:33.247781"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 22]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 29]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 22], ["child_id", 29], ["created_at", "2016-04-23 01:37:33.251533"], ["updated_at", "2016-04-23 01:37:33.251533"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 23]]
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 30]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 23], ["child_id", 30], ["created_at", "2016-04-23 01:37:33.254822"], ["updated_at", "2016-04-23 01:37:33.254822"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 23]]
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 31]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 23], ["child_id", 31], ["created_at", "2016-04-23 01:37:33.258370"], ["updated_at", "2016-04-23 01:37:33.258370"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 21]]
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 24]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 21], ["child_id", 24], ["created_at", "2016-04-23 01:37:33.261609"], ["updated_at", "2016-04-23 01:37:33.261609"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 21]]
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 25]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 21], ["child_id", 25], ["created_at", "2016-04-23 01:37:33.264766"], ["updated_at", "2016-04-23 01:37:33.264766"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 25]]
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 32]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 25], ["child_id", 32], ["created_at", "2016-04-23 01:37:33.267807"], ["updated_at", "2016-04-23 01:37:33.267807"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 33]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 25], ["child_id", 33], ["created_at", "2016-04-23 01:37:33.271160"], ["updated_at", "2016-04-23 01:37:33.271160"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 32]]
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 34]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 32], ["child_id", 34], ["created_at", "2016-04-23 01:37:33.274446"], ["updated_at", "2016-04-23 01:37:33.274446"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 32]]
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 35]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 32], ["child_id", 35], ["created_at", "2016-04-23 01:37:33.277621"], ["updated_at", "2016-04-23 01:37:33.277621"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 36]]
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 14]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 36], ["child_id", 14], ["created_at", "2016-04-23 01:37:33.280692"], ["updated_at", "2016-04-23 01:37:33.280692"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.1ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 36]]
+  [1m[35mTag Load (0.1ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 15]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 36], ["child_id", 15], ["created_at", "2016-04-23 01:37:33.283724"], ["updated_at", "2016-04-23 01:37:33.283724"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "drinking"], ["description", "Thundercats ennui taxidermy plaid next level."], ["created_at", "2016-04-23 01:37:33.632339"], ["updated_at", "2016-04-23 01:37:33.632339"]]
+  [1m[35m (5.8ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "shoreditch"], ["description", "Ennui organic xoxo loko."], ["created_at", "2016-04-23 01:37:33.640810"], ["updated_at", "2016-04-23 01:37:33.640810"]]
+  [1m[36m (6.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "austin"], ["description", "Meditation artisan food truck gluten-free lumbersexual carry literally."], ["created_at", "2016-04-23 01:37:33.649889"], ["updated_at", "2016-04-23 01:37:33.649889"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "meggings"], ["description", "Iphone craft beer helvetica whatever normcore lo-fi swag."], ["created_at", "2016-04-23 01:37:33.652927"], ["updated_at", "2016-04-23 01:37:33.652927"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "paleo"], ["description", "Xoxo health direct trade hashtag pour-over franzen taxidermy skateboard."], ["created_at", "2016-04-23 01:37:33.654820"], ["updated_at", "2016-04-23 01:37:33.654820"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "chillwave"], ["description", "Chicharrones pour-over mumblecore mlkshk typewriter ennui green juice plaid poutine."], ["created_at", "2016-04-23 01:37:33.656770"], ["updated_at", "2016-04-23 01:37:33.656770"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "pickled"], ["description", "Meggings squid jean shorts keytar scenester."], ["created_at", "2016-04-23 01:37:33.658682"], ["updated_at", "2016-04-23 01:37:33.658682"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "austin"], ["description", "Kale chips shabby chic meggings single-origin coffee cronut forage cornhole art party narwhal."], ["created_at", "2016-04-23 01:37:33.660505"], ["updated_at", "2016-04-23 01:37:33.660505"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "whatever"], ["description", "Quinoa leggings cliche tacos portland forage authentic."], ["created_at", "2016-04-23 01:37:33.662392"], ["updated_at", "2016-04-23 01:37:33.662392"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "tumblr"], ["description", "Flannel keytar post-ironic synth humblebrag lo-fi wolf kinfolk shabby chic."], ["created_at", "2016-04-23 01:37:33.664452"], ["updated_at", "2016-04-23 01:37:33.664452"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "distillery"], ["description", "Banjo church-key put a bird on it tousled tote bag."], ["created_at", "2016-04-23 01:37:33.666467"], ["updated_at", "2016-04-23 01:37:33.666467"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "banjo"], ["description", "Shoreditch taxidermy poutine typewriter carry cray you probably haven't heard of them."], ["created_at", "2016-04-23 01:37:33.668262"], ["updated_at", "2016-04-23 01:37:33.668262"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "hoodie"], ["description", "Distillery vinyl butcher vice cornhole pbr&b."], ["created_at", "2016-04-23 01:37:33.670059"], ["updated_at", "2016-04-23 01:37:33.670059"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "twee"], ["description", "Flannel yolo drinking slow-carb."], ["created_at", "2016-04-23 01:37:33.671880"], ["updated_at", "2016-04-23 01:37:33.671880"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "helvetica"], ["description", "Echo hella biodiesel hashtag chartreuse."], ["created_at", "2016-04-23 01:37:33.673651"], ["updated_at", "2016-04-23 01:37:33.673651"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "semiotics"], ["description", "Portland wolf food truck gentrify twee loko distillery craft beer flannel."], ["created_at", "2016-04-23 01:37:33.675329"], ["updated_at", "2016-04-23 01:37:33.675329"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "plaid"], ["description", "Crucifix asymmetrical trust fund street pitchfork thundercats actually."], ["created_at", "2016-04-23 01:37:33.677039"], ["updated_at", "2016-04-23 01:37:33.677039"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "butcher"], ["description", "Sustainable intelligentsia yuccie venmo wolf tacos."], ["created_at", "2016-04-23 01:37:33.678757"], ["updated_at", "2016-04-23 01:37:33.678757"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "locavore"], ["description", "Knausgaard cred mixtape kickstarter aesthetic."], ["created_at", "2016-04-23 01:37:33.680486"], ["updated_at", "2016-04-23 01:37:33.680486"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "slow-carb"], ["description", "Bespoke letterpress tousled diy next level."], ["created_at", "2016-04-23 01:37:33.682238"], ["updated_at", "2016-04-23 01:37:33.682238"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "hashtag"], ["description", "Photo booth health chartreuse pabst loko neutra."], ["created_at", "2016-04-23 01:37:33.683926"], ["updated_at", "2016-04-23 01:37:33.683926"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "twee"], ["description", "Single-origin coffee keytar godard leggings blue bottle photo booth art party viral meditation."], ["created_at", "2016-04-23 01:37:33.685678"], ["updated_at", "2016-04-23 01:37:33.685678"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "tofu"], ["description", "Pinterest ugh craft beer cred austin wayfarers mumblecore."], ["created_at", "2016-04-23 01:37:33.687454"], ["updated_at", "2016-04-23 01:37:33.687454"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "sartorial"], ["description", "Tote bag pickled celiac yr sustainable taxidermy cliche."], ["created_at", "2016-04-23 01:37:33.689368"], ["updated_at", "2016-04-23 01:37:33.689368"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "keffiyeh"], ["description", "Synth banjo biodiesel drinking waistcoat."], ["created_at", "2016-04-23 01:37:33.691106"], ["updated_at", "2016-04-23 01:37:33.691106"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "chartreuse"], ["description", "Put a bird on it salvia yr cliche godard authentic pickled offal."], ["created_at", "2016-04-23 01:37:33.692812"], ["updated_at", "2016-04-23 01:37:33.692812"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "cronut"], ["description", "Chia bicycle rights keffiyeh iphone mlkshk flexitarian."], ["created_at", "2016-04-23 01:37:33.694510"], ["updated_at", "2016-04-23 01:37:33.694510"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "portland"], ["description", "Shabby chic pour-over leggings neutra tofu banh mi truffaut."], ["created_at", "2016-04-23 01:37:33.696280"], ["updated_at", "2016-04-23 01:37:33.696280"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "sustainable"], ["description", "Ramps sriracha salvia disrupt readymade."], ["created_at", "2016-04-23 01:37:33.698004"], ["updated_at", "2016-04-23 01:37:33.698004"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "seitan"], ["description", "Helvetica 90's ramps 8-bit cleanse 3 wolf moon crucifix pinterest pbr&b."], ["created_at", "2016-04-23 01:37:33.699769"], ["updated_at", "2016-04-23 01:37:33.699769"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "bitters"], ["description", "Poutine echo dreamcatcher pinterest wes anderson lomo five dollar toast street."], ["created_at", "2016-04-23 01:37:33.701577"], ["updated_at", "2016-04-23 01:37:33.701577"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "DIY"], ["description", "Dreamcatcher thundercats crucifix actually master letterpress semiotics."], ["created_at", "2016-04-23 01:37:33.703263"], ["updated_at", "2016-04-23 01:37:33.703263"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "occupy"], ["description", "Swag bespoke yuccie asymmetrical master hashtag direct trade."], ["created_at", "2016-04-23 01:37:33.705008"], ["updated_at", "2016-04-23 01:37:33.705008"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "mixtape"], ["description", "Bicycle rights knausgaard 90's poutine health scenester kitsch schlitz."], ["created_at", "2016-04-23 01:37:33.706802"], ["updated_at", "2016-04-23 01:37:33.706802"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "organic"], ["description", "Butcher skateboard venmo fixie vegan brunch."], ["created_at", "2016-04-23 01:37:33.708565"], ["updated_at", "2016-04-23 01:37:33.708565"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "vinegar"], ["description", "Loko tumblr small batch iphone photo booth quinoa lo-fi squid."], ["created_at", "2016-04-23 01:37:33.710252"], ["updated_at", "2016-04-23 01:37:33.710252"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Godard"], ["description", "Selfies raw denim narwhal fashion axe kombucha venmo gastropub."], ["created_at", "2016-04-23 01:37:33.711957"], ["updated_at", "2016-04-23 01:37:33.711957"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "wolf"], ["description", "Single-origin coffee church-key goth cray."], ["created_at", "2016-04-23 01:37:33.713651"], ["updated_at", "2016-04-23 01:37:33.713651"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "celiac"], ["description", "Sartorial whatever green juice portland typewriter craft beer."], ["created_at", "2016-04-23 01:37:33.715358"], ["updated_at", "2016-04-23 01:37:33.715358"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "disrupt"], ["description", "+1 normcore 90's photo booth brooklyn health artisan."], ["created_at", "2016-04-23 01:37:33.717170"], ["updated_at", "2016-04-23 01:37:33.717170"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "sartorial"], ["description", "Skateboard sriracha butcher quinoa ramps cray kale chips literally."], ["created_at", "2016-04-23 01:37:33.719007"], ["updated_at", "2016-04-23 01:37:33.719007"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "brooklyn"], ["description", "Vhs vinyl lo-fi scenester distillery."], ["created_at", "2016-04-23 01:37:33.720734"], ["updated_at", "2016-04-23 01:37:33.720734"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "cardigan"], ["description", "Crucifix freegan intelligentsia small batch mixtape."], ["created_at", "2016-04-23 01:37:33.722452"], ["updated_at", "2016-04-23 01:37:33.722452"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "typewriter"], ["description", "Green juice tofu cray lo-fi freegan fanny pack lomo."], ["created_at", "2016-04-23 01:37:33.724139"], ["updated_at", "2016-04-23 01:37:33.724139"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "pabst"], ["description", "Cronut tacos master small batch keffiyeh marfa."], ["created_at", "2016-04-23 01:37:33.725816"], ["updated_at", "2016-04-23 01:37:33.725816"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "celiac"], ["description", "Migas austin kinfolk small batch."], ["created_at", "2016-04-23 01:37:33.727511"], ["updated_at", "2016-04-23 01:37:33.727511"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "occupy"], ["description", "Tofu normcore wes anderson biodiesel."], ["created_at", "2016-04-23 01:37:33.729257"], ["updated_at", "2016-04-23 01:37:33.729257"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "disrupt"], ["description", "Taxidermy tattooed vegan meditation pug."], ["created_at", "2016-04-23 01:37:33.731035"], ["updated_at", "2016-04-23 01:37:33.731035"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "poutine"], ["description", "Photo booth sustainable butcher wolf."], ["created_at", "2016-04-23 01:37:33.732710"], ["updated_at", "2016-04-23 01:37:33.732710"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "kogi"], ["description", "Pour-over before they sold out everyday bespoke lo-fi paleo chicharrones wolf."], ["created_at", "2016-04-23 01:37:33.734420"], ["updated_at", "2016-04-23 01:37:33.734420"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 19], ["tag_id", 34], ["created_at", "2016-04-23 01:37:33.741321"], ["updated_at", "2016-04-23 01:37:33.741321"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 2], ["tag_id", 20], ["created_at", "2016-04-23 01:37:33.743386"], ["updated_at", "2016-04-23 01:37:33.743386"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 26], ["tag_id", 27], ["created_at", "2016-04-23 01:37:33.744951"], ["updated_at", "2016-04-23 01:37:33.744951"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 13], ["tag_id", 5], ["created_at", "2016-04-23 01:37:33.746618"], ["updated_at", "2016-04-23 01:37:33.746618"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 15], ["tag_id", 24], ["created_at", "2016-04-23 01:37:33.748178"], ["updated_at", "2016-04-23 01:37:33.748178"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 12], ["tag_id", 34], ["created_at", "2016-04-23 01:37:33.749790"], ["updated_at", "2016-04-23 01:37:33.749790"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 26], ["tag_id", 1], ["created_at", "2016-04-23 01:37:33.751360"], ["updated_at", "2016-04-23 01:37:33.751360"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 16], ["tag_id", 21], ["created_at", "2016-04-23 01:37:33.752885"], ["updated_at", "2016-04-23 01:37:33.752885"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 47], ["tag_id", 15], ["created_at", "2016-04-23 01:37:33.754453"], ["updated_at", "2016-04-23 01:37:33.754453"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 11], ["tag_id", 3], ["created_at", "2016-04-23 01:37:33.755939"], ["updated_at", "2016-04-23 01:37:33.755939"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 26], ["tag_id", 14], ["created_at", "2016-04-23 01:37:33.757455"], ["updated_at", "2016-04-23 01:37:33.757455"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 10], ["tag_id", 26], ["created_at", "2016-04-23 01:37:33.759069"], ["updated_at", "2016-04-23 01:37:33.759069"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 8], ["tag_id", 22], ["created_at", "2016-04-23 01:37:33.760605"], ["updated_at", "2016-04-23 01:37:33.760605"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 1], ["tag_id", 18], ["created_at", "2016-04-23 01:37:33.762212"], ["updated_at", "2016-04-23 01:37:33.762212"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 14], ["tag_id", 34], ["created_at", "2016-04-23 01:37:33.763708"], ["updated_at", "2016-04-23 01:37:33.763708"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 17], ["tag_id", 33], ["created_at", "2016-04-23 01:37:33.765346"], ["updated_at", "2016-04-23 01:37:33.765346"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 41], ["tag_id", 29], ["created_at", "2016-04-23 01:37:33.766881"], ["updated_at", "2016-04-23 01:37:33.766881"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 11], ["tag_id", 7], ["created_at", "2016-04-23 01:37:33.768445"], ["updated_at", "2016-04-23 01:37:33.768445"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 49], ["tag_id", 8], ["created_at", "2016-04-23 01:37:33.769941"], ["updated_at", "2016-04-23 01:37:33.769941"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 47], ["tag_id", 19], ["created_at", "2016-04-23 01:37:33.771594"], ["updated_at", "2016-04-23 01:37:33.771594"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 41], ["tag_id", 18], ["created_at", "2016-04-23 01:37:33.773184"], ["updated_at", "2016-04-23 01:37:33.773184"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 26], ["tag_id", 17], ["created_at", "2016-04-23 01:37:33.774719"], ["updated_at", "2016-04-23 01:37:33.774719"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 7], ["tag_id", 1], ["created_at", "2016-04-23 01:37:33.776236"], ["updated_at", "2016-04-23 01:37:33.776236"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 34], ["tag_id", 18], ["created_at", "2016-04-23 01:37:33.777765"], ["updated_at", "2016-04-23 01:37:33.777765"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 50], ["tag_id", 26], ["created_at", "2016-04-23 01:37:33.779343"], ["updated_at", "2016-04-23 01:37:33.779343"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 34], ["tag_id", 8], ["created_at", "2016-04-23 01:37:33.780884"], ["updated_at", "2016-04-23 01:37:33.780884"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 34], ["tag_id", 34], ["created_at", "2016-04-23 01:37:33.782444"], ["updated_at", "2016-04-23 01:37:33.782444"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 13], ["tag_id", 13], ["created_at", "2016-04-23 01:37:33.784049"], ["updated_at", "2016-04-23 01:37:33.784049"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 3], ["tag_id", 24], ["created_at", "2016-04-23 01:37:33.785613"], ["updated_at", "2016-04-23 01:37:33.785613"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 16], ["tag_id", 12], ["created_at", "2016-04-23 01:37:33.787135"], ["updated_at", "2016-04-23 01:37:33.787135"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 5], ["tag_id", 13], ["created_at", "2016-04-23 01:37:33.788651"], ["updated_at", "2016-04-23 01:37:33.788651"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 33], ["tag_id", 18], ["created_at", "2016-04-23 01:37:33.790189"], ["updated_at", "2016-04-23 01:37:33.790189"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 35], ["tag_id", 33], ["created_at", "2016-04-23 01:37:33.791651"], ["updated_at", "2016-04-23 01:37:33.791651"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 21], ["tag_id", 10], ["created_at", "2016-04-23 01:37:33.793129"], ["updated_at", "2016-04-23 01:37:33.793129"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 7], ["tag_id", 7], ["created_at", "2016-04-23 01:37:33.794690"], ["updated_at", "2016-04-23 01:37:33.794690"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 24], ["tag_id", 1], ["created_at", "2016-04-23 01:37:33.796195"], ["updated_at", "2016-04-23 01:37:33.796195"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 9], ["tag_id", 16], ["created_at", "2016-04-23 01:37:33.797730"], ["updated_at", "2016-04-23 01:37:33.797730"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 35], ["tag_id", 12], ["created_at", "2016-04-23 01:37:33.799370"], ["updated_at", "2016-04-23 01:37:33.799370"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 28], ["tag_id", 31], ["created_at", "2016-04-23 01:37:33.800922"], ["updated_at", "2016-04-23 01:37:33.800922"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 10], ["tag_id", 14], ["created_at", "2016-04-23 01:37:33.802505"], ["updated_at", "2016-04-23 01:37:33.802505"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 32], ["tag_id", 28], ["created_at", "2016-04-23 01:37:33.804010"], ["updated_at", "2016-04-23 01:37:33.804010"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 45], ["tag_id", 16], ["created_at", "2016-04-23 01:37:33.805528"], ["updated_at", "2016-04-23 01:37:33.805528"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 22], ["tag_id", 16], ["created_at", "2016-04-23 01:37:33.807064"], ["updated_at", "2016-04-23 01:37:33.807064"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 20], ["tag_id", 34], ["created_at", "2016-04-23 01:37:33.808639"], ["updated_at", "2016-04-23 01:37:33.808639"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 49], ["tag_id", 27], ["created_at", "2016-04-23 01:37:33.810096"], ["updated_at", "2016-04-23 01:37:33.810096"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 33], ["tag_id", 26], ["created_at", "2016-04-23 01:37:33.811613"], ["updated_at", "2016-04-23 01:37:33.811613"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 32], ["tag_id", 15], ["created_at", "2016-04-23 01:37:33.813262"], ["updated_at", "2016-04-23 01:37:33.813262"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 50], ["tag_id", 9], ["created_at", "2016-04-23 01:37:33.814862"], ["updated_at", "2016-04-23 01:37:33.814862"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 10], ["tag_id", 5], ["created_at", "2016-04-23 01:37:33.816479"], ["updated_at", "2016-04-23 01:37:33.816479"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 5], ["tag_id", 11], ["created_at", "2016-04-23 01:37:33.818028"], ["updated_at", "2016-04-23 01:37:33.818028"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 11], ["tag_id", 6], ["created_at", "2016-04-23 01:37:33.819574"], ["updated_at", "2016-04-23 01:37:33.819574"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 8], ["tag_id", 23], ["created_at", "2016-04-23 01:37:33.821197"], ["updated_at", "2016-04-23 01:37:33.821197"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 32], ["tag_id", 35], ["created_at", "2016-04-23 01:37:33.822769"], ["updated_at", "2016-04-23 01:37:33.822769"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 13], ["tag_id", 31], ["created_at", "2016-04-23 01:37:33.824374"], ["updated_at", "2016-04-23 01:37:33.824374"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 39], ["tag_id", 3], ["created_at", "2016-04-23 01:37:33.825957"], ["updated_at", "2016-04-23 01:37:33.825957"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 7], ["tag_id", 4], ["created_at", "2016-04-23 01:37:33.827580"], ["updated_at", "2016-04-23 01:37:33.827580"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 6], ["tag_id", 28], ["created_at", "2016-04-23 01:37:33.829131"], ["updated_at", "2016-04-23 01:37:33.829131"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 47], ["tag_id", 15], ["created_at", "2016-04-23 01:37:33.830703"], ["updated_at", "2016-04-23 01:37:33.830703"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 22], ["tag_id", 20], ["created_at", "2016-04-23 01:37:33.832241"], ["updated_at", "2016-04-23 01:37:33.832241"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 30], ["tag_id", 33], ["created_at", "2016-04-23 01:37:33.833872"], ["updated_at", "2016-04-23 01:37:33.833872"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 50], ["tag_id", 18], ["created_at", "2016-04-23 01:37:33.835473"], ["updated_at", "2016-04-23 01:37:33.835473"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 12], ["tag_id", 16], ["created_at", "2016-04-23 01:37:33.837284"], ["updated_at", "2016-04-23 01:37:33.837284"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 15], ["tag_id", 14], ["created_at", "2016-04-23 01:37:33.838887"], ["updated_at", "2016-04-23 01:37:33.838887"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 11], ["tag_id", 7], ["created_at", "2016-04-23 01:37:33.840435"], ["updated_at", "2016-04-23 01:37:33.840435"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 12], ["tag_id", 29], ["created_at", "2016-04-23 01:37:33.841948"], ["updated_at", "2016-04-23 01:37:33.841948"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 35], ["tag_id", 23], ["created_at", "2016-04-23 01:37:33.843501"], ["updated_at", "2016-04-23 01:37:33.843501"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 49], ["tag_id", 19], ["created_at", "2016-04-23 01:37:33.845089"], ["updated_at", "2016-04-23 01:37:33.845089"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 17], ["tag_id", 13], ["created_at", "2016-04-23 01:37:33.846668"], ["updated_at", "2016-04-23 01:37:33.846668"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 23], ["tag_id", 25], ["created_at", "2016-04-23 01:37:33.848275"], ["updated_at", "2016-04-23 01:37:33.848275"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 2], ["tag_id", 26], ["created_at", "2016-04-23 01:37:33.850090"], ["updated_at", "2016-04-23 01:37:33.850090"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 31], ["tag_id", 11], ["created_at", "2016-04-23 01:37:33.851626"], ["updated_at", "2016-04-23 01:37:33.851626"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 38], ["tag_id", 23], ["created_at", "2016-04-23 01:37:33.853211"], ["updated_at", "2016-04-23 01:37:33.853211"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 44], ["tag_id", 26], ["created_at", "2016-04-23 01:37:33.854781"], ["updated_at", "2016-04-23 01:37:33.854781"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 30], ["tag_id", 21], ["created_at", "2016-04-23 01:37:33.856311"], ["updated_at", "2016-04-23 01:37:33.856311"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 20], ["tag_id", 12], ["created_at", "2016-04-23 01:37:33.857809"], ["updated_at", "2016-04-23 01:37:33.857809"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 43], ["tag_id", 33], ["created_at", "2016-04-23 01:37:33.859391"], ["updated_at", "2016-04-23 01:37:33.859391"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 5], ["tag_id", 22], ["created_at", "2016-04-23 01:37:33.861014"], ["updated_at", "2016-04-23 01:37:33.861014"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 12], ["tag_id", 34], ["created_at", "2016-04-23 01:37:33.862626"], ["updated_at", "2016-04-23 01:37:33.862626"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 41], ["tag_id", 31], ["created_at", "2016-04-23 01:37:33.864117"], ["updated_at", "2016-04-23 01:37:33.864117"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 42], ["tag_id", 14], ["created_at", "2016-04-23 01:37:33.865729"], ["updated_at", "2016-04-23 01:37:33.865729"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 16], ["tag_id", 30], ["created_at", "2016-04-23 01:37:33.867216"], ["updated_at", "2016-04-23 01:37:33.867216"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 26], ["tag_id", 32], ["created_at", "2016-04-23 01:37:33.868683"], ["updated_at", "2016-04-23 01:37:33.868683"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 23], ["tag_id", 23], ["created_at", "2016-04-23 01:37:33.870280"], ["updated_at", "2016-04-23 01:37:33.870280"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 18], ["tag_id", 30], ["created_at", "2016-04-23 01:37:33.871850"], ["updated_at", "2016-04-23 01:37:33.871850"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 11], ["tag_id", 35], ["created_at", "2016-04-23 01:37:33.873521"], ["updated_at", "2016-04-23 01:37:33.873521"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 47], ["tag_id", 12], ["created_at", "2016-04-23 01:37:33.875147"], ["updated_at", "2016-04-23 01:37:33.875147"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 45], ["tag_id", 30], ["created_at", "2016-04-23 01:37:33.876753"], ["updated_at", "2016-04-23 01:37:33.876753"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 45], ["tag_id", 9], ["created_at", "2016-04-23 01:37:33.878350"], ["updated_at", "2016-04-23 01:37:33.878350"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 14], ["tag_id", 28], ["created_at", "2016-04-23 01:37:33.879948"], ["updated_at", "2016-04-23 01:37:33.879948"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 9], ["tag_id", 17], ["created_at", "2016-04-23 01:37:33.881488"], ["updated_at", "2016-04-23 01:37:33.881488"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 36], ["tag_id", 29], ["created_at", "2016-04-23 01:37:33.883078"], ["updated_at", "2016-04-23 01:37:33.883078"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 34], ["tag_id", 32], ["created_at", "2016-04-23 01:37:33.884605"], ["updated_at", "2016-04-23 01:37:33.884605"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 48], ["tag_id", 5], ["created_at", "2016-04-23 01:37:33.886122"], ["updated_at", "2016-04-23 01:37:33.886122"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 3], ["tag_id", 24], ["created_at", "2016-04-23 01:37:33.887672"], ["updated_at", "2016-04-23 01:37:33.887672"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 30], ["tag_id", 35], ["created_at", "2016-04-23 01:37:33.889413"], ["updated_at", "2016-04-23 01:37:33.889413"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 46], ["tag_id", 29], ["created_at", "2016-04-23 01:37:33.891036"], ["updated_at", "2016-04-23 01:37:33.891036"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 27], ["tag_id", 29], ["created_at", "2016-04-23 01:37:33.892569"], ["updated_at", "2016-04-23 01:37:33.892569"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 26], ["tag_id", 22], ["created_at", "2016-04-23 01:37:33.894099"], ["updated_at", "2016-04-23 01:37:33.894099"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 10], ["tag_id", 8], ["created_at", "2016-04-23 01:37:33.895583"], ["updated_at", "2016-04-23 01:37:33.895583"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 34], ["tag_id", 3], ["created_at", "2016-04-23 01:37:33.896997"], ["updated_at", "2016-04-23 01:37:33.896997"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 25], ["tag_id", 32], ["created_at", "2016-04-23 01:37:33.898543"], ["updated_at", "2016-04-23 01:37:33.898543"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 35], ["tag_id", 27], ["created_at", "2016-04-23 01:37:33.900092"], ["updated_at", "2016-04-23 01:37:33.900092"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 18], ["tag_id", 32], ["created_at", "2016-04-23 01:37:33.901594"], ["updated_at", "2016-04-23 01:37:33.901594"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 34], ["tag_id", 4], ["created_at", "2016-04-23 01:37:33.903138"], ["updated_at", "2016-04-23 01:37:33.903138"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 41], ["tag_id", 11], ["created_at", "2016-04-23 01:37:33.904762"], ["updated_at", "2016-04-23 01:37:33.904762"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 24], ["tag_id", 12], ["created_at", "2016-04-23 01:37:33.906384"], ["updated_at", "2016-04-23 01:37:33.906384"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 34], ["tag_id", 9], ["created_at", "2016-04-23 01:37:33.907925"], ["updated_at", "2016-04-23 01:37:33.907925"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 46], ["tag_id", 1], ["created_at", "2016-04-23 01:37:33.909436"], ["updated_at", "2016-04-23 01:37:33.909436"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 40], ["tag_id", 16], ["created_at", "2016-04-23 01:37:33.910953"], ["updated_at", "2016-04-23 01:37:33.910953"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 12], ["tag_id", 11], ["created_at", "2016-04-23 01:37:33.912499"], ["updated_at", "2016-04-23 01:37:33.912499"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 34], ["tag_id", 16], ["created_at", "2016-04-23 01:37:33.914048"], ["updated_at", "2016-04-23 01:37:33.914048"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 36], ["tag_id", 2], ["created_at", "2016-04-23 01:37:33.915721"], ["updated_at", "2016-04-23 01:37:33.915721"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 5], ["tag_id", 26], ["created_at", "2016-04-23 01:37:33.917259"], ["updated_at", "2016-04-23 01:37:33.917259"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 27], ["tag_id", 9], ["created_at", "2016-04-23 01:37:33.918847"], ["updated_at", "2016-04-23 01:37:33.918847"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 20], ["tag_id", 32], ["created_at", "2016-04-23 01:37:33.920445"], ["updated_at", "2016-04-23 01:37:33.920445"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 20], ["tag_id", 23], ["created_at", "2016-04-23 01:37:33.922306"], ["updated_at", "2016-04-23 01:37:33.922306"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 15], ["tag_id", 32], ["created_at", "2016-04-23 01:37:33.924216"], ["updated_at", "2016-04-23 01:37:33.924216"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 48], ["tag_id", 36], ["created_at", "2016-04-23 01:37:33.925812"], ["updated_at", "2016-04-23 01:37:33.925812"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 2], ["tag_id", 36], ["created_at", "2016-04-23 01:37:33.927384"], ["updated_at", "2016-04-23 01:37:33.927384"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 48], ["tag_id", 17], ["created_at", "2016-04-23 01:37:33.928879"], ["updated_at", "2016-04-23 01:37:33.928879"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 39], ["tag_id", 6], ["created_at", "2016-04-23 01:37:33.930442"], ["updated_at", "2016-04-23 01:37:33.930442"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 40], ["tag_id", 1], ["created_at", "2016-04-23 01:37:33.931947"], ["updated_at", "2016-04-23 01:37:33.931947"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 11], ["tag_id", 17], ["created_at", "2016-04-23 01:37:33.933495"], ["updated_at", "2016-04-23 01:37:33.933495"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 28], ["tag_id", 22], ["created_at", "2016-04-23 01:37:33.935025"], ["updated_at", "2016-04-23 01:37:33.935025"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 7], ["tag_id", 13], ["created_at", "2016-04-23 01:37:33.936584"], ["updated_at", "2016-04-23 01:37:33.936584"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 12], ["tag_id", 32], ["created_at", "2016-04-23 01:37:33.938060"], ["updated_at", "2016-04-23 01:37:33.938060"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 44], ["tag_id", 17], ["created_at", "2016-04-23 01:37:33.939676"], ["updated_at", "2016-04-23 01:37:33.939676"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 49], ["tag_id", 24], ["created_at", "2016-04-23 01:37:33.941222"], ["updated_at", "2016-04-23 01:37:33.941222"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 3], ["tag_id", 16], ["created_at", "2016-04-23 01:37:33.942738"], ["updated_at", "2016-04-23 01:37:33.942738"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 37], ["tag_id", 2], ["created_at", "2016-04-23 01:37:33.944329"], ["updated_at", "2016-04-23 01:37:33.944329"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 15], ["tag_id", 16], ["created_at", "2016-04-23 01:37:33.945855"], ["updated_at", "2016-04-23 01:37:33.945855"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 3], ["tag_id", 7], ["created_at", "2016-04-23 01:37:33.947493"], ["updated_at", "2016-04-23 01:37:33.947493"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 19], ["tag_id", 2], ["created_at", "2016-04-23 01:37:33.949048"], ["updated_at", "2016-04-23 01:37:33.949048"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 18], ["tag_id", 11], ["created_at", "2016-04-23 01:37:33.950568"], ["updated_at", "2016-04-23 01:37:33.950568"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 5], ["tag_id", 29], ["created_at", "2016-04-23 01:37:33.952110"], ["updated_at", "2016-04-23 01:37:33.952110"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 13], ["tag_id", 19], ["created_at", "2016-04-23 01:37:33.953716"], ["updated_at", "2016-04-23 01:37:33.953716"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 35], ["tag_id", 31], ["created_at", "2016-04-23 01:37:33.955346"], ["updated_at", "2016-04-23 01:37:33.955346"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 9], ["tag_id", 12], ["created_at", "2016-04-23 01:37:33.957252"], ["updated_at", "2016-04-23 01:37:33.957252"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 29], ["tag_id", 5], ["created_at", "2016-04-23 01:37:33.958828"], ["updated_at", "2016-04-23 01:37:33.958828"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 14], ["tag_id", 20], ["created_at", "2016-04-23 01:37:33.960394"], ["updated_at", "2016-04-23 01:37:33.960394"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 25], ["tag_id", 26], ["created_at", "2016-04-23 01:37:33.961910"], ["updated_at", "2016-04-23 01:37:33.961910"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 2], ["tag_id", 1], ["created_at", "2016-04-23 01:37:33.963467"], ["updated_at", "2016-04-23 01:37:33.963467"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 50], ["tag_id", 4], ["created_at", "2016-04-23 01:37:33.965030"], ["updated_at", "2016-04-23 01:37:33.965030"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 2], ["tag_id", 12], ["created_at", "2016-04-23 01:37:33.966655"], ["updated_at", "2016-04-23 01:37:33.966655"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 25], ["tag_id", 23], ["created_at", "2016-04-23 01:37:33.968179"], ["updated_at", "2016-04-23 01:37:33.968179"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 4], ["tag_id", 5], ["created_at", "2016-04-23 01:37:33.969680"], ["updated_at", "2016-04-23 01:37:33.969680"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 34], ["tag_id", 35], ["created_at", "2016-04-23 01:37:33.971382"], ["updated_at", "2016-04-23 01:37:33.971382"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 21], ["tag_id", 10], ["created_at", "2016-04-23 01:37:33.972979"], ["updated_at", "2016-04-23 01:37:33.972979"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 13], ["tag_id", 9], ["created_at", "2016-04-23 01:37:33.974468"], ["updated_at", "2016-04-23 01:37:33.974468"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 42], ["tag_id", 7], ["created_at", "2016-04-23 01:37:33.975989"], ["updated_at", "2016-04-23 01:37:33.975989"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 18], ["tag_id", 4], ["created_at", "2016-04-23 01:37:33.977502"], ["updated_at", "2016-04-23 01:37:33.977502"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 25], ["tag_id", 14], ["created_at", "2016-04-23 01:37:33.979355"], ["updated_at", "2016-04-23 01:37:33.979355"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 21], ["tag_id", 35], ["created_at", "2016-04-23 01:37:33.980973"], ["updated_at", "2016-04-23 01:37:33.980973"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 49], ["tag_id", 27], ["created_at", "2016-04-23 01:37:33.982529"], ["updated_at", "2016-04-23 01:37:33.982529"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 1], ["tag_id", 5], ["created_at", "2016-04-23 01:37:33.984365"], ["updated_at", "2016-04-23 01:37:33.984365"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 35], ["tag_id", 15], ["created_at", "2016-04-23 01:37:33.986042"], ["updated_at", "2016-04-23 01:37:33.986042"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 28], ["tag_id", 24], ["created_at", "2016-04-23 01:37:33.987605"], ["updated_at", "2016-04-23 01:37:33.987605"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 19], ["tag_id", 5], ["created_at", "2016-04-23 01:37:33.989638"], ["updated_at", "2016-04-23 01:37:33.989638"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 4], ["tag_id", 14], ["created_at", "2016-04-23 01:37:33.991522"], ["updated_at", "2016-04-23 01:37:33.991522"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 11], ["tag_id", 18], ["created_at", "2016-04-23 01:37:33.993194"], ["updated_at", "2016-04-23 01:37:33.993194"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 2], ["tag_id", 6], ["created_at", "2016-04-23 01:37:33.994766"], ["updated_at", "2016-04-23 01:37:33.994766"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 47], ["tag_id", 30], ["created_at", "2016-04-23 01:37:33.996360"], ["updated_at", "2016-04-23 01:37:33.996360"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 37], ["tag_id", 24], ["created_at", "2016-04-23 01:37:33.997918"], ["updated_at", "2016-04-23 01:37:33.997918"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 21], ["tag_id", 24], ["created_at", "2016-04-23 01:37:33.999496"], ["updated_at", "2016-04-23 01:37:33.999496"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 42], ["tag_id", 34], ["created_at", "2016-04-23 01:37:34.001736"], ["updated_at", "2016-04-23 01:37:34.001736"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 44], ["tag_id", 21], ["created_at", "2016-04-23 01:37:34.003558"], ["updated_at", "2016-04-23 01:37:34.003558"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 45], ["tag_id", 30], ["created_at", "2016-04-23 01:37:34.005149"], ["updated_at", "2016-04-23 01:37:34.005149"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 30], ["tag_id", 6], ["created_at", "2016-04-23 01:37:34.006769"], ["updated_at", "2016-04-23 01:37:34.006769"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 31], ["tag_id", 19], ["created_at", "2016-04-23 01:37:34.008316"], ["updated_at", "2016-04-23 01:37:34.008316"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 31], ["tag_id", 24], ["created_at", "2016-04-23 01:37:34.009866"], ["updated_at", "2016-04-23 01:37:34.009866"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 14], ["tag_id", 13], ["created_at", "2016-04-23 01:37:34.011375"], ["updated_at", "2016-04-23 01:37:34.011375"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 11], ["tag_id", 10], ["created_at", "2016-04-23 01:37:34.012986"], ["updated_at", "2016-04-23 01:37:34.012986"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 4], ["tag_id", 1], ["created_at", "2016-04-23 01:37:34.014549"], ["updated_at", "2016-04-23 01:37:34.014549"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 28], ["tag_id", 21], ["created_at", "2016-04-23 01:37:34.016113"], ["updated_at", "2016-04-23 01:37:34.016113"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 4], ["tag_id", 30], ["created_at", "2016-04-23 01:37:34.017688"], ["updated_at", "2016-04-23 01:37:34.017688"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 48], ["tag_id", 27], ["created_at", "2016-04-23 01:37:34.019236"], ["updated_at", "2016-04-23 01:37:34.019236"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 4], ["tag_id", 19], ["created_at", "2016-04-23 01:37:34.020862"], ["updated_at", "2016-04-23 01:37:34.020862"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 37], ["tag_id", 29], ["created_at", "2016-04-23 01:37:34.022441"], ["updated_at", "2016-04-23 01:37:34.022441"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 49], ["tag_id", 10], ["created_at", "2016-04-23 01:37:34.024060"], ["updated_at", "2016-04-23 01:37:34.024060"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 46], ["tag_id", 15], ["created_at", "2016-04-23 01:37:34.025687"], ["updated_at", "2016-04-23 01:37:34.025687"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 50], ["tag_id", 24], ["created_at", "2016-04-23 01:37:34.027287"], ["updated_at", "2016-04-23 01:37:34.027287"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 18], ["tag_id", 33], ["created_at", "2016-04-23 01:37:34.028892"], ["updated_at", "2016-04-23 01:37:34.028892"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 49], ["tag_id", 34], ["created_at", "2016-04-23 01:37:34.030460"], ["updated_at", "2016-04-23 01:37:34.030460"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 30], ["tag_id", 24], ["created_at", "2016-04-23 01:37:34.031996"], ["updated_at", "2016-04-23 01:37:34.031996"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 1], ["tag_id", 5], ["created_at", "2016-04-23 01:37:34.033566"], ["updated_at", "2016-04-23 01:37:34.033566"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 11], ["tag_id", 24], ["created_at", "2016-04-23 01:37:34.035149"], ["updated_at", "2016-04-23 01:37:34.035149"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 20], ["tag_id", 16], ["created_at", "2016-04-23 01:37:34.036746"], ["updated_at", "2016-04-23 01:37:34.036746"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 17], ["tag_id", 21], ["created_at", "2016-04-23 01:37:34.038808"], ["updated_at", "2016-04-23 01:37:34.038808"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 33], ["tag_id", 17], ["created_at", "2016-04-23 01:37:34.040944"], ["updated_at", "2016-04-23 01:37:34.040944"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 37], ["tag_id", 28], ["created_at", "2016-04-23 01:37:34.042837"], ["updated_at", "2016-04-23 01:37:34.042837"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 47], ["tag_id", 6], ["created_at", "2016-04-23 01:37:34.045682"], ["updated_at", "2016-04-23 01:37:34.045682"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 46], ["tag_id", 32], ["created_at", "2016-04-23 01:37:34.047252"], ["updated_at", "2016-04-23 01:37:34.047252"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 11], ["tag_id", 8], ["created_at", "2016-04-23 01:37:34.048738"], ["updated_at", "2016-04-23 01:37:34.048738"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 26], ["tag_id", 5], ["created_at", "2016-04-23 01:37:34.050361"], ["updated_at", "2016-04-23 01:37:34.050361"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 32], ["tag_id", 22], ["created_at", "2016-04-23 01:37:34.051952"], ["updated_at", "2016-04-23 01:37:34.051952"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 37], ["tag_id", 18], ["created_at", "2016-04-23 01:37:34.053490"], ["updated_at", "2016-04-23 01:37:34.053490"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 25], ["tag_id", 27], ["created_at", "2016-04-23 01:37:34.055024"], ["updated_at", "2016-04-23 01:37:34.055024"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 41], ["tag_id", 14], ["created_at", "2016-04-23 01:37:34.056655"], ["updated_at", "2016-04-23 01:37:34.056655"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 1], ["tag_id", 18], ["created_at", "2016-04-23 01:37:34.058265"], ["updated_at", "2016-04-23 01:37:34.058265"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 34], ["tag_id", 26], ["created_at", "2016-04-23 01:37:34.059874"], ["updated_at", "2016-04-23 01:37:34.059874"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 40], ["tag_id", 19], ["created_at", "2016-04-23 01:37:34.061392"], ["updated_at", "2016-04-23 01:37:34.061392"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 3], ["tag_id", 24], ["created_at", "2016-04-23 01:37:34.062978"], ["updated_at", "2016-04-23 01:37:34.062978"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 20], ["tag_id", 32], ["created_at", "2016-04-23 01:37:34.064456"], ["updated_at", "2016-04-23 01:37:34.064456"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 48], ["tag_id", 8], ["created_at", "2016-04-23 01:37:34.065938"], ["updated_at", "2016-04-23 01:37:34.065938"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 35], ["tag_id", 31], ["created_at", "2016-04-23 01:37:34.067521"], ["updated_at", "2016-04-23 01:37:34.067521"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 47], ["tag_id", 36], ["created_at", "2016-04-23 01:37:34.069073"], ["updated_at", "2016-04-23 01:37:34.069073"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 50], ["tag_id", 15], ["created_at", "2016-04-23 01:37:34.070567"], ["updated_at", "2016-04-23 01:37:34.070567"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 50], ["tag_id", 31], ["created_at", "2016-04-23 01:37:34.072225"], ["updated_at", "2016-04-23 01:37:34.072225"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 1], ["tag_id", 31], ["created_at", "2016-04-23 01:37:34.073803"], ["updated_at", "2016-04-23 01:37:34.073803"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 3], ["tag_id", 32], ["created_at", "2016-04-23 01:37:34.075351"], ["updated_at", "2016-04-23 01:37:34.075351"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 48], ["tag_id", 19], ["created_at", "2016-04-23 01:37:34.076855"], ["updated_at", "2016-04-23 01:37:34.076855"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 23], ["tag_id", 12], ["created_at", "2016-04-23 01:37:34.078415"], ["updated_at", "2016-04-23 01:37:34.078415"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 10], ["tag_id", 20], ["created_at", "2016-04-23 01:37:34.079882"], ["updated_at", "2016-04-23 01:37:34.079882"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 48], ["tag_id", 4], ["created_at", "2016-04-23 01:37:34.081356"], ["updated_at", "2016-04-23 01:37:34.081356"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 43], ["tag_id", 14], ["created_at", "2016-04-23 01:37:34.082880"], ["updated_at", "2016-04-23 01:37:34.082880"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 43], ["tag_id", 14], ["created_at", "2016-04-23 01:37:34.084346"], ["updated_at", "2016-04-23 01:37:34.084346"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 50], ["tag_id", 13], ["created_at", "2016-04-23 01:37:34.085834"], ["updated_at", "2016-04-23 01:37:34.085834"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 40], ["tag_id", 34], ["created_at", "2016-04-23 01:37:34.087335"], ["updated_at", "2016-04-23 01:37:34.087335"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 44], ["tag_id", 17], ["created_at", "2016-04-23 01:37:34.088945"], ["updated_at", "2016-04-23 01:37:34.088945"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 37], ["tag_id", 9], ["created_at", "2016-04-23 01:37:34.090473"], ["updated_at", "2016-04-23 01:37:34.090473"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 27], ["tag_id", 8], ["created_at", "2016-04-23 01:37:34.092000"], ["updated_at", "2016-04-23 01:37:34.092000"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 28], ["tag_id", 6], ["created_at", "2016-04-23 01:37:34.093537"], ["updated_at", "2016-04-23 01:37:34.093537"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 39], ["tag_id", 3], ["created_at", "2016-04-23 01:37:34.095098"], ["updated_at", "2016-04-23 01:37:34.095098"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 31], ["tag_id", 32], ["created_at", "2016-04-23 01:37:34.096695"], ["updated_at", "2016-04-23 01:37:34.096695"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 29], ["tag_id", 20], ["created_at", "2016-04-23 01:37:34.098272"], ["updated_at", "2016-04-23 01:37:34.098272"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 31], ["tag_id", 22], ["created_at", "2016-04-23 01:37:34.099809"], ["updated_at", "2016-04-23 01:37:34.099809"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 18], ["tag_id", 1], ["created_at", "2016-04-23 01:37:34.101381"], ["updated_at", "2016-04-23 01:37:34.101381"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 8], ["tag_id", 36], ["created_at", "2016-04-23 01:37:34.103007"], ["updated_at", "2016-04-23 01:37:34.103007"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 42], ["tag_id", 1], ["created_at", "2016-04-23 01:37:34.104537"], ["updated_at", "2016-04-23 01:37:34.104537"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 32], ["tag_id", 8], ["created_at", "2016-04-23 01:37:34.106096"], ["updated_at", "2016-04-23 01:37:34.106096"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 12], ["tag_id", 33], ["created_at", "2016-04-23 01:37:34.107675"], ["updated_at", "2016-04-23 01:37:34.107675"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 19], ["tag_id", 34], ["created_at", "2016-04-23 01:37:34.109196"], ["updated_at", "2016-04-23 01:37:34.109196"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 34], ["tag_id", 18], ["created_at", "2016-04-23 01:37:34.110782"], ["updated_at", "2016-04-23 01:37:34.110782"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 48], ["tag_id", 6], ["created_at", "2016-04-23 01:37:34.112374"], ["updated_at", "2016-04-23 01:37:34.112374"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 23], ["tag_id", 14], ["created_at", "2016-04-23 01:37:34.113972"], ["updated_at", "2016-04-23 01:37:34.113972"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 12], ["tag_id", 9], ["created_at", "2016-04-23 01:37:34.115518"], ["updated_at", "2016-04-23 01:37:34.115518"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 49], ["tag_id", 16], ["created_at", "2016-04-23 01:37:34.117132"], ["updated_at", "2016-04-23 01:37:34.117132"]]
+  [1m[35m (0.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 15], ["tag_id", 33], ["created_at", "2016-04-23 01:37:34.118639"], ["updated_at", "2016-04-23 01:37:34.118639"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 20], ["tag_id", 26], ["created_at", "2016-04-23 01:37:34.120157"], ["updated_at", "2016-04-23 01:37:34.120157"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 50], ["tag_id", 7], ["created_at", "2016-04-23 01:37:34.121723"], ["updated_at", "2016-04-23 01:37:34.121723"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 26], ["tag_id", 3], ["created_at", "2016-04-23 01:37:34.123314"], ["updated_at", "2016-04-23 01:37:34.123314"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 35], ["tag_id", 26], ["created_at", "2016-04-23 01:37:34.124846"], ["updated_at", "2016-04-23 01:37:34.124846"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 42], ["tag_id", 25], ["created_at", "2016-04-23 01:37:34.126278"], ["updated_at", "2016-04-23 01:37:34.126278"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 50], ["tag_id", 19], ["created_at", "2016-04-23 01:37:34.127787"], ["updated_at", "2016-04-23 01:37:34.127787"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 5], ["tag_id", 12], ["created_at", "2016-04-23 01:37:34.129372"], ["updated_at", "2016-04-23 01:37:34.129372"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 48], ["tag_id", 33], ["created_at", "2016-04-23 01:37:34.130928"], ["updated_at", "2016-04-23 01:37:34.130928"]]
+  [1m[36m (0.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 35], ["tag_id", 22], ["created_at", "2016-04-23 01:37:34.132444"], ["updated_at", "2016-04-23 01:37:34.132444"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 21], ["tag_id", 17], ["created_at", "2016-04-23 01:37:34.133967"], ["updated_at", "2016-04-23 01:37:34.133967"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.1ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 7], ["tag_id", 25], ["created_at", "2016-04-23 01:37:34.135538"], ["updated_at", "2016-04-23 01:37:34.135538"]]
+  [1m[35m (0.3ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.1ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 34], ["tag_id", 1], ["created_at", "2016-04-23 01:37:34.137136"], ["updated_at", "2016-04-23 01:37:34.137136"]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
