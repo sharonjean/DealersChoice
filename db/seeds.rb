@@ -46,7 +46,7 @@ tags = [
   { name: "Gentle",  description: "Easy going and not too aggressive."}]
 
 tags.each do |tag|
-  Tag.create(name: tag, description: "This sure makes a tasty drink.")
+  Tag.create(name: tag[:name], description: tag[:description])
 end
 
 # Spiritous

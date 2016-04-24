@@ -17568,3 +17568,1250 @@ Completed 200 OK in 4ms (Views: 2.0ms | ActiveRecord: 0.3ms)
 Started GET "/" for ::1 at 2016-04-23 20:41:35 -0700
 Processing by BarsController#index as HTML
 Completed 200 OK in 2584ms (Views: 25.1ms | ActiveRecord: 0.0ms)
+  [1m[36m (5057.0ms)[0m  [1mDROP DATABASE IF EXISTS "dealerschoice_development"[0m
+  [1m[35m (171.3ms)[0m  DROP DATABASE IF EXISTS "dealerschoice_test"
+  [1m[36m (3.5ms)[0m  [1mCREATE DATABASE "dealerschoice_development" ENCODING = 'unicode'[0m
+  [1m[35m (375.1ms)[0m  CREATE DATABASE "dealerschoice_test" ENCODING = 'unicode'
+  [1m[36mSQL (9.1ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (37.2ms)[0m  DROP TABLE "bars" CASCADE
+  [1m[36m (53.1ms)[0m  [1mCREATE TABLE "bars" ("id" serial primary key, "name" character varying, "reviewable_id" integer, "reviewable_type" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (5.8ms)[0m  CREATE  INDEX  "index_bars_on_reviewable_type_and_reviewable_id" ON "bars" USING btree ("reviewable_type", "reviewable_id")
+  [1m[36m (5.8ms)[0m  [1mDROP TABLE "drinks" CASCADE[0m
+  [1m[35m (13.5ms)[0m  CREATE TABLE "drinks" ("id" serial primary key, "name" character varying, "description" text, "bar_id" integer, "reviewable_id" integer, "reviewable_type" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (7.1ms)[0m  [1mCREATE  INDEX  "index_drinks_on_reviewable_type_and_reviewable_id" ON "drinks" USING btree ("reviewable_type", "reviewable_id")[0m
+  [1m[35m (6.3ms)[0m  DROP TABLE "drinks_tags" CASCADE
+  [1m[36m (15.6ms)[0m  [1mCREATE TABLE "drinks_tags" ("id" serial primary key, "tag_id" integer, "drink_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (5.6ms)[0m  DROP TABLE "families" CASCADE
+  [1m[36m (7.0ms)[0m  [1mCREATE TABLE "families" ("id" serial primary key, "parent_id" integer, "child_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (3.7ms)[0m  DROP TABLE "reviews" CASCADE
+  [1m[36m (11.9ms)[0m  [1mCREATE TABLE "reviews" ("id" serial primary key, "description" text, "reviewable_id" integer, "imageable_type" character varying, "user_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (2.1ms)[0m  DROP TABLE "tags" CASCADE
+  [1m[36m (12.5ms)[0m  [1mCREATE TABLE "tags" ("id" serial primary key, "name" character varying, "description" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (12.9ms)[0m  DROP TABLE "users" CASCADE
+  [1m[36m (18.0ms)[0m  [1mCREATE TABLE "users" ("id" serial primary key, "username" character varying, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" inet, "last_sign_in_ip" inet, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (6.4ms)[0m  CREATE UNIQUE INDEX  "index_users_on_email" ON "users" USING btree ("email")
+  [1m[36m (7.0ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users" USING btree ("reset_password_token")[0m
+  [1m[35m (3.0ms)[0m  SELECT version FROM "schema_migrations"
+  [1m[36mSQL (0.4ms)[0m  [1mCREATE EXTENSION IF NOT EXISTS "plpgsql"[0m
+  [1m[35m (16.0ms)[0m  CREATE TABLE "bars" ("id" serial primary key, "name" character varying, "reviewable_id" integer, "reviewable_type" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (4.6ms)[0m  [1mCREATE  INDEX  "index_bars_on_reviewable_type_and_reviewable_id" ON "bars" USING btree ("reviewable_type", "reviewable_id")[0m
+  [1m[35m (12.5ms)[0m  CREATE TABLE "drinks" ("id" serial primary key, "name" character varying, "description" text, "bar_id" integer, "reviewable_id" integer, "reviewable_type" character varying, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (9.1ms)[0m  [1mCREATE  INDEX  "index_drinks_on_reviewable_type_and_reviewable_id" ON "drinks" USING btree ("reviewable_type", "reviewable_id")[0m
+  [1m[35m (9.5ms)[0m  CREATE TABLE "drinks_tags" ("id" serial primary key, "tag_id" integer, "drink_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (6.3ms)[0m  [1mCREATE TABLE "families" ("id" serial primary key, "parent_id" integer, "child_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (10.5ms)[0m  CREATE TABLE "reviews" ("id" serial primary key, "description" text, "reviewable_id" integer, "imageable_type" character varying, "user_id" integer, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (15.7ms)[0m  [1mCREATE TABLE "tags" ("id" serial primary key, "name" character varying, "description" text, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) [0m
+  [1m[35m (16.5ms)[0m  CREATE TABLE "users" ("id" serial primary key, "username" character varying, "email" character varying DEFAULT '' NOT NULL, "encrypted_password" character varying DEFAULT '' NOT NULL, "reset_password_token" character varying, "reset_password_sent_at" timestamp, "remember_created_at" timestamp, "sign_in_count" integer DEFAULT 0 NOT NULL, "current_sign_in_at" timestamp, "last_sign_in_at" timestamp, "current_sign_in_ip" inet, "last_sign_in_ip" inet, "created_at" timestamp NOT NULL, "updated_at" timestamp NOT NULL) 
+  [1m[36m (7.0ms)[0m  [1mCREATE UNIQUE INDEX  "index_users_on_email" ON "users" USING btree ("email")[0m
+  [1m[35m (6.8ms)[0m  CREATE UNIQUE INDEX  "index_users_on_reset_password_token" ON "users" USING btree ("reset_password_token")
+  [1m[36m (9.3ms)[0m  [1mCREATE TABLE "schema_migrations" ("version" character varying NOT NULL) [0m
+  [1m[35m (3.8ms)[0m  CREATE UNIQUE INDEX  "unique_schema_migrations" ON "schema_migrations"  ("version")
+  [1m[36m (0.9ms)[0m  [1mSELECT version FROM "schema_migrations"[0m
+  [1m[35m (9.2ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160422222636')
+  [1m[36m (0.9ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160421230328')[0m
+  [1m[35m (3.8ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160421230533')
+  [1m[36m (3.4ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160421230823')[0m
+  [1m[35m (3.5ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160421230836')
+  [1m[36m (3.5ms)[0m  [1mINSERT INTO "schema_migrations" (version) VALUES ('20160421230951')[0m
+  [1m[35m (2.9ms)[0m  INSERT INTO "schema_migrations" (version) VALUES ('20160422044711')
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.2ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Spirituous"], ["description", "Robust and spirit forward."], ["created_at", "2016-04-24 17:52:41.440617"], ["updated_at", "2016-04-24 17:52:41.440617"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Straight Forward"], ["description", "Lets the spirit take front and center."], ["created_at", "2016-04-24 17:52:41.447221"], ["updated_at", "2016-04-24 17:52:41.447221"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Smokey"], ["description", "Smokey and peatie aroma"], ["created_at", "2016-04-24 17:52:41.451796"], ["updated_at", "2016-04-24 17:52:41.451796"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Smooth"], ["description", "Balanced flavors without any standing out too much."], ["created_at", "2016-04-24 17:52:41.456512"], ["updated_at", "2016-04-24 17:52:41.456512"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Light"], ["description", "Spirits with a lighter body (Gin, Vodka, Light Rum, etc)"], ["created_at", "2016-04-24 17:52:41.461085"], ["updated_at", "2016-04-24 17:52:41.461085"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Dark"], ["description", "Spirits with a darker body (Whisk(e)y, Dark Rum, etc )"], ["created_at", "2016-04-24 17:52:41.465810"], ["updated_at", "2016-04-24 17:52:41.465810"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Complex"], ["description", "Flavors that are not appetizing for all(bitter, smokey, vegetal)"], ["created_at", "2016-04-24 17:52:41.470309"], ["updated_at", "2016-04-24 17:52:41.470309"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Vegetal"], ["description", "Flavors originiating from a variety of herbs and vegetables"], ["created_at", "2016-04-24 17:52:41.474895"], ["updated_at", "2016-04-24 17:52:41.474895"]]
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Bitter"], ["description", "Deep and almost medicinal bitter flavor."], ["created_at", "2016-04-24 17:52:41.479925"], ["updated_at", "2016-04-24 17:52:41.479925"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Smokey"], ["description", "Smokey and peatie aroma"], ["created_at", "2016-04-24 17:52:41.485368"], ["updated_at", "2016-04-24 17:52:41.485368"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Smooth"], ["description", "Balanced flavors without any standing out too much."], ["created_at", "2016-04-24 17:52:41.490724"], ["updated_at", "2016-04-24 17:52:41.490724"]]
+  [1m[35m (2.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Dark"], ["description", "Spirits with a darker body (Whisk(e)y, Dark Rum, etc )"], ["created_at", "2016-04-24 17:52:41.496185"], ["updated_at", "2016-04-24 17:52:41.496185"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Light"], ["description", "Spirits with a lighter body (Gin, Vodka, Light Rum, etc)"], ["created_at", "2016-04-24 17:52:41.501592"], ["updated_at", "2016-04-24 17:52:41.501592"]]
+  [1m[35m (4.9ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Complex"], ["description", "Flavors that are not appetizing for all(bitter, smokey, vegetal)"], ["created_at", "2016-04-24 17:52:41.509640"], ["updated_at", "2016-04-24 17:52:41.509640"]]
+  [1m[36m (4.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Straight Forward"], ["description", "Lets the spirit take front and center."], ["created_at", "2016-04-24 17:52:41.517719"], ["updated_at", "2016-04-24 17:52:41.517719"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Vegetal"], ["description", "Flavors originiating from a variety of herbs and vegetables"], ["created_at", "2016-04-24 17:52:41.523115"], ["updated_at", "2016-04-24 17:52:41.523115"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Bitter"], ["description", "Deep and almost medicinal bitter flavor."], ["created_at", "2016-04-24 17:52:41.528431"], ["updated_at", "2016-04-24 17:52:41.528431"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Light"], ["description", "Spirits with a lighter body (Gin, Vodka, Light Rum, etc)"], ["created_at", "2016-04-24 17:52:41.533924"], ["updated_at", "2016-04-24 17:52:41.533924"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Dark"], ["description", "Spirits with a darker body (Whisk(e)y, Dark Rum, etc )"], ["created_at", "2016-04-24 17:52:41.539257"], ["updated_at", "2016-04-24 17:52:41.539257"]]
+  [1m[35m (2.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Light"], ["description", "Spirits with a lighter body (Gin, Vodka, Light Rum, etc)"], ["created_at", "2016-04-24 17:52:41.544699"], ["updated_at", "2016-04-24 17:52:41.544699"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Dark"], ["description", "Spirits with a darker body (Whisk(e)y, Dark Rum, etc )"], ["created_at", "2016-04-24 17:52:41.550080"], ["updated_at", "2016-04-24 17:52:41.550080"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Fruity"], ["description", "Flavors originating from all fruit."], ["created_at", "2016-04-24 17:52:41.555556"], ["updated_at", "2016-04-24 17:52:41.555556"]]
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Crisp"], ["description", "Refreshing and bright"], ["created_at", "2016-04-24 17:52:41.561093"], ["updated_at", "2016-04-24 17:52:41.561093"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Decadent"], ["description", "Desserty, creamy, and sweet"], ["created_at", "2016-04-24 17:52:41.566400"], ["updated_at", "2016-04-24 17:52:41.566400"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Crisp"], ["description", "Refreshing and bright"], ["created_at", "2016-04-24 17:52:41.571734"], ["updated_at", "2016-04-24 17:52:41.571734"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Citrus"], ["description", "Bright crisp flavors from lemon, lime, orange, or grapefruit."], ["created_at", "2016-04-24 17:52:41.576940"], ["updated_at", "2016-04-24 17:52:41.576940"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Clove"], ["description", "Holiday spices of Allspice and Clove"], ["created_at", "2016-04-24 17:52:41.589178"], ["updated_at", "2016-04-24 17:52:41.589178"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Tropical"], ["description", "Flavors like pineapple, mango, and coconut."], ["created_at", "2016-04-24 17:52:41.593838"], ["updated_at", "2016-04-24 17:52:41.593838"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Berry"], ["description", "Flavors like strawberry, blueberry, and raspberry"], ["created_at", "2016-04-24 17:52:41.598440"], ["updated_at", "2016-04-24 17:52:41.598440"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Bubbly"], ["description", "Effervescent and carbonated."], ["created_at", "2016-04-24 17:52:41.602919"], ["updated_at", "2016-04-24 17:52:41.602919"]]
+  [1m[36m (4.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Still"], ["description", "Smooth and uncarbonated."], ["created_at", "2016-04-24 17:52:41.610201"], ["updated_at", "2016-04-24 17:52:41.610201"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Fruity"], ["description", "Flavors originating from all fruit."], ["created_at", "2016-04-24 17:52:41.615068"], ["updated_at", "2016-04-24 17:52:41.615068"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Herbal"], ["description", "Flavors could include rosemary, basil, and cilantro."], ["created_at", "2016-04-24 17:52:41.619777"], ["updated_at", "2016-04-24 17:52:41.619777"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Stonefruit"], ["description", "Could include peaches, plums, and apricots."], ["created_at", "2016-04-24 17:52:41.624175"], ["updated_at", "2016-04-24 17:52:41.624175"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Berry"], ["description", "Flavors like strawberry, blueberry, and raspberry"], ["created_at", "2016-04-24 17:52:41.628981"], ["updated_at", "2016-04-24 17:52:41.628981"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "tags" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Gentle"], ["description", "Easy going and not too aggressive."], ["created_at", "2016-04-24 17:52:41.634361"], ["updated_at", "2016-04-24 17:52:41.634361"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.6ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mTag Load (0.4ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 1], ["child_id", 2], ["created_at", "2016-04-24 17:52:41.727880"], ["updated_at", "2016-04-24 17:52:41.727880"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36mTag Load (0.4ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mTag Load (0.4ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 7]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 1], ["child_id", 7], ["created_at", "2016-04-24 17:52:41.736807"], ["updated_at", "2016-04-24 17:52:41.736807"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.4ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 2]]
+  [1m[36mTag Load (0.4ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 3]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 2], ["child_id", 3], ["created_at", "2016-04-24 17:52:41.743676"], ["updated_at", "2016-04-24 17:52:41.743676"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36mTag Load (0.3ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 2]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 2], ["child_id", 4], ["created_at", "2016-04-24 17:52:41.750408"], ["updated_at", "2016-04-24 17:52:41.750408"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 4]]
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 5]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 4], ["child_id", 5], ["created_at", "2016-04-24 17:52:41.756855"], ["updated_at", "2016-04-24 17:52:41.756855"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 4]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 6]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 4], ["child_id", 6], ["created_at", "2016-04-24 17:52:41.762990"], ["updated_at", "2016-04-24 17:52:41.762990"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.3ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 7]]
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 8]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 7], ["child_id", 8], ["created_at", "2016-04-24 17:52:41.769598"], ["updated_at", "2016-04-24 17:52:41.769598"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 7]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 9]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 7], ["child_id", 9], ["created_at", "2016-04-24 17:52:41.775759"], ["updated_at", "2016-04-24 17:52:41.775759"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 8]]
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 12]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 8], ["child_id", 12], ["created_at", "2016-04-24 17:52:41.781670"], ["updated_at", "2016-04-24 17:52:41.781670"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 8]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 13]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 8], ["child_id", 13], ["created_at", "2016-04-24 17:52:41.787764"], ["updated_at", "2016-04-24 17:52:41.787764"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.3ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 9]]
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 10]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 9], ["child_id", 10], ["created_at", "2016-04-24 17:52:41.793723"], ["updated_at", "2016-04-24 17:52:41.793723"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 9]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 11]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 9], ["child_id", 11], ["created_at", "2016-04-24 17:52:41.799755"], ["updated_at", "2016-04-24 17:52:41.799755"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.3ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 14]]
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 16]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 14], ["child_id", 16], ["created_at", "2016-04-24 17:52:41.805999"], ["updated_at", "2016-04-24 17:52:41.805999"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36mTag Load (0.3ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 14]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 17]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 14], ["child_id", 17], ["created_at", "2016-04-24 17:52:41.812009"], ["updated_at", "2016-04-24 17:52:41.812009"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 16]]
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 18]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 16], ["child_id", 18], ["created_at", "2016-04-24 17:52:41.818097"], ["updated_at", "2016-04-24 17:52:41.818097"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 16]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 19]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 16], ["child_id", 19], ["created_at", "2016-04-24 17:52:41.824043"], ["updated_at", "2016-04-24 17:52:41.824043"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 17]]
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 26]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 17], ["child_id", 26], ["created_at", "2016-04-24 17:52:41.830112"], ["updated_at", "2016-04-24 17:52:41.830112"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36mTag Load (0.3ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 17]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 27]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 17], ["child_id", 27], ["created_at", "2016-04-24 17:52:41.836161"], ["updated_at", "2016-04-24 17:52:41.836161"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.3ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 15]]
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 20]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 15], ["child_id", 20], ["created_at", "2016-04-24 17:52:41.842255"], ["updated_at", "2016-04-24 17:52:41.842255"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 15]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 21]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 15], ["child_id", 21], ["created_at", "2016-04-24 17:52:41.848347"], ["updated_at", "2016-04-24 17:52:41.848347"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.4ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 20]]
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 22]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 20], ["child_id", 22], ["created_at", "2016-04-24 17:52:41.854609"], ["updated_at", "2016-04-24 17:52:41.854609"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 20]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 23]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 20], ["child_id", 23], ["created_at", "2016-04-24 17:52:41.860801"], ["updated_at", "2016-04-24 17:52:41.860801"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 22]]
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 28]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 22], ["child_id", 28], ["created_at", "2016-04-24 17:52:41.867080"], ["updated_at", "2016-04-24 17:52:41.867080"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 22]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 29]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 22], ["child_id", 29], ["created_at", "2016-04-24 17:52:41.873246"], ["updated_at", "2016-04-24 17:52:41.873246"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 23]]
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 30]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 23], ["child_id", 30], ["created_at", "2016-04-24 17:52:41.879326"], ["updated_at", "2016-04-24 17:52:41.879326"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 23]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 31]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 23], ["child_id", 31], ["created_at", "2016-04-24 17:52:41.885790"], ["updated_at", "2016-04-24 17:52:41.885790"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 21]]
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 24]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 21], ["child_id", 24], ["created_at", "2016-04-24 17:52:41.891951"], ["updated_at", "2016-04-24 17:52:41.891951"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 21]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 25]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 21], ["child_id", 25], ["created_at", "2016-04-24 17:52:41.898030"], ["updated_at", "2016-04-24 17:52:41.898030"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 25]]
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 32]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 25], ["child_id", 32], ["created_at", "2016-04-24 17:52:41.904383"], ["updated_at", "2016-04-24 17:52:41.904383"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 25]]
+  [1m[35mTag Load (0.3ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 33]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 25], ["child_id", 33], ["created_at", "2016-04-24 17:52:41.910914"], ["updated_at", "2016-04-24 17:52:41.910914"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 32]]
+  [1m[36mTag Load (0.3ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 34]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 32], ["child_id", 34], ["created_at", "2016-04-24 17:52:41.917232"], ["updated_at", "2016-04-24 17:52:41.917232"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36mTag Load (0.2ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 32]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 35]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 32], ["child_id", 35], ["created_at", "2016-04-24 17:52:41.923438"], ["updated_at", "2016-04-24 17:52:41.923438"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35mTag Load (0.3ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 36]]
+  [1m[36mTag Load (0.3ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 14]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["parent_id", 36], ["child_id", 14], ["created_at", "2016-04-24 17:52:41.930885"], ["updated_at", "2016-04-24 17:52:41.930885"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36mTag Load (0.3ms)[0m  [1mSELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1[0m  [["id", 36]]
+  [1m[35mTag Load (0.2ms)[0m  SELECT  "tags".* FROM "tags" WHERE "tags"."id" = $1 LIMIT 1  [["id", 15]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "families" ("parent_id", "child_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["parent_id", 36], ["child_id", 15], ["created_at", "2016-04-24 17:52:41.937919"], ["updated_at", "2016-04-24 17:52:41.937919"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (2.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'crystal@murrayruecker.io' LIMIT 1[0m
+  [1m[35mSQL (0.9ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "wolf"], ["email", "crystal@murrayruecker.io"], ["encrypted_password", "$2a$11$hPzkoa1xMGQor0hdV93mS.EAfAl1V1xFvkNZ8pOcCyhVYG3WHM5n2"], ["created_at", "2016-04-24 17:52:42.726116"], ["updated_at", "2016-04-24 17:52:42.726116"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'duane.zemlak@borer.co' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "+1"], ["email", "duane.zemlak@borer.co"], ["encrypted_password", "$2a$11$SkEYdTbU2mK08CxAZiLWqOJgNXQjOn52ICBrc2VPTmJ.Grct/jJ5y"], ["created_at", "2016-04-24 17:52:42.899794"], ["updated_at", "2016-04-24 17:52:42.899794"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'milo_kutch@moriettelabadie.co' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "bushwick"], ["email", "milo_kutch@moriettelabadie.co"], ["encrypted_password", "$2a$11$EXQqT2aafQ2V5TlS2nXnuuRUUMQV6ExtCp7La26f9fcUQYa6jPLJa"], ["created_at", "2016-04-24 17:52:43.072860"], ["updated_at", "2016-04-24 17:52:43.072860"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'rusty.witting@kirlin.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "beard"], ["email", "rusty.witting@kirlin.net"], ["encrypted_password", "$2a$11$NDJmxn3iUUC6Xs/SPfv5Ueaas5g.cLneFq12GZn8xpj4PqlHcLexu"], ["created_at", "2016-04-24 17:52:43.232864"], ["updated_at", "2016-04-24 17:52:43.232864"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'trey@nolan.org' LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "poutine"], ["email", "trey@nolan.org"], ["encrypted_password", "$2a$11$bguc.H3ayPjAATDmd/0os.yYVJHbOnhKIJPgCoG9schEno9nCEbYe"], ["created_at", "2016-04-24 17:52:43.394888"], ["updated_at", "2016-04-24 17:52:43.394888"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jordi@prohaskahills.biz' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "waistcoat"], ["email", "jordi@prohaskahills.biz"], ["encrypted_password", "$2a$11$XNlfHIAX1He7ulL60uSznuvHGH/2mEbCLNHyqQNHV/IVABy2z2BFq"], ["created_at", "2016-04-24 17:52:43.570815"], ["updated_at", "2016-04-24 17:52:43.570815"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'nellie@funk.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "aesthetic"], ["email", "nellie@funk.com"], ["encrypted_password", "$2a$11$sXdLQF55zZOrJ1hwnkHwn.ztXyhyNWLX4E3bJ4343e91giHJxQu6i"], ["created_at", "2016-04-24 17:52:43.736282"], ["updated_at", "2016-04-24 17:52:43.736282"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'kayleigh@tillman.name' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "drinking"], ["email", "kayleigh@tillman.name"], ["encrypted_password", "$2a$11$bj9uXWkiml63TcbysbhwO.GhDMuvWrrEpXdjwF8PyYDUTqCr7bSr2"], ["created_at", "2016-04-24 17:52:43.901853"], ["updated_at", "2016-04-24 17:52:43.901853"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'shayna_jast@senger.name' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "kinfolk"], ["email", "shayna_jast@senger.name"], ["encrypted_password", "$2a$11$CfpAY.kbHXwvdNaeX6PHuuOWJnIx383ODU/fiAv8gK2p7pKZmS73a"], ["created_at", "2016-04-24 17:52:44.068733"], ["updated_at", "2016-04-24 17:52:44.068733"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'andy@howell.name' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "pug"], ["email", "andy@howell.name"], ["encrypted_password", "$2a$11$5GHoZYHCVE9hcrk0J0J9..Kd9TsSW94PmVoeefPCEWF3c4IjMXHhm"], ["created_at", "2016-04-24 17:52:44.234437"], ["updated_at", "2016-04-24 17:52:44.234437"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'meda@douglas.org' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "salvia"], ["email", "meda@douglas.org"], ["encrypted_password", "$2a$11$ALuKk5A/ADyOYV8Wax7Fu.Sc6rRymomaqnuotVGfTFxdMZ4y.AMIm"], ["created_at", "2016-04-24 17:52:44.388948"], ["updated_at", "2016-04-24 17:52:44.388948"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'diana_becker@hodkiewicz.name' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "hammock"], ["email", "diana_becker@hodkiewicz.name"], ["encrypted_password", "$2a$11$.gWhxOPjoIin2Iv.b9kcJuCtcsj1PpQHr1QoMtHjsw6aY55.HhAOS"], ["created_at", "2016-04-24 17:52:44.563729"], ["updated_at", "2016-04-24 17:52:44.563729"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'emil_macgyver@konopelskimoriette.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "offal"], ["email", "emil_macgyver@konopelskimoriette.io"], ["encrypted_password", "$2a$11$dxugN6XVOJU5tPkaU1etpu1M6znPHpftqlDQ2wwHPCl2joKKH0Eli"], ["created_at", "2016-04-24 17:52:44.737407"], ["updated_at", "2016-04-24 17:52:44.737407"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'emma@walter.name' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "pour-over"], ["email", "emma@walter.name"], ["encrypted_password", "$2a$11$YefQk0qf/1RKUdIDW3gH4u8CVgqVxgox3A4fj.GeAp.L.zRDEHjcK"], ["created_at", "2016-04-24 17:52:44.902557"], ["updated_at", "2016-04-24 17:52:44.902557"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'gina@frami.biz' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "sriracha"], ["email", "gina@frami.biz"], ["encrypted_password", "$2a$11$kA22I4VcOvwGQ/XFdk2N/.U8wk2wECrIPAgWk37ihDHGy5AQaU.5m"], ["created_at", "2016-04-24 17:52:45.057817"], ["updated_at", "2016-04-24 17:52:45.057817"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'barton@purdypowlowski.net' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "wolf"], ["email", "barton@purdypowlowski.net"], ["encrypted_password", "$2a$11$O2OW30FmcErihOolbg3AdOSar9QiG4kRibxDOopq5PnYF.OkyqHPm"], ["created_at", "2016-04-24 17:52:45.228248"], ["updated_at", "2016-04-24 17:52:45.228248"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'isaias_ko@lesch.co' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "freegan"], ["email", "isaias_ko@lesch.co"], ["encrypted_password", "$2a$11$UyErElTi1t73Guz7AYyiMOhKOtuuNTFxLIwKnPwrOQaztvayJDw7S"], ["created_at", "2016-04-24 17:52:45.413344"], ["updated_at", "2016-04-24 17:52:45.413344"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'wayne@heelstracke.io' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "kinfolk"], ["email", "wayne@heelstracke.io"], ["encrypted_password", "$2a$11$sTUbkizdIEf6PUIgKrqUzue.3cIeYQj6ReUOUf/OkAbHts45IQmcW"], ["created_at", "2016-04-24 17:52:45.575875"], ["updated_at", "2016-04-24 17:52:45.575875"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'viva.durgan@hegmannmertz.org' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "yr"], ["email", "viva.durgan@hegmannmertz.org"], ["encrypted_password", "$2a$11$7URmzq1i/9Pdh7XJ0M3S5uJhjRmYBz0odgaR1SQGCjIhOblkB0CRG"], ["created_at", "2016-04-24 17:52:45.732714"], ["updated_at", "2016-04-24 17:52:45.732714"]]
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.5ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'zachery@rempel.info' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "retro"], ["email", "zachery@rempel.info"], ["encrypted_password", "$2a$11$b0oqgCze2wbS0xX64EWXJ.YL2704DpwbzM/s0gXCn5hRBrcybOcWa"], ["created_at", "2016-04-24 17:52:45.908636"], ["updated_at", "2016-04-24 17:52:45.908636"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'esteban@boehmjones.info' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "Godard"], ["email", "esteban@boehmjones.info"], ["encrypted_password", "$2a$11$6TcBJQiE95EPGB.Rplonier34CimnOdXKXidXqgsrPGpUz6YneaN."], ["created_at", "2016-04-24 17:52:46.078624"], ["updated_at", "2016-04-24 17:52:46.078624"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'patricia_kling@hansendietrich.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "leggings"], ["email", "patricia_kling@hansendietrich.io"], ["encrypted_password", "$2a$11$4j51FJaUM3.s6acWlACxKedX23ANgSYSCKLzuZEvTAYXPVGypkSaS"], ["created_at", "2016-04-24 17:52:46.247734"], ["updated_at", "2016-04-24 17:52:46.247734"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jarrell.wuckert@emardborer.info' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "chicharrones"], ["email", "jarrell.wuckert@emardborer.info"], ["encrypted_password", "$2a$11$qg.314b7lZ0zHZvn39BC.OyR4BIcJtOruevZ/1e2Nrhc1KKvM7lHq"], ["created_at", "2016-04-24 17:52:46.409268"], ["updated_at", "2016-04-24 17:52:46.409268"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'merl_vandervort@streichsmitham.info' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "gluten-free"], ["email", "merl_vandervort@streichsmitham.info"], ["encrypted_password", "$2a$11$MrKtbMfc8dD2HnQFH1XOcOjluJ0DELLhPxKr/dfFZey78cy55lYRC"], ["created_at", "2016-04-24 17:52:46.556906"], ["updated_at", "2016-04-24 17:52:46.556906"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'herminio@donnellymedhurst.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "bespoke"], ["email", "herminio@donnellymedhurst.net"], ["encrypted_password", "$2a$11$z/m2zf8n0ge0tbOLwFJmwukESEEVxflSdYEPImc1pBjkt1/ntOp62"], ["created_at", "2016-04-24 17:52:46.720660"], ["updated_at", "2016-04-24 17:52:46.720660"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'alexandrea_metz@dare.co' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "twee"], ["email", "alexandrea_metz@dare.co"], ["encrypted_password", "$2a$11$7uNhDv8EaF0yI7uk58xJMe3IewCTe3v2vdW7gmQE0q..YNk6ZRY2y"], ["created_at", "2016-04-24 17:52:46.886866"], ["updated_at", "2016-04-24 17:52:46.886866"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'cathryn@klingzemlak.co' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "chartreuse"], ["email", "cathryn@klingzemlak.co"], ["encrypted_password", "$2a$11$VbVp76ICstpbc2eeeO/wIugZ2DYPIHQmt0oGrKRPCfBVUdJ1TsdKq"], ["created_at", "2016-04-24 17:52:47.057449"], ["updated_at", "2016-04-24 17:52:47.057449"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'justus_durgan@boylehamill.net' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "actually"], ["email", "justus_durgan@boylehamill.net"], ["encrypted_password", "$2a$11$lwCZEO00yy7u.NrsEg3XMebt2Ot38IXEy71o3nnn/ahlMCywRh.GW"], ["created_at", "2016-04-24 17:52:47.217948"], ["updated_at", "2016-04-24 17:52:47.217948"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'elenora.jenkins@lesch.biz' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "Thundercats"], ["email", "elenora.jenkins@lesch.biz"], ["encrypted_password", "$2a$11$e34hCXpmYGQC8lqDgj/rBOXZloQ1YPrqfhF8r1yAYIRYIz7014Bn2"], ["created_at", "2016-04-24 17:52:47.396760"], ["updated_at", "2016-04-24 17:52:47.396760"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'kristian.schuster@gulgowskijacobs.info' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "semiotics"], ["email", "kristian.schuster@gulgowskijacobs.info"], ["encrypted_password", "$2a$11$DIC5g2iKEX262Za4CqcrseT8eGtlPwf/M/egSwPevlZUsGwhDtdF6"], ["created_at", "2016-04-24 17:52:47.559503"], ["updated_at", "2016-04-24 17:52:47.559503"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'ophelia.effertz@keelinggulgowski.info' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "skateboard"], ["email", "ophelia.effertz@keelinggulgowski.info"], ["encrypted_password", "$2a$11$pZnlDB80Kx9yILp9b07BGOXB/hzo80q1MQ9MMiDm58ntPv7QBSEQW"], ["created_at", "2016-04-24 17:52:47.733081"], ["updated_at", "2016-04-24 17:52:47.733081"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'colby.haley@bernier.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "truffaut"], ["email", "colby.haley@bernier.com"], ["encrypted_password", "$2a$11$oeP.YjD7GBjZHXxV.x6Syewhy1BC3AH.7PoeBsNjc4I7HyyG4Jv7u"], ["created_at", "2016-04-24 17:52:47.907371"], ["updated_at", "2016-04-24 17:52:47.907371"]]
+  [1m[36m (2.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'elfrieda@schimmel.net' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "church-key"], ["email", "elfrieda@schimmel.net"], ["encrypted_password", "$2a$11$pmyAogK9Pv0ahXaCKYTcxe7OlFw6frOCh.zPS5y/qfCcwBWcjypK2"], ["created_at", "2016-04-24 17:52:48.060183"], ["updated_at", "2016-04-24 17:52:48.060183"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'betsy@quitzon.info' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "mumblecore"], ["email", "betsy@quitzon.info"], ["encrypted_password", "$2a$11$M0VnM0FlbQ.Bpwf5gtrLl.NEGmmFigFpwTkimhdjrelYxfQN0vM4a"], ["created_at", "2016-04-24 17:52:48.219705"], ["updated_at", "2016-04-24 17:52:48.219705"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'emerson_ohara@hand.co' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "fixie"], ["email", "emerson_ohara@hand.co"], ["encrypted_password", "$2a$11$GoJ.YGVuMWn.JoXlM2Kk1east5WZGRJ9U/DW4LnwKfDWBDNhY6E1e"], ["created_at", "2016-04-24 17:52:48.367028"], ["updated_at", "2016-04-24 17:52:48.367028"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'rafaela@thompsonskiles.biz' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "DIY"], ["email", "rafaela@thompsonskiles.biz"], ["encrypted_password", "$2a$11$fikTsy8l3.VRSz6iuPIXE.otfpj18yXWkX9QenTmnXaQhS5g3UHA."], ["created_at", "2016-04-24 17:52:48.522019"], ["updated_at", "2016-04-24 17:52:48.522019"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'pascale_weimann@schmeler.co' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "helvetica"], ["email", "pascale_weimann@schmeler.co"], ["encrypted_password", "$2a$11$gQUzTtyQCfSomLEiJ0R1gu8kY0u6BzJP3HDr02SClEXOtPFGOkDw."], ["created_at", "2016-04-24 17:52:48.689639"], ["updated_at", "2016-04-24 17:52:48.689639"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'joe.klocko@hayes.io' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "readymade"], ["email", "joe.klocko@hayes.io"], ["encrypted_password", "$2a$11$kQmJeTyjrUQ.5UUcrkCaPOBEU30xcdHo97TiYkiMQZwg7tyY2fVF2"], ["created_at", "2016-04-24 17:52:48.851972"], ["updated_at", "2016-04-24 17:52:48.851972"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'talon@volkmanabbott.info' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "leggings"], ["email", "talon@volkmanabbott.info"], ["encrypted_password", "$2a$11$pgNKMDEAguXW5KUvEW8FSe8sKRsr37H9xBWNGf7JQTELfpuK4Liz2"], ["created_at", "2016-04-24 17:52:49.018136"], ["updated_at", "2016-04-24 17:52:49.018136"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'hannah@reilly.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "lumbersexual"], ["email", "hannah@reilly.com"], ["encrypted_password", "$2a$11$JPU/13DZDnKDNJ0oL9Duq.E06Ow463QL7cL/YaW4WkmyPixhpKJ6u"], ["created_at", "2016-04-24 17:52:49.177206"], ["updated_at", "2016-04-24 17:52:49.177206"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'maximus@walshfay.name' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "mustache"], ["email", "maximus@walshfay.name"], ["encrypted_password", "$2a$11$kJDhJ3jh0xiDNAmBgbqVfe/BhCgQVrkQ8D7H442oyIGmjqoWYOWvS"], ["created_at", "2016-04-24 17:52:49.339552"], ["updated_at", "2016-04-24 17:52:49.339552"]]
+  [1m[36m (4.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'ariel.keeling@kohler.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "tousled"], ["email", "ariel.keeling@kohler.net"], ["encrypted_password", "$2a$11$ZErF0L4cPlfJ9hjV8z4kIuJjF3FpchcWwmDBjxXaQigvuqdVkF4gK"], ["created_at", "2016-04-24 17:52:49.510401"], ["updated_at", "2016-04-24 17:52:49.510401"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'javon@medhurstmoore.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "poutine"], ["email", "javon@medhurstmoore.io"], ["encrypted_password", "$2a$11$uZpChPplEEudjyxG0JJIOuTqkbuRWPStKqumaR9Wpbfihjaesp572"], ["created_at", "2016-04-24 17:52:49.690737"], ["updated_at", "2016-04-24 17:52:49.690737"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'thalia@von.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "semiotics"], ["email", "thalia@von.com"], ["encrypted_password", "$2a$11$J15pgEpA3xdKn2RaDSkSeOpou1k.EZlamlXEjqWiAmB1qQGvb0kNu"], ["created_at", "2016-04-24 17:52:49.856748"], ["updated_at", "2016-04-24 17:52:49.856748"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'blair@batzemmerich.co' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "sriracha"], ["email", "blair@batzemmerich.co"], ["encrypted_password", "$2a$11$Y1VFr4nairS4zq4pFOQ0be4u/y4BOVSjEAyP7J7fiiMTVNwvfpJse"], ["created_at", "2016-04-24 17:52:50.016957"], ["updated_at", "2016-04-24 17:52:50.016957"]]
+  [1m[36m (3.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'linwood_jerde@hilll.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "occupy"], ["email", "linwood_jerde@hilll.net"], ["encrypted_password", "$2a$11$zAo.rs7dAmomlP5ZeLxTIejdMrEStvDfOhN9w7xFtTzWLmrqWa1gK"], ["created_at", "2016-04-24 17:52:50.180345"], ["updated_at", "2016-04-24 17:52:50.180345"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'horacio.tromp@koepp.biz' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "vice"], ["email", "horacio.tromp@koepp.biz"], ["encrypted_password", "$2a$11$Ucr45A5YVlMdEgKr3OBwzuWzFBri0bzYF.25OgxfansmTN.nQT./e"], ["created_at", "2016-04-24 17:52:50.340274"], ["updated_at", "2016-04-24 17:52:50.340274"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jennie@will.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "yr"], ["email", "jennie@will.net"], ["encrypted_password", "$2a$11$PZIoVaWXIyb/g8BK/D7Z9uJNFwUGyi4AQUpRI1ouKcZJ2.hmAb2KC"], ["created_at", "2016-04-24 17:52:50.498454"], ["updated_at", "2016-04-24 17:52:50.498454"]]
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'aglae.mccullough@robelwiegand.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "gastropub"], ["email", "aglae.mccullough@robelwiegand.net"], ["encrypted_password", "$2a$11$4vEg7nBejVEG9cDVG/rnY.sc5IxzWh4ZkLiwuOnlLO9CgAOitOJjq"], ["created_at", "2016-04-24 17:52:50.661889"], ["updated_at", "2016-04-24 17:52:50.661889"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'nina@paucek.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "occupy"], ["email", "nina@paucek.io"], ["encrypted_password", "$2a$11$RnbPhk7ggCy0MygPibDab./uufj7NmbHRn8OSVP4OQCS2D05v/ZNi"], ["created_at", "2016-04-24 17:52:50.817996"], ["updated_at", "2016-04-24 17:52:50.817996"]]
+  [1m[36m (2.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'darius.effertz@howelloconnell.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "neutra"], ["email", "darius.effertz@howelloconnell.com"], ["encrypted_password", "$2a$11$BsNLaIJZzNeuPH3CjrX3TeW0bV31QeIwDcVZGItqnyFRqMiNUMPhe"], ["created_at", "2016-04-24 17:52:50.989441"], ["updated_at", "2016-04-24 17:52:50.989441"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'thaddeus_reichert@mohrmonahan.co' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "vegan"], ["email", "thaddeus_reichert@mohrmonahan.co"], ["encrypted_password", "$2a$11$kzo2osf5E0w7rG4ZmUywSuGR4f1dcjx6qdm.sJwm8iAQHFZfdopWe"], ["created_at", "2016-04-24 17:52:51.154959"], ["updated_at", "2016-04-24 17:52:51.154959"]]
+  [1m[36m (3.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jody_breitenberg@beattywill.com' LIMIT 1[0m
+  [1m[35mSQL (1.2ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "cray"], ["email", "jody_breitenberg@beattywill.com"], ["encrypted_password", "$2a$11$WtQjqitqHqjCe.GZ3DsWV.pcu7H.1pc9JQtUAZxZN2OfVmzA7KjrG"], ["created_at", "2016-04-24 17:52:51.312596"], ["updated_at", "2016-04-24 17:52:51.312596"]]
+  [1m[36m (2.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'boris_kerluke@bednar.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "mustache"], ["email", "boris_kerluke@bednar.io"], ["encrypted_password", "$2a$11$af.oM/zdCQD5/h78BDbA2.f0yhUx9V9oP.Jc0lvzmvzRhd5ngoRaS"], ["created_at", "2016-04-24 17:52:51.481659"], ["updated_at", "2016-04-24 17:52:51.481659"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'alia@nicolas.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "polaroid"], ["email", "alia@nicolas.net"], ["encrypted_password", "$2a$11$zZH2eJSSzZ1iYc8CE4kDHulHiQd0F24AG6A6lzNFYbGQZ6tjA3U0."], ["created_at", "2016-04-24 17:52:51.649589"], ["updated_at", "2016-04-24 17:52:51.649589"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'francisco@lind.com' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "shoreditch"], ["email", "francisco@lind.com"], ["encrypted_password", "$2a$11$MQe4Ud2V4f1JcGnjLkQX9.5tHU5cuJuLMTAjkHh1rBELiRWurfzY6"], ["created_at", "2016-04-24 17:52:51.820029"], ["updated_at", "2016-04-24 17:52:51.820029"]]
+  [1m[36m (2.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'brown@wuckertwalker.name' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "lo-fi"], ["email", "brown@wuckertwalker.name"], ["encrypted_password", "$2a$11$kPoe7VkbA5yxP0mvFL6AiO7wTc7MPymg0tLf80S/Opk7.75LICDei"], ["created_at", "2016-04-24 17:52:51.995174"], ["updated_at", "2016-04-24 17:52:51.995174"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'beverly@denesik.info' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "quinoa"], ["email", "beverly@denesik.info"], ["encrypted_password", "$2a$11$gQExXpchtiuCr5obw/tPgus1nH6H7PvrLeVxLrutYupMoe/vzo7FW"], ["created_at", "2016-04-24 17:52:52.174706"], ["updated_at", "2016-04-24 17:52:52.174706"]]
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'ronaldo@hermann.org' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "asymmetrical"], ["email", "ronaldo@hermann.org"], ["encrypted_password", "$2a$11$fF0GCTJ5XsWmMLPubifALOG6mS5mO/ArKpgtwn.xAzX3uuzCcvud."], ["created_at", "2016-04-24 17:52:52.338705"], ["updated_at", "2016-04-24 17:52:52.338705"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'chad@metz.name' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "drinking"], ["email", "chad@metz.name"], ["encrypted_password", "$2a$11$lQ/dA0FqQ.ZJBqfwFKvtc.z5QiWYqUocYoxXJGMvnsV39ailWrJjO"], ["created_at", "2016-04-24 17:52:52.500278"], ["updated_at", "2016-04-24 17:52:52.500278"]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jason@friesenmayer.net' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "try-hard"], ["email", "jason@friesenmayer.net"], ["encrypted_password", "$2a$11$Irq2jhnWW4mgAyGdOch2XuV2oOgLtFYnWwakh5R8zbxnWbiRoD6B2"], ["created_at", "2016-04-24 17:52:52.665250"], ["updated_at", "2016-04-24 17:52:52.665250"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'carmela@mcclureschimmel.org' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "heirloom"], ["email", "carmela@mcclureschimmel.org"], ["encrypted_password", "$2a$11$PB/XnNgvsQ9ey5FUDY8fIeHXn2.VjEHM0oE9k0U5zlOsop4GxnLQy"], ["created_at", "2016-04-24 17:52:52.829256"], ["updated_at", "2016-04-24 17:52:52.829256"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'dell@goodwin.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "narwhal"], ["email", "dell@goodwin.net"], ["encrypted_password", "$2a$11$n2hR4s0.WF1Uvl2aSViQsuq9pAoaT9B7ks2W04c.fkeCNO15FKRQK"], ["created_at", "2016-04-24 17:52:52.999211"], ["updated_at", "2016-04-24 17:52:52.999211"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'florence@bogisich.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "brunch"], ["email", "florence@bogisich.com"], ["encrypted_password", "$2a$11$ei9zD1/AJ1Tc6niFxxdLeOdohryias4IhUK7TlEA/zjM.Cnbqbsgq"], ["created_at", "2016-04-24 17:52:53.157954"], ["updated_at", "2016-04-24 17:52:53.157954"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jayson@kihnsmitham.name' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "swag"], ["email", "jayson@kihnsmitham.name"], ["encrypted_password", "$2a$11$OYev9F4f7O1u8B9.WLeBs.Gz2vQQXWkLvzA9snDqJm3hqrrRN5bmO"], ["created_at", "2016-04-24 17:52:53.317705"], ["updated_at", "2016-04-24 17:52:53.317705"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'shanny_huel@mayerkunde.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "vice"], ["email", "shanny_huel@mayerkunde.com"], ["encrypted_password", "$2a$11$5cnYpFcjG8N0UsM.1JNm1.5c1q5hr1VxHg4erB0J4y6Z616cU9ON2"], ["created_at", "2016-04-24 17:52:53.489301"], ["updated_at", "2016-04-24 17:52:53.489301"]]
+  [1m[36m (2.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'breanne@runolfonreichel.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "austin"], ["email", "breanne@runolfonreichel.io"], ["encrypted_password", "$2a$11$r.AUeCz.O81jZql90WbQ6OKk54Nv4ocwwSe6oI2M8EQh5.M5aveoC"], ["created_at", "2016-04-24 17:52:53.648954"], ["updated_at", "2016-04-24 17:52:53.648954"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jerry_mayert@oreillybeatty.co' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "sustainable"], ["email", "jerry_mayert@oreillybeatty.co"], ["encrypted_password", "$2a$11$gnWoURdh.Ts/bN0HkNiiKeqZWQquSa5//4GxCT9rQyHVvyc5f/haK"], ["created_at", "2016-04-24 17:52:53.810884"], ["updated_at", "2016-04-24 17:52:53.810884"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'abdiel.leuschke@mcdermott.biz' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "mlkshk"], ["email", "abdiel.leuschke@mcdermott.biz"], ["encrypted_password", "$2a$11$NvcOYvaJQ1.L6DuIOoJIfer/yJjMwmyFuhb9CCCvAyj8X79L1UQ26"], ["created_at", "2016-04-24 17:52:53.967452"], ["updated_at", "2016-04-24 17:52:53.967452"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'iac@stiedemann.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "mixtape"], ["email", "iac@stiedemann.net"], ["encrypted_password", "$2a$11$5/DGTEWrTf/JUDOBKbYpvuZ/oVuZRGvRWVFH5jGw5s7Vp5I1yqr9."], ["created_at", "2016-04-24 17:52:54.139124"], ["updated_at", "2016-04-24 17:52:54.139124"]]
+  [1m[36m (4.8ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jazmyne.macejkovic@bode.biz' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "aesthetic"], ["email", "jazmyne.macejkovic@bode.biz"], ["encrypted_password", "$2a$11$DcYgTH64FZGzns8Nn46JgeGbbT2XjbnlBLdG0diw2YI1UNYCq6lVS"], ["created_at", "2016-04-24 17:52:54.322570"], ["updated_at", "2016-04-24 17:52:54.322570"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'gonzalo@watsicacollier.org' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "slow-carb"], ["email", "gonzalo@watsicacollier.org"], ["encrypted_password", "$2a$11$95o9bDY/I3cScFQJNsyXG.l53y3aUU6U1W4dZIC8Tpt/d196j6njm"], ["created_at", "2016-04-24 17:52:54.494428"], ["updated_at", "2016-04-24 17:52:54.494428"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'wade.hartmann@ullrich.org' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "skateboard"], ["email", "wade.hartmann@ullrich.org"], ["encrypted_password", "$2a$11$tws7aJGqNpw6hqKpMYVgseUE6KT9JbLumU0e4oITxyigoYGnqDmLK"], ["created_at", "2016-04-24 17:52:54.658233"], ["updated_at", "2016-04-24 17:52:54.658233"]]
+  [1m[36m (1.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'mitchell.hoeger@ankunding.name' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "whatever"], ["email", "mitchell.hoeger@ankunding.name"], ["encrypted_password", "$2a$11$zBMTBs/new.jFfUq3ctRw.vFwIWRAm5.l7Umoowm.ItNyXTZXjYmq"], ["created_at", "2016-04-24 17:52:54.837628"], ["updated_at", "2016-04-24 17:52:54.837628"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'isai@harvey.org' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "slow-carb"], ["email", "isai@harvey.org"], ["encrypted_password", "$2a$11$zemVLs5Ap9F.VKkoUDPtSOcRopZD5oNj7I4a9v2JJ1V77E0swvOuu"], ["created_at", "2016-04-24 17:52:55.005774"], ["updated_at", "2016-04-24 17:52:55.005774"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'alayna@monahanconsidine.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "waistcoat"], ["email", "alayna@monahanconsidine.com"], ["encrypted_password", "$2a$11$UanFcdnDq1QjBhxj.dJwj.weUxKPSviHPlM6g6UItwZUW8qZn9FXG"], ["created_at", "2016-04-24 17:52:55.181986"], ["updated_at", "2016-04-24 17:52:55.181986"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'percy.kautzer@graham.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "yr"], ["email", "percy.kautzer@graham.net"], ["encrypted_password", "$2a$11$gFJfpjVgI2guhUhWPGiq0egpLebITBvqRM0if7FdIfNfIb3tDOVs."], ["created_at", "2016-04-24 17:52:55.342439"], ["updated_at", "2016-04-24 17:52:55.342439"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'general@wolffziemann.name' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "pop-up"], ["email", "general@wolffziemann.name"], ["encrypted_password", "$2a$11$z2.XF5Gzib4MpOD8eb4v2uSJvxbP7rH5T7aVEG/aDAy0RefDJznLS"], ["created_at", "2016-04-24 17:52:55.502320"], ["updated_at", "2016-04-24 17:52:55.502320"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'kristian_kuhn@robeloberbrunner.name' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "mumblecore"], ["email", "kristian_kuhn@robeloberbrunner.name"], ["encrypted_password", "$2a$11$mAqc5mzNosNRVrsQUqLHM.fC2wiiNuFiH5k4deOuMkYwUFW3iq5zW"], ["created_at", "2016-04-24 17:52:55.671934"], ["updated_at", "2016-04-24 17:52:55.671934"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'mose_huel@funk.net' LIMIT 1[0m
+  [1m[35mSQL (0.7ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "ramps"], ["email", "mose_huel@funk.net"], ["encrypted_password", "$2a$11$3cdMK7a50qhv5L1JCr9QHeLatAKzCFIi0eJp06nXgG94cT.BBO6ni"], ["created_at", "2016-04-24 17:52:55.846843"], ["updated_at", "2016-04-24 17:52:55.846843"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'destiney@kaulke.org' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "ennui"], ["email", "destiney@kaulke.org"], ["encrypted_password", "$2a$11$g6qObukv.sprFvtyQZDjNOpd0Yp757hyDNpvgQLzGDkYQkDNx5d9G"], ["created_at", "2016-04-24 17:52:56.019372"], ["updated_at", "2016-04-24 17:52:56.019372"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'monique_prohaska@goodwin.net' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "Yuccie"], ["email", "monique_prohaska@goodwin.net"], ["encrypted_password", "$2a$11$0wg3TN6M5kVJ/7aCnDrI5uEMKKHP8j3NfYXC5GnypzAhqNDBQ1ug2"], ["created_at", "2016-04-24 17:52:56.189464"], ["updated_at", "2016-04-24 17:52:56.189464"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'jayda@skileteuber.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "pinterest"], ["email", "jayda@skileteuber.net"], ["encrypted_password", "$2a$11$yL9.TAYbVcY/R7p4wwChE.9.DdlRE4fnKAsGSkQNY.x7xSsCNFItG"], ["created_at", "2016-04-24 17:52:56.356631"], ["updated_at", "2016-04-24 17:52:56.356631"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'odell.legros@luettgen.com' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "keytar"], ["email", "odell.legros@luettgen.com"], ["encrypted_password", "$2a$11$UR1ADNvI2ez7QJqQQmzYdOWo4KYZLlbvN5nFbw5og88TrmMSUn6LG"], ["created_at", "2016-04-24 17:52:56.527735"], ["updated_at", "2016-04-24 17:52:56.527735"]]
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'patrick.hagenes@carter.name' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "master"], ["email", "patrick.hagenes@carter.name"], ["encrypted_password", "$2a$11$J6Vh/bt5nXS8aqVmqsQM4OuZJhnqeC0AhagYs7XxRlTEnphm3ciNG"], ["created_at", "2016-04-24 17:52:56.687720"], ["updated_at", "2016-04-24 17:52:56.687720"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.5ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'rubie@purdy.biz' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "authentic"], ["email", "rubie@purdy.biz"], ["encrypted_password", "$2a$11$yGvelXW8x575sobMg4TAxuK8DXdNq3O2hk/eZgpprn7.2bpWSudD6"], ["created_at", "2016-04-24 17:52:56.856721"], ["updated_at", "2016-04-24 17:52:56.856721"]]
+  [1m[36m (2.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'bella@blick.name' LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "tofu"], ["email", "bella@blick.name"], ["encrypted_password", "$2a$11$1IpxPz3kUobZtcFQrEJWEOwyBE6Cl6YYenP2p.qhVhU1Bcm1QcVzu"], ["created_at", "2016-04-24 17:52:57.019233"], ["updated_at", "2016-04-24 17:52:57.019233"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.4ms)[0m  BEGIN
+  [1m[36mUser Exists (0.7ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'laury@dietrich.io' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "locavore"], ["email", "laury@dietrich.io"], ["encrypted_password", "$2a$11$LzTKknnj0OcP1FQtEo/Qu.yggCtZCQgyjwep1uiGNEpNjJqEqLcWy"], ["created_at", "2016-04-24 17:52:57.186555"], ["updated_at", "2016-04-24 17:52:57.186555"]]
+  [1m[36m (2.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'lou.terry@will.name' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "crucifix"], ["email", "lou.terry@will.name"], ["encrypted_password", "$2a$11$aP8/mkkW/nQ7gGNRhWg0vOVycLdyx8bb5O/M2tLHyf.VkQ4GNOCCW"], ["created_at", "2016-04-24 17:52:57.348079"], ["updated_at", "2016-04-24 17:52:57.348079"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'alexzander_parker@ratkeoconner.io' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "disrupt"], ["email", "alexzander_parker@ratkeoconner.io"], ["encrypted_password", "$2a$11$Rpgx0rQoDTxEQ2ypMsR2tuCbBGMHXpNEBj8utTr3toRocyxxrOojW"], ["created_at", "2016-04-24 17:52:57.518430"], ["updated_at", "2016-04-24 17:52:57.518430"]]
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'camron.sanford@krishayes.name' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "williamsburg"], ["email", "camron.sanford@krishayes.name"], ["encrypted_password", "$2a$11$Jjjk0Of4UiCD7N2SYfvdiO3gPaRKzrOSg7JjxTZpTGZ0T3EiOvpzC"], ["created_at", "2016-04-24 17:52:57.678864"], ["updated_at", "2016-04-24 17:52:57.678864"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'lane.heidenreich@reilly.info' LIMIT 1[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "humblebrag"], ["email", "lane.heidenreich@reilly.info"], ["encrypted_password", "$2a$11$aW6H2oZrg/zHRDchz9BLoujFwihDu6e1KHxO/RqMoW2Dh7HiKVGem"], ["created_at", "2016-04-24 17:52:57.840427"], ["updated_at", "2016-04-24 17:52:57.840427"]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'kristoffer@rohangreenfelder.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "narwhal"], ["email", "kristoffer@rohangreenfelder.net"], ["encrypted_password", "$2a$11$BCSPkwjHbIVjvEVGJBOyz.GZoE1J7VsJhBRF90FYRi1bDzJ2biWYa"], ["created_at", "2016-04-24 17:52:58.004799"], ["updated_at", "2016-04-24 17:52:58.004799"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'genesis@zboncakbotsford.io' LIMIT 1[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "vinyl"], ["email", "genesis@zboncakbotsford.io"], ["encrypted_password", "$2a$11$JwrNB/po3jljmIyEaoAtpeqaE18mOBKq2oiAnT4zd1JKz/bXFGGF2"], ["created_at", "2016-04-24 17:52:58.162440"], ["updated_at", "2016-04-24 17:52:58.162440"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'aliya@mcdermottbalistreri.co' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "vegan"], ["email", "aliya@mcdermottbalistreri.co"], ["encrypted_password", "$2a$11$zpHvP/vtrCkiuzgmAP0JoeZnRrUmSSUHsua2dl10.rBlb0eHI0EFO"], ["created_at", "2016-04-24 17:52:58.322784"], ["updated_at", "2016-04-24 17:52:58.322784"]]
+  [1m[36m (3.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.6ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'ernestina_treutel@kirlin.org' LIMIT 1[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "plaid"], ["email", "ernestina_treutel@kirlin.org"], ["encrypted_password", "$2a$11$B5QpRSGpScVTf9jjhgFeEeEh8AZay1O3ektC2NdQoa8/FOcT/UXxu"], ["created_at", "2016-04-24 17:52:58.492783"], ["updated_at", "2016-04-24 17:52:58.492783"]]
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'chadrick.hilpert@swift.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "tumblr"], ["email", "chadrick.hilpert@swift.net"], ["encrypted_password", "$2a$11$Z3vDvEsHoZgZ6L/0mZW0i.Hb/52MQoyjWOw4/OoXMnvJrYDMpC/O2"], ["created_at", "2016-04-24 17:52:58.657265"], ["updated_at", "2016-04-24 17:52:58.657265"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'demetrius@lakin.net' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "microdosing"], ["email", "demetrius@lakin.net"], ["encrypted_password", "$2a$11$4IAm9LNKf0WagfG0p5scXOnfZQ40FULs.JFzjsofB8JrfKUlIMiCO"], ["created_at", "2016-04-24 17:52:58.823345"], ["updated_at", "2016-04-24 17:52:58.823345"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'don.turner@hoeger.co' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "goth"], ["email", "don.turner@hoeger.co"], ["encrypted_password", "$2a$11$IIYftYjQHNFwfsouAMuaQulaKl7qJS/VHLlL6jMdtIEBUFTSSf16C"], ["created_at", "2016-04-24 17:52:59.005772"], ["updated_at", "2016-04-24 17:52:59.005772"]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mUser Exists (0.4ms)[0m  [1mSELECT  1 AS one FROM "users" WHERE "users"."email" = 'heath@buckridge.co' LIMIT 1[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "users" ("username", "email", "encrypted_password", "created_at", "updated_at") VALUES ($1, $2, $3, $4, $5) RETURNING "id"  [["username", "PBR&B"], ["email", "heath@buckridge.co"], ["encrypted_password", "$2a$11$rfPjzzC1Y8GiNLkG4R8GIeadcpIUiTqAMjsbJjHeALRuEVZTh3Ln2"], ["created_at", "2016-04-24 17:52:59.171691"], ["updated_at", "2016-04-24 17:52:59.171691"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.8ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Bitter Giuseppe"], ["description", "With a big pour of Cynar and a touch of sweet vermouth, this shim (low alchohol cocktail) packs big, bold, bitter flavor with a dark caramel hint."], ["created_at", "2016-04-24 17:52:59.192479"], ["updated_at", "2016-04-24 17:52:59.192479"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 1], ["tag_id", 6], ["created_at", "2016-04-24 17:52:59.208558"], ["updated_at", "2016-04-24 17:52:59.208558"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 1], ["tag_id", 9], ["created_at", "2016-04-24 17:52:59.213118"], ["updated_at", "2016-04-24 17:52:59.213118"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 1], ["tag_id", 11], ["created_at", "2016-04-24 17:52:59.217842"], ["updated_at", "2016-04-24 17:52:59.217842"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 1], ["tag_id", 1], ["created_at", "2016-04-24 17:52:59.223100"], ["updated_at", "2016-04-24 17:52:59.223100"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 1], ["tag_id", 7], ["created_at", "2016-04-24 17:52:59.228426"], ["updated_at", "2016-04-24 17:52:59.228426"]]
+  [1m[36m (1.0ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "1794"], ["description", "Rye Whiskey focused, with a bitter dark chocolate kick."], ["created_at", "2016-04-24 17:52:59.232908"], ["updated_at", "2016-04-24 17:52:59.232908"]]
+  [1m[35m (2.4ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 2], ["tag_id", 12], ["created_at", "2016-04-24 17:52:59.239111"], ["updated_at", "2016-04-24 17:52:59.239111"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 2], ["tag_id", 9], ["created_at", "2016-04-24 17:52:59.245337"], ["updated_at", "2016-04-24 17:52:59.245337"]]
+  [1m[35m (4.9ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 2], ["tag_id", 1], ["created_at", "2016-04-24 17:52:59.252671"], ["updated_at", "2016-04-24 17:52:59.252671"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 2], ["tag_id", 7], ["created_at", "2016-04-24 17:52:59.258243"], ["updated_at", "2016-04-24 17:52:59.258243"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Corpse Reviver #2"], ["description", "Refreshing with a good kick of citrus. This drink will help wake you up with a powerful absinthe aroma."], ["created_at", "2016-04-24 17:52:59.265239"], ["updated_at", "2016-04-24 17:52:59.265239"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 3], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.271070"], ["updated_at", "2016-04-24 17:52:59.271070"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 3], ["tag_id", 20], ["created_at", "2016-04-24 17:52:59.275403"], ["updated_at", "2016-04-24 17:52:59.275403"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 3], ["tag_id", 23], ["created_at", "2016-04-24 17:52:59.280542"], ["updated_at", "2016-04-24 17:52:59.280542"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 3], ["tag_id", 15], ["created_at", "2016-04-24 17:52:59.285030"], ["updated_at", "2016-04-24 17:52:59.285030"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 3], ["tag_id", 31], ["created_at", "2016-04-24 17:52:59.289040"], ["updated_at", "2016-04-24 17:52:59.289040"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Old Fashioned"], ["description", "The original, the famous, the great, the Old Fashioned. This drink will give you a good kick of whiskey, with just a hint of sweetnes and a nose of citrus"], ["created_at", "2016-04-24 17:52:59.293430"], ["updated_at", "2016-04-24 17:52:59.293430"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 4], ["tag_id", 4], ["created_at", "2016-04-24 17:52:59.298017"], ["updated_at", "2016-04-24 17:52:59.298017"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 4], ["tag_id", 12], ["created_at", "2016-04-24 17:52:59.302520"], ["updated_at", "2016-04-24 17:52:59.302520"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 4], ["tag_id", 1], ["created_at", "2016-04-24 17:52:59.307256"], ["updated_at", "2016-04-24 17:52:59.307256"]]
+  [1m[35m (0.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 4], ["tag_id", 2], ["created_at", "2016-04-24 17:52:59.310614"], ["updated_at", "2016-04-24 17:52:59.310614"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Sazerac"], ["description", "In the same family as the Old Fashioned. This keeps the powerful whiskey kick, and adds a touch of anise and citrus nose."], ["created_at", "2016-04-24 17:52:59.315480"], ["updated_at", "2016-04-24 17:52:59.315480"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 5], ["tag_id", 4], ["created_at", "2016-04-24 17:52:59.320137"], ["updated_at", "2016-04-24 17:52:59.320137"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 5], ["tag_id", 12], ["created_at", "2016-04-24 17:52:59.324509"], ["updated_at", "2016-04-24 17:52:59.324509"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 5], ["tag_id", 1], ["created_at", "2016-04-24 17:52:59.328980"], ["updated_at", "2016-04-24 17:52:59.328980"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 5], ["tag_id", 2], ["created_at", "2016-04-24 17:52:59.333409"], ["updated_at", "2016-04-24 17:52:59.333409"]]
+  [1m[35m (1.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Clover Club"], ["description", "Raspberry, Sugar, Gin, Lemon, Egg white"], ["created_at", "2016-04-24 17:52:59.337032"], ["updated_at", "2016-04-24 17:52:59.337032"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 6], ["tag_id", 29], ["created_at", "2016-04-24 17:52:59.341356"], ["updated_at", "2016-04-24 17:52:59.341356"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 6], ["tag_id", 20], ["created_at", "2016-04-24 17:52:59.345834"], ["updated_at", "2016-04-24 17:52:59.345834"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 6], ["tag_id", 22], ["created_at", "2016-04-24 17:52:59.350255"], ["updated_at", "2016-04-24 17:52:59.350255"]]
+  [1m[35m (2.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 6], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.355087"], ["updated_at", "2016-04-24 17:52:59.355087"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 6], ["tag_id", 15], ["created_at", "2016-04-24 17:52:59.360256"], ["updated_at", "2016-04-24 17:52:59.360256"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Williams"], ["description", "Scotch, Yellow Chartreuse, Scotch, Dry Vermouth, Scotch, Orange Bitters, Scotch"], ["created_at", "2016-04-24 17:52:59.365581"], ["updated_at", "2016-04-24 17:52:59.365581"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 7], ["tag_id", 3], ["created_at", "2016-04-24 17:52:59.371342"], ["updated_at", "2016-04-24 17:52:59.371342"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 7], ["tag_id", 2], ["created_at", "2016-04-24 17:52:59.377687"], ["updated_at", "2016-04-24 17:52:59.377687"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 7], ["tag_id", 1], ["created_at", "2016-04-24 17:52:59.382919"], ["updated_at", "2016-04-24 17:52:59.382919"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 7], ["tag_id", 12], ["created_at", "2016-04-24 17:52:59.387046"], ["updated_at", "2016-04-24 17:52:59.387046"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Derby"], ["description", "Sweet Vermouth, Bourbon, Lime Juice, Orange Curacao"], ["created_at", "2016-04-24 17:52:59.391123"], ["updated_at", "2016-04-24 17:52:59.391123"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 8], ["tag_id", 21], ["created_at", "2016-04-24 17:52:59.395186"], ["updated_at", "2016-04-24 17:52:59.395186"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 8], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.399510"], ["updated_at", "2016-04-24 17:52:59.399510"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 8], ["tag_id", 23], ["created_at", "2016-04-24 17:52:59.404207"], ["updated_at", "2016-04-24 17:52:59.404207"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 8], ["tag_id", 15], ["created_at", "2016-04-24 17:52:59.409464"], ["updated_at", "2016-04-24 17:52:59.409464"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Monte Cassino"], ["description", "Yellow Chartruese, Benedictine, Lemon Juice, Rye Whiskey"], ["created_at", "2016-04-24 17:52:59.414688"], ["updated_at", "2016-04-24 17:52:59.414688"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 9], ["tag_id", 7], ["created_at", "2016-04-24 17:52:59.420267"], ["updated_at", "2016-04-24 17:52:59.420267"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 9], ["tag_id", 3], ["created_at", "2016-04-24 17:52:59.425473"], ["updated_at", "2016-04-24 17:52:59.425473"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 9], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.430561"], ["updated_at", "2016-04-24 17:52:59.430561"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 9], ["tag_id", 14], ["created_at", "2016-04-24 17:52:59.435697"], ["updated_at", "2016-04-24 17:52:59.435697"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Monte Carlo"], ["description", "Bourbon, Benedictine, Angostura Bitters"], ["created_at", "2016-04-24 17:52:59.441049"], ["updated_at", "2016-04-24 17:52:59.441049"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 10], ["tag_id", 4], ["created_at", "2016-04-24 17:52:59.446371"], ["updated_at", "2016-04-24 17:52:59.446371"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 10], ["tag_id", 12], ["created_at", "2016-04-24 17:52:59.451643"], ["updated_at", "2016-04-24 17:52:59.451643"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 10], ["tag_id", 1], ["created_at", "2016-04-24 17:52:59.456733"], ["updated_at", "2016-04-24 17:52:59.456733"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 10], ["tag_id", 2], ["created_at", "2016-04-24 17:52:59.461838"], ["updated_at", "2016-04-24 17:52:59.461838"]]
+  [1m[35m (2.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Last Word"], ["description", "Gin, Green Chartreuse, Lime Juice, Luxardo"], ["created_at", "2016-04-24 17:52:59.467957"], ["updated_at", "2016-04-24 17:52:59.467957"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 11], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.473892"], ["updated_at", "2016-04-24 17:52:59.473892"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 11], ["tag_id", 14], ["created_at", "2016-04-24 17:52:59.478146"], ["updated_at", "2016-04-24 17:52:59.478146"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 11], ["tag_id", 15], ["created_at", "2016-04-24 17:52:59.482621"], ["updated_at", "2016-04-24 17:52:59.482621"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 11], ["tag_id", 18], ["created_at", "2016-04-24 17:52:59.487061"], ["updated_at", "2016-04-24 17:52:59.487061"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Martini"], ["description", "Gin, Dry Vermouth"], ["created_at", "2016-04-24 17:52:59.491864"], ["updated_at", "2016-04-24 17:52:59.491864"]]
+  [1m[35m (0.9ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 12], ["tag_id", 1], ["created_at", "2016-04-24 17:52:59.495403"], ["updated_at", "2016-04-24 17:52:59.495403"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 12], ["tag_id", 5], ["created_at", "2016-04-24 17:52:59.499960"], ["updated_at", "2016-04-24 17:52:59.499960"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 12], ["tag_id", 4], ["created_at", "2016-04-24 17:52:59.504367"], ["updated_at", "2016-04-24 17:52:59.504367"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 12], ["tag_id", 2], ["created_at", "2016-04-24 17:52:59.508919"], ["updated_at", "2016-04-24 17:52:59.508919"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Zim Zala Bim"], ["description", "Reposado Tequila, Regan's Orange Bitters, Yellow Chartreuse, Sugar"], ["created_at", "2016-04-24 17:52:59.513394"], ["updated_at", "2016-04-24 17:52:59.513394"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 13], ["tag_id", 1], ["created_at", "2016-04-24 17:52:59.518297"], ["updated_at", "2016-04-24 17:52:59.518297"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 13], ["tag_id", 7], ["created_at", "2016-04-24 17:52:59.521949"], ["updated_at", "2016-04-24 17:52:59.521949"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 13], ["tag_id", 8], ["created_at", "2016-04-24 17:52:59.526576"], ["updated_at", "2016-04-24 17:52:59.526576"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Purgatory"], ["description", "Rye Whiskey, Green Chartreuse, Benedictine"], ["created_at", "2016-04-24 17:52:59.531164"], ["updated_at", "2016-04-24 17:52:59.531164"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 14], ["tag_id", 1], ["created_at", "2016-04-24 17:52:59.536202"], ["updated_at", "2016-04-24 17:52:59.536202"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 14], ["tag_id", 7], ["created_at", "2016-04-24 17:52:59.541365"], ["updated_at", "2016-04-24 17:52:59.541365"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 14], ["tag_id", 8], ["created_at", "2016-04-24 17:52:59.546686"], ["updated_at", "2016-04-24 17:52:59.546686"]]
+  [1m[35m (0.6ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 14], ["tag_id", 12], ["created_at", "2016-04-24 17:52:59.550167"], ["updated_at", "2016-04-24 17:52:59.550167"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Basil Gimlet"], ["description", "Gin, Basil, Lime Juice, Sugar"], ["created_at", "2016-04-24 17:52:59.555375"], ["updated_at", "2016-04-24 17:52:59.555375"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 15], ["tag_id", 20], ["created_at", "2016-04-24 17:52:59.560762"], ["updated_at", "2016-04-24 17:52:59.560762"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 15], ["tag_id", 23], ["created_at", "2016-04-24 17:52:59.566246"], ["updated_at", "2016-04-24 17:52:59.566246"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 15], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.571381"], ["updated_at", "2016-04-24 17:52:59.571381"]]
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 15], ["tag_id", 15], ["created_at", "2016-04-24 17:52:59.576870"], ["updated_at", "2016-04-24 17:52:59.576870"]]
+  [1m[35m (2.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Orange Whip"], ["description", "Gin, Egg Whites, Orange Curacao, Orange Juice, Sugar"], ["created_at", "2016-04-24 17:52:59.582410"], ["updated_at", "2016-04-24 17:52:59.582410"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 16], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.587992"], ["updated_at", "2016-04-24 17:52:59.587992"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 16], ["tag_id", 15], ["created_at", "2016-04-24 17:52:59.593219"], ["updated_at", "2016-04-24 17:52:59.593219"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 16], ["tag_id", 22], ["created_at", "2016-04-24 17:52:59.598286"], ["updated_at", "2016-04-24 17:52:59.598286"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 16], ["tag_id", 28], ["created_at", "2016-04-24 17:52:59.603466"], ["updated_at", "2016-04-24 17:52:59.603466"]]
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 16], ["tag_id", 20], ["created_at", "2016-04-24 17:52:59.608760"], ["updated_at", "2016-04-24 17:52:59.608760"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Trinidad Sour"], ["description", "Rye Whiskey, Angostura Bitters, Lemon Juice, Orgeat"], ["created_at", "2016-04-24 17:52:59.614134"], ["updated_at", "2016-04-24 17:52:59.614134"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 17], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.619600"], ["updated_at", "2016-04-24 17:52:59.619600"]]
+  [1m[35m (2.5ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 17], ["tag_id", 14], ["created_at", "2016-04-24 17:52:59.625035"], ["updated_at", "2016-04-24 17:52:59.625035"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 17], ["tag_id", 17], ["created_at", "2016-04-24 17:52:59.630094"], ["updated_at", "2016-04-24 17:52:59.630094"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 17], ["tag_id", 27], ["created_at", "2016-04-24 17:52:59.635466"], ["updated_at", "2016-04-24 17:52:59.635466"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Negroni"], ["description", "Gin, Campari, Sweet Vermouth"], ["created_at", "2016-04-24 17:52:59.640597"], ["updated_at", "2016-04-24 17:52:59.640597"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 18], ["tag_id", 7], ["created_at", "2016-04-24 17:52:59.646107"], ["updated_at", "2016-04-24 17:52:59.646107"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 18], ["tag_id", 1], ["created_at", "2016-04-24 17:52:59.651312"], ["updated_at", "2016-04-24 17:52:59.651312"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 18], ["tag_id", 9], ["created_at", "2016-04-24 17:52:59.656439"], ["updated_at", "2016-04-24 17:52:59.656439"]]
+  [1m[36m (1.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 18], ["tag_id", 11], ["created_at", "2016-04-24 17:52:59.660604"], ["updated_at", "2016-04-24 17:52:59.660604"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Americano"], ["description", "Campari, Sweet Vermouth, Soda Water"], ["created_at", "2016-04-24 17:52:59.665636"], ["updated_at", "2016-04-24 17:52:59.665636"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 19], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.670449"], ["updated_at", "2016-04-24 17:52:59.670449"]]
+  [1m[35m (4.8ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 19], ["tag_id", 2], ["created_at", "2016-04-24 17:52:59.677745"], ["updated_at", "2016-04-24 17:52:59.677745"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 19], ["tag_id", 17], ["created_at", "2016-04-24 17:52:59.683110"], ["updated_at", "2016-04-24 17:52:59.683110"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Ephemeral"], ["description", "Gin, Dolin Blanc, St Germain, Celery Bitters"], ["created_at", "2016-04-24 17:52:59.686528"], ["updated_at", "2016-04-24 17:52:59.686528"]]
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 20], ["tag_id", 7], ["created_at", "2016-04-24 17:52:59.692019"], ["updated_at", "2016-04-24 17:52:59.692019"]]
+  [1m[35m (2.7ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 20], ["tag_id", 1], ["created_at", "2016-04-24 17:52:59.697612"], ["updated_at", "2016-04-24 17:52:59.697612"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 20], ["tag_id", 8], ["created_at", "2016-04-24 17:52:59.702800"], ["updated_at", "2016-04-24 17:52:59.702800"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Martinez"], ["description", "Old Tom Gin, Sweet Vermouth, Luxardo, Angostura Bitters, Regan's Orange Bitters"], ["created_at", "2016-04-24 17:52:59.708110"], ["updated_at", "2016-04-24 17:52:59.708110"]]
+  [1m[36m (1.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 21], ["tag_id", 6], ["created_at", "2016-04-24 17:52:59.713389"], ["updated_at", "2016-04-24 17:52:59.713389"]]
+  [1m[35m (2.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 21], ["tag_id", 1], ["created_at", "2016-04-24 17:52:59.718780"], ["updated_at", "2016-04-24 17:52:59.718780"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 21], ["tag_id", 2], ["created_at", "2016-04-24 17:52:59.723905"], ["updated_at", "2016-04-24 17:52:59.723905"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Cucumber Cooler"], ["description", "Gin, Aperol, Lime Juice, Sugar, Soda Water"], ["created_at", "2016-04-24 17:52:59.729272"], ["updated_at", "2016-04-24 17:52:59.729272"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 22], ["tag_id", 15], ["created_at", "2016-04-24 17:52:59.734725"], ["updated_at", "2016-04-24 17:52:59.734725"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 22], ["tag_id", 20], ["created_at", "2016-04-24 17:52:59.740176"], ["updated_at", "2016-04-24 17:52:59.740176"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 22], ["tag_id", 23], ["created_at", "2016-04-24 17:52:59.745790"], ["updated_at", "2016-04-24 17:52:59.745790"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 22], ["tag_id", 30], ["created_at", "2016-04-24 17:52:59.751000"], ["updated_at", "2016-04-24 17:52:59.751000"]]
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 22], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.756214"], ["updated_at", "2016-04-24 17:52:59.756214"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Gin Gin Mule"], ["description", "Gin, Lime Juice, Sugar, Ginger Beer"], ["created_at", "2016-04-24 17:52:59.761479"], ["updated_at", "2016-04-24 17:52:59.761479"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 23], ["tag_id", 20], ["created_at", "2016-04-24 17:52:59.766998"], ["updated_at", "2016-04-24 17:52:59.766998"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 23], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.772308"], ["updated_at", "2016-04-24 17:52:59.772308"]]
+  [1m[36m (1.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 23], ["tag_id", 23], ["created_at", "2016-04-24 17:52:59.776464"], ["updated_at", "2016-04-24 17:52:59.776464"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 23], ["tag_id", 15], ["created_at", "2016-04-24 17:52:59.781954"], ["updated_at", "2016-04-24 17:52:59.781954"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 23], ["tag_id", 30], ["created_at", "2016-04-24 17:52:59.787160"], ["updated_at", "2016-04-24 17:52:59.787160"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Favela"], ["description", "Gin, Cocchi Americano, Campari, Falernum, Lemon Juice, Grapefruit Bitters"], ["created_at", "2016-04-24 17:52:59.792485"], ["updated_at", "2016-04-24 17:52:59.792485"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 24], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.797817"], ["updated_at", "2016-04-24 17:52:59.797817"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (2.5ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 24], ["tag_id", 2], ["created_at", "2016-04-24 17:52:59.803365"], ["updated_at", "2016-04-24 17:52:59.803365"]]
+  [1m[36m (2.9ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 24], ["tag_id", 17], ["created_at", "2016-04-24 17:52:59.811454"], ["updated_at", "2016-04-24 17:52:59.811454"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Royal Hawaiian"], ["description", "Gin, Pineapple Juice, Orgeat, Lemon Juice"], ["created_at", "2016-04-24 17:52:59.816868"], ["updated_at", "2016-04-24 17:52:59.816868"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 25], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.822318"], ["updated_at", "2016-04-24 17:52:59.822318"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 25], ["tag_id", 20], ["created_at", "2016-04-24 17:52:59.827625"], ["updated_at", "2016-04-24 17:52:59.827625"]]
+  [1m[36m (2.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 25], ["tag_id", 22], ["created_at", "2016-04-24 17:52:59.833060"], ["updated_at", "2016-04-24 17:52:59.833060"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 25], ["tag_id", 28], ["created_at", "2016-04-24 17:52:59.838298"], ["updated_at", "2016-04-24 17:52:59.838298"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 25], ["tag_id", 15], ["created_at", "2016-04-24 17:52:59.843475"], ["updated_at", "2016-04-24 17:52:59.843475"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Penicillin"], ["description", "Scothc, Ginger, Honey, Lemon"], ["created_at", "2016-04-24 17:52:59.848699"], ["updated_at", "2016-04-24 17:52:59.848699"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 26], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.854253"], ["updated_at", "2016-04-24 17:52:59.854253"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 26], ["tag_id", 14], ["created_at", "2016-04-24 17:52:59.859365"], ["updated_at", "2016-04-24 17:52:59.859365"]]
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 26], ["tag_id", 19], ["created_at", "2016-04-24 17:52:59.864681"], ["updated_at", "2016-04-24 17:52:59.864681"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Unlucky Italian"], ["description", "Cynar, Averna, Honey, Cinnamon, Lemon Juice, Egg White"], ["created_at", "2016-04-24 17:52:59.870065"], ["updated_at", "2016-04-24 17:52:59.870065"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 27], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.875450"], ["updated_at", "2016-04-24 17:52:59.875450"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 27], ["tag_id", 17], ["created_at", "2016-04-24 17:52:59.880612"], ["updated_at", "2016-04-24 17:52:59.880612"]]
+  [1m[36m (2.4ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 27], ["tag_id", 14], ["created_at", "2016-04-24 17:52:59.886214"], ["updated_at", "2016-04-24 17:52:59.886214"]]
+  [1m[35m (4.9ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Jack Rose"], ["description", "Apple Brandy, Lemon Juice, Grenadine"], ["created_at", "2016-04-24 17:52:59.894320"], ["updated_at", "2016-04-24 17:52:59.894320"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 28], ["tag_id", 21], ["created_at", "2016-04-24 17:52:59.899964"], ["updated_at", "2016-04-24 17:52:59.899964"]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 28], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.905181"], ["updated_at", "2016-04-24 17:52:59.905181"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 28], ["tag_id", 25], ["created_at", "2016-04-24 17:52:59.910264"], ["updated_at", "2016-04-24 17:52:59.910264"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 28], ["tag_id", 15], ["created_at", "2016-04-24 17:52:59.915441"], ["updated_at", "2016-04-24 17:52:59.915441"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 28], ["tag_id", 32], ["created_at", "2016-04-24 17:52:59.921099"], ["updated_at", "2016-04-24 17:52:59.921099"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 28], ["tag_id", 35], ["created_at", "2016-04-24 17:52:59.926217"], ["updated_at", "2016-04-24 17:52:59.926217"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["name", "Chocolate Flip"], ["description", "Dark Rum, Tia Maria, Whole Egg, Sugar"], ["created_at", "2016-04-24 17:52:59.931457"], ["updated_at", "2016-04-24 17:52:59.931457"]]
+  [1m[35m (2.8ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 29], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.937830"], ["updated_at", "2016-04-24 17:52:59.937830"]]
+  [1m[36m (3.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 29], ["tag_id", 15], ["created_at", "2016-04-24 17:52:59.944245"], ["updated_at", "2016-04-24 17:52:59.944245"]]
+  [1m[35m (2.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 29], ["tag_id", 21], ["created_at", "2016-04-24 17:52:59.949147"], ["updated_at", "2016-04-24 17:52:59.949147"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.5ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 29], ["tag_id", 24], ["created_at", "2016-04-24 17:52:59.953489"], ["updated_at", "2016-04-24 17:52:59.953489"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks" ("name", "description", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["name", "Jim Jam"], ["description", "Averna, Apry, Lemon Juice"], ["created_at", "2016-04-24 17:52:59.958536"], ["updated_at", "2016-04-24 17:52:59.958536"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 30], ["tag_id", 36], ["created_at", "2016-04-24 17:52:59.962947"], ["updated_at", "2016-04-24 17:52:59.962947"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 30], ["tag_id", 15], ["created_at", "2016-04-24 17:52:59.967341"], ["updated_at", "2016-04-24 17:52:59.967341"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 30], ["tag_id", 21], ["created_at", "2016-04-24 17:52:59.971938"], ["updated_at", "2016-04-24 17:52:59.971938"]]
+  [1m[35m (1.7ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 30], ["tag_id", 25], ["created_at", "2016-04-24 17:52:59.975881"], ["updated_at", "2016-04-24 17:52:59.975881"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"[0m  [["drink_id", 30], ["tag_id", 32], ["created_at", "2016-04-24 17:52:59.980072"], ["updated_at", "2016-04-24 17:52:59.980072"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "drinks_tags" ("drink_id", "tag_id", "created_at", "updated_at") VALUES ($1, $2, $3, $4) RETURNING "id"  [["drink_id", 30], ["tag_id", 34], ["created_at", "2016-04-24 17:52:59.984596"], ["updated_at", "2016-04-24 17:52:59.984596"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (1.0ms)[0m  [1mINSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Barbarossa Lounge"], ["created_at", "2016-04-24 17:53:00.003032"], ["updated_at", "2016-04-24 17:53:00.003032"]]
+  [1m[35m (1.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["name", "Two Sisters Bar and Books"], ["created_at", "2016-04-24 17:53:00.010068"], ["updated_at", "2016-04-24 17:53:00.010068"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (2.7ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Hi-Lo Club"], ["created_at", "2016-04-24 17:53:00.024982"], ["updated_at", "2016-04-24 17:53:00.024982"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["name", "The Butterfly Lounge"], ["created_at", "2016-04-24 17:53:00.028336"], ["updated_at", "2016-04-24 17:53:00.028336"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Forgery"], ["created_at", "2016-04-24 17:53:00.032644"], ["updated_at", "2016-04-24 17:53:00.032644"]]
+  [1m[35m (1.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["name", "Bond"], ["created_at", "2016-04-24 17:53:00.036316"], ["updated_at", "2016-04-24 17:53:00.036316"]]
+  [1m[36m (1.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Oddjob"], ["created_at", "2016-04-24 17:53:00.040313"], ["updated_at", "2016-04-24 17:53:00.040313"]]
+  [1m[35m (2.0ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["name", "Bourbon + Branch"], ["created_at", "2016-04-24 17:53:00.044674"], ["updated_at", "2016-04-24 17:53:00.044674"]]
+  [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mINSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Blackbird"], ["created_at", "2016-04-24 17:53:00.049339"], ["updated_at", "2016-04-24 17:53:00.049339"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["name", "15 Romolo"], ["created_at", "2016-04-24 17:53:00.054152"], ["updated_at", "2016-04-24 17:53:00.054152"]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Trick Dog"], ["created_at", "2016-04-24 17:53:00.058537"], ["updated_at", "2016-04-24 17:53:00.058537"]]
+  [1m[35m (1.0ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["name", "The European"], ["created_at", "2016-04-24 17:53:00.061871"], ["updated_at", "2016-04-24 17:53:00.061871"]]
+  [1m[36m (4.7ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Comstock Saloon"], ["created_at", "2016-04-24 17:53:00.068675"], ["updated_at", "2016-04-24 17:53:00.068675"]]
+  [1m[35m (2.1ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["name", "Cantina"], ["created_at", "2016-04-24 17:53:00.073118"], ["updated_at", "2016-04-24 17:53:00.073118"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Smuggler's Cove"], ["created_at", "2016-04-24 17:53:00.077490"], ["updated_at", "2016-04-24 17:53:00.077490"]]
+  [1m[35m (4.9ms)[0m  COMMIT
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  INSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["name", "The Alembic"], ["created_at", "2016-04-24 17:53:00.085026"], ["updated_at", "2016-04-24 17:53:00.085026"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.3ms)[0m  [1mINSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Rickhouse"], ["created_at", "2016-04-24 17:53:00.090459"], ["updated_at", "2016-04-24 17:53:00.090459"]]
+  [1m[35m (0.4ms)[0m  COMMIT
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  INSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["name", "Maven"], ["created_at", "2016-04-24 17:53:00.093851"], ["updated_at", "2016-04-24 17:53:00.093851"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36mSQL (0.2ms)[0m  [1mINSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"[0m  [["name", "Rye"], ["created_at", "2016-04-24 17:53:00.098167"], ["updated_at", "2016-04-24 17:53:00.098167"]]
+  [1m[35m (2.2ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  INSERT INTO "bars" ("name", "created_at", "updated_at") VALUES ($1, $2, $3) RETURNING "id"  [["name", "Tradition"], ["created_at", "2016-04-24 17:53:00.102540"], ["updated_at", "2016-04-24 17:53:00.102540"]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
