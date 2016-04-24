@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  mount_devise_token_auth_for 'User', at: 'auth'
   resources :bars, except: [:new, :edit] do
     resources :drinks, except: [:new, :edit]
   end
@@ -9,9 +10,11 @@ Rails.application.routes.draw do
   root 'bars#index'
 
 
-  devise_for :users, controllers: {
-    sessions: 'users/sessions'
-  }
+
+  # devise_for :users, controllers: {
+  #   sessions: 'users/sessions'
+  # }
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

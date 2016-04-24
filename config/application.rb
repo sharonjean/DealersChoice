@@ -2,9 +2,22 @@ require File.expand_path('../boot', __FILE__)
 
 require 'rails/all'
 require 'yelp'
-require 'dotenv' ; Dotenv.load ".env.local", ".env.#{Rails.env}"
+require 'dotenv-rails' ; Dotenv.load ".env.local", ".env.#{Rails.env}"
+require 'rack/cors'
 
-
+module DealersChoice
+  class Application < Rails::Application
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*',
+          :headers => :any,
+          :expose  => ['access-token', 'expiry', 'token-type', 'uid', 'client'],
+          :methods => [:get, :post, :options, :delete, :put]
+      end
+    end
+  end
+end
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
