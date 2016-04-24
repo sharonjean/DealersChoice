@@ -21017,3 +21017,29 @@ If you want to use the new default:
   [1m[36m (2.3ms)[0m  [1mCOMMIT[0m
   [1m[36mTag Load (1.1ms)[0m  [1mSELECT  "tags".* FROM "tags"  ORDER BY "tags"."id" ASC LIMIT 1[0m
   [1m[35mUser Load (5.2ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+DEPRECATION WARNING: [Devise] config.email_regexp will have a new default on Devise 4.1
+To keep the current behavior please set in your config/initializers/devise.rb the following:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/
+  end
+
+If you want to use the new default:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  end
+. (called from block in tsort_each at /Users/ianthorp/.rbenv/versions/2.2.4/lib/ruby/2.2.0/tsort.rb:226)
+DEPRECATION WARNING: [Devise] config.email_regexp will have a new default on Devise 4.1
+To keep the current behavior please set in your config/initializers/devise.rb the following:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/
+  end
+
+If you want to use the new default:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  end
+. (called from block in tsort_each at /Users/ianthorp/.rbenv/versions/2.2.4/lib/ruby/2.2.0/tsort.rb:226)

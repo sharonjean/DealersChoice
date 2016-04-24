@@ -104,7 +104,6 @@ Tag.find(36).children << Tag.find(15)
 
 100.times do
   user = User.new
-  user.username = Faker::Hipster.word
   user.email = Faker::Internet.email
   user.password = '123456'
   user.password_confirmation = '123456'
@@ -115,7 +114,7 @@ end
 cocktails = {
     Bitter_Giuseppe: { tags: [ 6, 9, 11, 1, 7], description: "With a big pour of Cynar and a touch of sweet vermouth, this shim (low alchohol cocktail) packs big, bold, bitter flavor with a dark caramel hint.", name: "Bitter Giuseppe"} ,
 
-    "1794": { tags: [ 12, 9, 1, 7], description: "Rye Whiskey focused, with a bitter dark chocolate kick.", name: "1794"} ,
+    :"1794" => { tags: [ 12, 9, 1, 7], description: "Rye Whiskey focused, with a bitter dark chocolate kick.", name: "1794"} ,
 
     Corpse_Reviver_2: { tags: [36, 20, 23, 15, 31 ] , description: "Refreshing with a good kick of citrus. This drink will help wake you up with a powerful absinthe aroma.", name: "Corpse Reviver #2"},
 
