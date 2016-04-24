@@ -180,3 +180,11 @@ cocktails = {
 
     Jim_Jam: { tags: [36, 15, 21, 25, 32, 34], description: "Averna, Apry, Lemon Juice", name: "Jim Jam"}
 }
+
+top_sf_bars = ["Barbarossa Lounge","Two Sisters Bar and Books","Hi-Lo Club","The Butterfly Lounge","Forgery","Bond","Oddjob","Bourbon + Branch","Blackbird","15 Romolo","Trick Dog","The European","Comstock Saloon","Cantina","Smuggler's Cove","The Alembic","Rickhouse","Maven","Rye","Tradition"]
+
+top_sf_bars.each do |bar|
+  Bar.create(name: bar)
+end
+
+
