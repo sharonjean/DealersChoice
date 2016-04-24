@@ -175,7 +175,7 @@ cocktails = {
 }
 
 cocktails.each do |key, value|
-  drink = Drink.create(name: value[:name], description: value[:description])
+  drink = Drink.create(name: value[:name], description: value[:description], bar_id: 1)
   value[:tags].each {|tag| DrinksTag.create(drink_id: drink.id, tag_id: tag)}
 end
 

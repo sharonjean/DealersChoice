@@ -2,8 +2,7 @@ class DrinksController < ApplicationController
 
   def choose
     # Need to recieve params[:choice_id](drink selected id).
-    p '___________------------------------------------------'
-    p params[:id]
+
     if session[:drink_ids] == nil
       p 'WENT INTO THE IF STATEMENT'
       session[:drink_ids] = params[:id]
@@ -22,11 +21,20 @@ class DrinksController < ApplicationController
       render json: @drink
     else
       # Need something for edge case if they don't like any drinks
-      redirect_to root_path
+      redirect_to drinks_index_path
     end
   end
 
-  def show
-
+  def index
+    @bar = Bar(params[:id])
+    @bar_menu = {bar: @bar, drinks: @bar.drinks}
+    render json: @bar_menu
   end
+
+  def show
+    @drink = Drink.find(params[:id])
+    @drink_data = {drink: @drink, reviews: @drink.reviews}
+    render json: @drink_data
+  end
+
 end
