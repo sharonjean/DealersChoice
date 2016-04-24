@@ -21,7 +21,7 @@ class DrinksController < ApplicationController
       @drink = Drink.find(@drink_id)
       render json: @drink
     else
-      # Need something for edge case of they don't like any drinks
+      # Need something for edge case if they don't like any drinks
       redirect_to root_path
     end
   end
