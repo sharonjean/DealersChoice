@@ -2,6 +2,7 @@ Rails.application.routes.draw do
   resources :bars, except: [:new, :edit] do
     resources :drinks, except: [:new, :edit]
   end
+  get 'drinks/choose' => "drinks#choose"
 
   resources :tags, except: [:new, :edit]
 
