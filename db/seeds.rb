@@ -101,13 +101,13 @@ Tag.find(32).children << Tag.find(35)
 Tag.find(36).children << Tag.find(14)
 Tag.find(36).children << Tag.find(15)
 
-100.times do
-  Drink.create(name: Faker::Hipster.word, description: Faker::Hipster.sentence)
-end
+# 100.times do
+#   Drink.create(name: Faker::Hipster.word, description: Faker::Hipster.sentence)
+# end
 
-500.times do
-  DrinksTag.create(drink_id: rand(1..100),tag_id: rand(1..36))
-end
+# 500.times do
+#   DrinksTag.create(drink_id: rand(1..100),tag_id: rand(1..36))
+# end
 
 100.times do
   user = User.new
@@ -122,7 +122,7 @@ end
 cocktails = {
     Bitter_Giuseppe: { tags: [ 6, 9, 11, 1, 7], description: "With a big pour of Cynar and a touch of sweet vermouth, this shim (low alchohol cocktail) packs big, bold, bitter flavor with a dark caramel hint.", name: "Bitter Giuseppe"} ,
 
-    1794: { tags: [ 12, 9, 1, 7], description: "Rye Whiskey focused, with a bitter dark chocolate kick.", name: "1794"} ,
+    "1794": { tags: [ 12, 9, 1, 7], description: "Rye Whiskey focused, with a bitter dark chocolate kick.", name: "1794"} ,
 
     Corpse_Reviver_2: { tags: [36, 20, 23, 15, 31 ] , description: "Refreshing with a good kick of citrus. This drink will help wake you up with a powerful absinthe aroma.", name: "Corpse Reviver #2"},
 
@@ -180,6 +180,11 @@ cocktails = {
 
     Jim_Jam: { tags: [36, 15, 21, 25, 32, 34], description: "Averna, Apry, Lemon Juice", name: "Jim Jam"}
 }
+
+cocktails.each do |key, value|
+  drink = Drink.create(name: value[:name], description: value[:description])
+  value[:tags].each {|tag| DrinksTag.create(drink_id: drink.id, tag_id: tag)}
+end
 
 top_sf_bars = ["Barbarossa Lounge","Two Sisters Bar and Books","Hi-Lo Club","The Butterfly Lounge","Forgery","Bond","Oddjob","Bourbon + Branch","Blackbird","15 Romolo","Trick Dog","The European","Comstock Saloon","Cantina","Smuggler's Cove","The Alembic","Rickhouse","Maven","Rye","Tradition"]
 
