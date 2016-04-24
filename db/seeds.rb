@@ -8,45 +8,45 @@
 # third_gen = second_gen.each do {|tag| 2.times {tag.children.create(name: Faker::Hipster.word, description: Faker::Hipster.sentence)}}
 
 tags = [
-  "Spirituous",
-  "Straight_Forward_1",
-  "Smokey_1",
-  "Smooth_1",
-  "Light_1",
-  "Dark_1",
-  "Complex_1",
-  "Vegetal_1",
-  "Bitter_1",
-  "Smokey_2",
-  "Smooth_2",
-  "Dark_2",
-  "Light_2",
-  "Complex_2",
-  "Straight_Forward_2",
-  "Vegetal_2",
-  "Bitter_2",
-  "Light_3",
-  "Dark_3",
-  "Light_4",
-  "Dark_4",
-  "Fruity_1",
-  "Crisp_1",
-  "Decadent",
-  "Crisp_2",
-  "Citrus",
-  "Clove",
-  "Tropical",
-  "Berry_1",
-  "Bubbly",
-  "Still",
-  "Fruity_2",
-  "Herbal",
-  "Stonefruit",
-  "Berry_2",
-  "Gentle"]
+  { name: "Spirituous", description: "Robust and spirit forward."},
+  { name: "Straight Forward", description: "Lets the spirit take front and center."},
+  { name: "Smokey", description: "Smokey and peatie aroma"},
+  { name: "Smooth", description: "Balanced flavors without any standing out too much."},
+  { name: "Light", description: "Spirits with a lighter body (Gin, Vodka, Light Rum, etc)"},
+  { name: "Dark", description: "Spirits with a darker body (Whisk(e)y, Dark Rum, etc )"},
+  { name: "Complex", description: "Flavors that are not appetizing for all(bitter, smokey, vegetal)"},
+  { name: "Vegetal", description: "Flavors originiating from a variety of herbs and vegetables"},
+  { name: "Bitter", description: "Deep and almost medicinal bitter flavor."},
+  { name: "Smokey", description: "Smokey and peatie aroma"},
+  { name: "Smooth", description: "Balanced flavors without any standing out too much."},
+  { name: "Dark", description: "Spirits with a darker body (Whisk(e)y, Dark Rum, etc )"},
+  { name: "Light", description: "Spirits with a lighter body (Gin, Vodka, Light Rum, etc)"},
+  { name: "Complex", description: "Flavors that are not appetizing for all(bitter, smokey, vegetal)"},
+  { name: "Straight Forward", description: "Lets the spirit take front and center."},
+  { name: "Vegetal", description: "Flavors originiating from a variety of herbs and vegetables"},
+  { name: "Bitter", description: "Deep and almost medicinal bitter flavor."},
+  { name: "Light", description: "Spirits with a lighter body (Gin, Vodka, Light Rum, etc)"},
+  { name: "Dark", description: "Spirits with a darker body (Whisk(e)y, Dark Rum, etc )"},
+  { name: "Light", description: "Spirits with a lighter body (Gin, Vodka, Light Rum, etc)"},
+  { name: "Dark", description: "Spirits with a darker body (Whisk(e)y, Dark Rum, etc )"},
+  { name: "Fruity", description: "Flavors originating from all fruit."},
+  { name: "Crisp", description: "Refreshing and bright"},
+  { name: "Decadent", description: "Desserty, creamy, and sweet"},
+  { name: "Crisp", description: "Refreshing and bright"},
+  { name: "Citrus", description: "Bright crisp flavors from lemon, lime, orange, or grapefruit."},
+  { name: "Clove", description: "Holiday spices of Allspice and Clove"},
+  { name: "Tropical", description: "Flavors like pineapple, mango, and coconut."},
+  { name: "Berry", description: "Flavors like strawberry, blueberry, and raspberry"},
+  { name: "Bubbly", description: "Effervescent and carbonated."},
+  { name: "Still", description: "Smooth and uncarbonated."},
+  { name: "Fruity", description: "Flavors originating from all fruit."},
+  { name: "Herbal", description: "Flavors could include rosemary, basil, and cilantro."},
+  { name: "Stonefruit", description: "Could include peaches, plums, and apricots."},
+  { name: "Berry", description: "Flavors like strawberry, blueberry, and raspberry"},
+  { name: "Gentle",  description: "Easy going and not too aggressive."}]
 
 tags.each do |tag|
-  Tag.create(name: tag, description: "This sure makes a tasty drink.")
+  Tag.create(name: tag[:name], description: tag[:description])
 end
 
 # Spiritous
@@ -101,13 +101,6 @@ Tag.find(32).children << Tag.find(35)
 Tag.find(36).children << Tag.find(14)
 Tag.find(36).children << Tag.find(15)
 
-100.times do
-  Drink.create(name: Faker::Hipster.word, description: Faker::Hipster.sentence)
-end
-
-500.times do
-  DrinksTag.create(drink_id: rand(1..100),tag_id: rand(1..36))
-end
 
 100.times do
   user = User.new
@@ -122,7 +115,7 @@ end
 cocktails = {
     Bitter_Giuseppe: { tags: [ 6, 9, 11, 1, 7], description: "With a big pour of Cynar and a touch of sweet vermouth, this shim (low alchohol cocktail) packs big, bold, bitter flavor with a dark caramel hint.", name: "Bitter Giuseppe"} ,
 
-    1794: { tags: [ 12, 9, 1, 7], description: "Rye Whiskey focused, with a bitter dark chocolate kick.", name: "1794"} ,
+    "1794": { tags: [ 12, 9, 1, 7], description: "Rye Whiskey focused, with a bitter dark chocolate kick.", name: "1794"} ,
 
     Corpse_Reviver_2: { tags: [36, 20, 23, 15, 31 ] , description: "Refreshing with a good kick of citrus. This drink will help wake you up with a powerful absinthe aroma.", name: "Corpse Reviver #2"},
 
@@ -180,6 +173,11 @@ cocktails = {
 
     Jim_Jam: { tags: [36, 15, 21, 25, 32, 34], description: "Averna, Apry, Lemon Juice", name: "Jim Jam"}
 }
+
+cocktails.each do |key, value|
+  drink = Drink.create(name: value[:name], description: value[:description], bar_id: 1)
+  value[:tags].each {|tag| DrinksTag.create(drink_id: drink.id, tag_id: tag)}
+end
 
 top_sf_bars = ["Barbarossa Lounge","Two Sisters Bar and Books","Hi-Lo Club","The Butterfly Lounge","Forgery","Bond","Oddjob","Bourbon + Branch","Blackbird","15 Romolo","Trick Dog","The European","Comstock Saloon","Cantina","Smuggler's Cove","The Alembic","Rickhouse","Maven","Rye","Tradition"]
 
