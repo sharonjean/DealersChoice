@@ -8,12 +8,6 @@ class BarsController < ApplicationController
     }
 
     yelp_params = Yelp.client.search('San Francisco', parameters)
-
-    bars = []
-      yelp_params.businesses.each do |bar|
-        bars << bar.name
-      end
-    return bars.join[" "]
   end
 
   def index
