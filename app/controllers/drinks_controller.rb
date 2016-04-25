@@ -26,7 +26,7 @@ class DrinksController < ApplicationController
   end
 
   def index
-    @bar = Bar(params[:id])
+    @bar = Bar.find(params[:bar_id])
     @bar_menu = {bar: @bar, drinks: @bar.drinks}
     render json: @bar_menu
   end
