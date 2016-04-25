@@ -2,7 +2,7 @@ class TagsController < ApplicationController
 
   def index
     # tag choosing logic
-    
+    # update logic
     if !params[:id]
       @tag1 = Tag.find(1)
       p "WENT THROUGH THE LOOOOOOOP"
