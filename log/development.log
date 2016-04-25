@@ -9010,3 +9010,215 @@ Processing by DrinksController#index as */*
   [1m[35mDrink Load (1.1ms)[0m  SELECT "drinks".* FROM "drinks" WHERE "drinks"."bar_id" = $1  [["bar_id", 1]]
 Completed 200 OK in 113ms (Views: 33.5ms | ActiveRecord: 5.4ms)
 >>>>>>> master
+DEPRECATION WARNING: [Devise] config.email_regexp will have a new default on Devise 4.1
+To keep the current behavior please set in your config/initializers/devise.rb the following:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/
+  end
+
+If you want to use the new default:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  end
+. (called from block in tsort_each at /Users/colettepitamba/.rbenv/versions/2.3.0/lib/ruby/2.3.0/tsort.rb:228)
+DEPRECATION WARNING: [Devise] config.email_regexp will have a new default on Devise 4.1
+To keep the current behavior please set in your config/initializers/devise.rb the following:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/
+  end
+
+If you want to use the new default:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  end
+. (called from block in tsort_each at /Users/colettepitamba/.rbenv/versions/2.3.0/lib/ruby/2.3.0/tsort.rb:228)
+DEPRECATION WARNING: [Devise] config.email_regexp will have a new default on Devise 4.1
+To keep the current behavior please set in your config/initializers/devise.rb the following:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/
+  end
+
+If you want to use the new default:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  end
+. (called from block in tsort_each at /Users/colettepitamba/.rbenv/versions/2.3.0/lib/ruby/2.3.0/tsort.rb:228)
+
+
+Started GET "/auth/sign_in" for ::1 at 2016-04-24 18:00:44 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DeviseTokenAuth::SessionsController#new as */*
+Completed 405 Method Not Allowed in 596ms (Views: 0.4ms | ActiveRecord: 0.0ms)
+
+
+Started GET "/auth/sign_in" for ::1 at 2016-04-24 18:04:48 -0700
+Processing by DeviseTokenAuth::SessionsController#new as HTML
+Completed 405 Method Not Allowed in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/auth/sign_in" for ::1 at 2016-04-24 18:05:26 -0700
+Processing by DeviseTokenAuth::SessionsController#create as */*
+Can't verify CSRF token authenticity
+Completed 401 Unauthorized in 12ms (Views: 0.3ms | ActiveRecord: 0.0ms)
+DEPRECATION WARNING: [Devise] config.email_regexp will have a new default on Devise 4.1
+To keep the current behavior please set in your config/initializers/devise.rb the following:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/
+  end
+
+If you want to use the new default:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  end
+. (called from block in tsort_each at /Users/colettepitamba/.rbenv/versions/2.3.0/lib/ruby/2.3.0/tsort.rb:228)
+  [1m[36mUser Load (18.9ms)[0m  [1mSELECT "users".* FROM "users"[0m
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.7ms)[0m  [1mSELECT COUNT(*) FROM "users" WHERE "users"."provider" = $1 AND "users"."email" = $2[0m  [["provider", "email"], ["email", "colette@email.com"]]
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."confirmation_token" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["confirmation_token", "41037b726eaff6b92d1061efedd29a2fb80c79b9eaf4cf19f84c8ebeb3ea2fe4"]]
+  [1m[36mSQL (17.6ms)[0m  [1mINSERT INTO "users" ("email", "encrypted_password", "tokens", "uid", "created_at", "updated_at", "confirmation_token", "confirmation_sent_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "colette@email.com"], ["encrypted_password", "$2a$11$w4RMa98wQBF5FuEoJkD5Pe8QUyIM0uCm7ipAQAtqymYqDizPaFpT."], ["tokens", "{}"], ["uid", "colette@email.com"], ["created_at", "2016-04-25 01:11:09.474544"], ["updated_at", "2016-04-25 01:11:09.474544"], ["confirmation_token", "2gUXmBz-GC4tg4XRAGy4"], ["confirmation_sent_at", "2016-04-25 01:11:09.683475"]]
+  [1m[35m (1.0ms)[0m  COMMIT
+DEPRECATION WARNING: [Devise] config.email_regexp will have a new default on Devise 4.1
+To keep the current behavior please set in your config/initializers/devise.rb the following:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/
+  end
+
+If you want to use the new default:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  end
+. (called from block in tsort_each at /Users/colettepitamba/.rbenv/versions/2.3.0/lib/ruby/2.3.0/tsort.rb:228)
+
+
+Started POST "/auth/sign_in" for ::1 at 2016-04-24 18:12:34 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DeviseTokenAuth::SessionsController#create as */*
+Can't verify CSRF token authenticity
+Completed 401 Unauthorized in 605ms (Views: 0.4ms | ActiveRecord: 0.0ms)
+  [1m[36mUser Load (2.2ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+  [1m[35mUser Load (0.9ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+DEPRECATION WARNING: [Devise] config.email_regexp will have a new default on Devise 4.1
+To keep the current behavior please set in your config/initializers/devise.rb the following:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/
+  end
+
+If you want to use the new default:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  end
+. (called from block in tsort_each at /Users/colettepitamba/.rbenv/versions/2.3.0/lib/ruby/2.3.0/tsort.rb:228)
+
+
+Started POST "/auth/sign_in" for ::1 at 2016-04-24 18:14:53 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DeviseTokenAuth::SessionsController#create as */*
+Can't verify CSRF token authenticity
+Completed 401 Unauthorized in 582ms (Views: 0.4ms | ActiveRecord: 0.0ms)
+  [1m[36mUser Load (1.4ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+DEPRECATION WARNING: [Devise] config.email_regexp will have a new default on Devise 4.1
+To keep the current behavior please set in your config/initializers/devise.rb the following:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/
+  end
+
+If you want to use the new default:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  end
+. (called from block in tsort_each at /Users/colettepitamba/.rbenv/versions/2.3.0/lib/ruby/2.3.0/tsort.rb:228)
+
+
+Started POST "/auth/sign_in" for ::1 at 2016-04-24 18:30:53 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DeviseTokenAuth::SessionsController#create as */*
+Can't verify CSRF token authenticity
+Completed 401 Unauthorized in 825ms (Views: 0.5ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/auth/sign_in" for ::1 at 2016-04-24 18:59:12 -0700
+Processing by DeviseTokenAuth::SessionsController#create as */*
+Can't verify CSRF token authenticity
+Completed 401 Unauthorized in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+  [1m[36mUser Load (1.7ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+DEPRECATION WARNING: [Devise] config.email_regexp will have a new default on Devise 4.1
+To keep the current behavior please set in your config/initializers/devise.rb the following:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/
+  end
+
+If you want to use the new default:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  end
+. (called from block in tsort_each at /Users/colettepitamba/.rbenv/versions/2.3.0/lib/ruby/2.3.0/tsort.rb:228)
+
+
+Started POST "/auth/sign_in" for ::1 at 2016-04-24 19:03:03 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DeviseTokenAuth::SessionsController#create as */*
+Can't verify CSRF token authenticity
+Completed 401 Unauthorized in 596ms (Views: 0.4ms | ActiveRecord: 0.0ms)
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (1.4ms)[0m  SELECT COUNT(*) FROM "users" WHERE "users"."provider" = $1 AND "users"."email" = $2  [["provider", "email"], ["email", "test@email.com"]]
+  [1m[36mUser Load (0.5ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."confirmation_token" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["confirmation_token", "a9f5423c22969aeab942b0182f7879141af3262a15f4436e576ce5cfb552f7ab"]]
+  [1m[35mSQL (0.6ms)[0m  INSERT INTO "users" ("email", "encrypted_password", "tokens", "uid", "created_at", "updated_at", "confirmation_token", "confirmation_sent_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"  [["email", "test@email.com"], ["encrypted_password", "$2a$11$1sFMxIARWZ83JMz/cKrSwuFeTFTAjlLPDdPVjCRqW9KX9TKk69eqi"], ["tokens", "{}"], ["uid", "test@email.com"], ["created_at", "2016-04-25 02:06:26.567555"], ["updated_at", "2016-04-25 02:06:26.567555"], ["confirmation_token", "a6rc16rBeuz7qxQ7FGGk"], ["confirmation_sent_at", "2016-04-25 02:06:26.791305"]]
+  [1m[36m (13.3ms)[0m  [1mCOMMIT[0m
+  [1m[35mUser Load (0.8ms)[0m  SELECT  "users".* FROM "users"  ORDER BY "users"."id" DESC LIMIT 1
+DEPRECATION WARNING: [Devise] config.email_regexp will have a new default on Devise 4.1
+To keep the current behavior please set in your config/initializers/devise.rb the following:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/
+  end
+
+If you want to use the new default:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  end
+. (called from block in tsort_each at /Users/colettepitamba/.rbenv/versions/2.3.0/lib/ruby/2.3.0/tsort.rb:228)
+
+
+Started POST "/auth/sign_in" for ::1 at 2016-04-24 19:08:02 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DeviseTokenAuth::SessionsController#create as */*
+Can't verify CSRF token authenticity
+Completed 401 Unauthorized in 596ms (Views: 0.4ms | ActiveRecord: 0.0ms)
+
+
+Started POST "/auth/sign_in" for ::1 at 2016-04-24 19:09:17 -0700
+Processing by DeviseTokenAuth::SessionsController#create as */*
+Can't verify CSRF token authenticity
+Completed 401 Unauthorized in 1ms (Views: 0.2ms | ActiveRecord: 0.0ms)
+DEPRECATION WARNING: [Devise] config.email_regexp will have a new default on Devise 4.1
+To keep the current behavior please set in your config/initializers/devise.rb the following:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/
+  end
+
+If you want to use the new default:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  end
+. (called from block in tsort_each at /Users/colettepitamba/.rbenv/versions/2.3.0/lib/ruby/2.3.0/tsort.rb:228)
