@@ -4,18 +4,15 @@ class DrinksController < ApplicationController
     # Need to recieve params[:choice_id](drink selected id).
 
     if session[:drink_ids] == nil
-      p "THIS IS IN THE SESSION CREATION PART"
       session[:drink_ids] = params[:id]
     end
 
     if params[:choice_id]
-      p "THIS IS IN THE CHOICE ID STATEMENT"
       # If drink is chosen, return json of the drink
       @drink = Drink.find(params[:choice_id])
       params[:choice_id].clear
       redirect_to bar_drink_path(id: @drink.id, bar_id: @drink.bar_id)
     elsif session[:drink_ids].length > 0
-      p "THIS IS IN THE DRINK ID STATEMENT"
       # if drink is not chosen, return next drink
       @drink_id = session[:drink_ids].shuffle!.pop
       @drink = Drink.find(@drink_id)
