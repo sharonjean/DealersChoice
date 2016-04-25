@@ -2,6 +2,11 @@ class TagsController < ApplicationController
 
   def index
     # tag choosing logic
+    if !params[:id]
+      @tag1 = Tag.find(1)
+      @tag2 = Tag.find(36)
+      render json: [@tag1, @tag2]
+    end
     @selected_tag = Tag.find(params[:id])
     if session[:tags] == nil
       session[:tags] = []
