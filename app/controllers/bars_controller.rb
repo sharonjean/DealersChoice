@@ -1,7 +1,7 @@
 class BarsController < ApplicationController
 
-  def display_bar
-    parameters = { 
+  def search
+    parameters = {
       term: 'cocktail bars',
       offset: 15,
       sort: 2,
@@ -11,8 +11,12 @@ class BarsController < ApplicationController
   end
 
   def index
-    display_bar
-    render json: display_bar
+    session[:drink_ids] = nil
+    search
+    render json: search
   end
 
+  def show
+
+  end
 end
