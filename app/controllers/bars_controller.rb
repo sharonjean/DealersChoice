@@ -1,6 +1,6 @@
 class BarsController < ApplicationController
 
-  def search
+  def display_bar
     parameters = { 
       term: 'cocktail bars',
       offset: 15,
@@ -8,17 +8,11 @@ class BarsController < ApplicationController
     }
 
     yelp_params = Yelp.client.search('San Francisco', parameters)
-
-    bars = []
-      yelp_params.businesses.each do |bar|
-        bars << bar.name
-      end
-    return bars.join[" "]
   end
 
   def index
-    search
-    render json: search
+    display_bar
+    render json: display_bar
   end
 
 end
