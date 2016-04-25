@@ -13,7 +13,7 @@ class DrinksController < ApplicationController
       # If drink is chosen, return json of the drink
       @drink = Drink.find(params[:choice_id])
       params[:choice_id].clear
-      render json: @drink
+      redirect_to bar_drink_path(id: @drink.id, bar_id: @drink.bar_id)
     elsif session[:drink_ids].length > 0
       p "THIS IS IN THE DRINK ID STATEMENT"
       # if drink is not chosen, return next drink
