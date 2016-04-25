@@ -29444,3 +29444,120 @@ Processing by DrinksController#index as */*
   [1m[36mBar Load (0.5ms)[0m  [1mSELECT  "bars".* FROM "bars" WHERE "bars"."id" = $1 LIMIT 1[0m  [["id", 1]]
   [1m[35mDrink Load (1.1ms)[0m  SELECT "drinks".* FROM "drinks" WHERE "drinks"."bar_id" = $1  [["bar_id", 1]]
 Completed 200 OK in 113ms (Views: 33.5ms | ActiveRecord: 5.4ms)
+  [1m[36mUser Load (4.7ms)[0m  [1mSELECT  "users".* FROM "users"  ORDER BY "users"."id" ASC LIMIT 1[0m
+DEPRECATION WARNING: [Devise] config.email_regexp will have a new default on Devise 4.1
+To keep the current behavior please set in your config/initializers/devise.rb the following:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@([^@\s]+\.)+[^@\W]+\z/
+  end
+
+If you want to use the new default:
+
+  Devise.setup do |config|
+    config.email_regexp = /\A[^@\s]+@[^@\s]+\z/
+  end
+. (called from block in tsort_each at /Users/ianthorp/.rbenv/versions/2.2.4/lib/ruby/2.2.0/tsort.rb:226)
+
+
+Started POST "/auth/sign_in?email=nickolas@schaefer.org&password=[FILTERED]" for ::1 at 2016-04-24 19:12:04 -0700
+Processing by DeviseTokenAuth::SessionsController#create as */*
+  Parameters: {"email"=>"nickolas@schaefer.org", "password"=>"[FILTERED]"}
+Can't verify CSRF token authenticity
+  [1m[36mUser Load (3.8ms)[0m  [1mSELECT  "users".* FROM "users" WHERE (email = 'nickolas@schaefer.org' AND provider='email')  ORDER BY "users"."id" ASC LIMIT 1[0m
+Completed 401 Unauthorized in 265ms (Views: 0.5ms | ActiveRecord: 6.5ms)
+
+
+Started POST "/auth?email=tom@tom.com&password=[FILTERED]&password_confirmation=[FILTERED]" for ::1 at 2016-04-24 19:14:43 -0700
+Processing by DeviseTokenAuth::RegistrationsController#create as */*
+  Parameters: {"email"=>"tom@tom.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]"}
+Can't verify CSRF token authenticity
+Completed 403 Forbidden in 170ms (Views: 0.3ms | ActiveRecord: 3.1ms)
+
+
+Started POST "/auth?email=tom@tom.com&password=[FILTERED]&password_confirmation=[FILTERED]&confirm_success_url=localhost:3000" for ::1 at 2016-04-24 19:16:40 -0700
+Processing by DeviseTokenAuth::RegistrationsController#create as */*
+  Parameters: {"email"=>"tom@tom.com", "password"=>"[FILTERED]", "password_confirmation"=>"[FILTERED]", "confirm_success_url"=>"localhost:3000"}
+Can't verify CSRF token authenticity
+Unpermitted parameter: confirm_success_url
+Unpermitted parameter: confirm_success_url
+Unpermitted parameter: confirm_success_url
+  [1m[35m (0.2ms)[0m  BEGIN
+  [1m[36m (0.5ms)[0m  [1mSELECT COUNT(*) FROM "users" WHERE "users"."provider" = $1 AND "users"."email" = $2[0m  [["provider", "email"], ["email", "tom@tom.com"]]
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."confirmation_token" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["confirmation_token", "526ced9681e7667adc36449717ec763062dd1026b08ab4b4cd732856a7484423"]]
+  [1m[36mSQL (3.1ms)[0m  [1mINSERT INTO "users" ("email", "encrypted_password", "tokens", "uid", "created_at", "updated_at", "confirmation_token", "confirmation_sent_at") VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING "id"[0m  [["email", "tom@tom.com"], ["encrypted_password", "$2a$11$Jf5MDnYr.eEiV6H1CENmbeLNQMijQtdQkgC91xNMRXArY8bJzDn.e"], ["tokens", "{}"], ["uid", "tom@tom.com"], ["created_at", "2016-04-25 02:16:40.648790"], ["updated_at", "2016-04-25 02:16:40.648790"], ["confirmation_token", "ZxnKs9sGfQCKcUXQzezz"], ["confirmation_sent_at", "2016-04-25 02:16:40.883462"]]
+  [1m[35m (3.1ms)[0m  COMMIT
+  Rendered /Users/ianthorp/.rbenv/versions/2.2.4/lib/ruby/gems/2.2.0/gems/devise_token_auth-0.1.37/app/views/devise/mailer/confirmation_instructions.html.erb (9.0ms)
+
+Devise::Mailer#confirmation_instructions: processed outbound mail in 356.8ms
+
+Sent mail to tom@tom.com (37.5ms)
+Date: Sun, 24 Apr 2016 19:16:41 -0700
+From: please-change-me-at-config-initializers-devise@example.com
+Reply-To: please-change-me-at-config-initializers-devise@example.com
+To: tom@tom.com
+Message-ID: <571d7e0947792_be093fdf999843841286e@Ians-MacBook-Air.local.mail>
+Subject: Confirmation instructions
+Mime-Version: 1.0
+Content-Type: text/html;
+ charset=UTF-8
+Content-Transfer-Encoding: 7bit
+client-config: default
+redirect-url: localhost:3000
+
+<p>Welcome tom@tom.com!</p>
+
+<p>You can confirm your account email through the link below: </p>
+
+<p><a href="http://localhost:3000/auth/confirmation?config=default&confirmation_token=ZxnKs9sGfQCKcUXQzezz&redirect_url=localhost%3A3000">Confirm my account</a></p>
+
+Completed 200 OK in 825ms (Views: 0.6ms | ActiveRecord: 7.4ms)
+
+
+Started GET "/auth/confirmation?config=default&confirmation_token=ZxnKs9sGfQCKcUXQzezz&redirect_url=localhost%3A3000" for ::1 at 2016-04-24 19:17:17 -0700
+Processing by DeviseTokenAuth::ConfirmationsController#show as HTML
+  Parameters: {"config"=>"default", "confirmation_token"=>"ZxnKs9sGfQCKcUXQzezz", "redirect_url"=>"localhost:3000"}
+  [1m[36mUser Load (1.1ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."confirmation_token" = $1  ORDER BY "users"."id" ASC LIMIT 1[0m  [["confirmation_token", "ZxnKs9sGfQCKcUXQzezz"]]
+  [1m[35m (0.1ms)[0m  BEGIN
+  [1m[36mSQL (0.9ms)[0m  [1mUPDATE "users" SET "confirmed_at" = $1, "updated_at" = $2 WHERE "users"."id" = $3[0m  [["confirmed_at", "2016-04-25 02:17:17.209571"], ["updated_at", "2016-04-25 02:17:17.210374"], ["id", 101]]
+  [1m[35m (2.3ms)[0m  COMMIT
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (2.9ms)[0m  UPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3  [["tokens", "{\"LqYjvRn2VIa4T5Y-gQvddw\":{\"token\":\"$2a$10$UwtBrdLGZ0gSLTjPe/V/pOLVSy61YlRF/hQVo7ovtRSYarn5QYMh2\",\"expiry\":1462760237}}"], ["updated_at", "2016-04-25 02:17:17.317654"], ["id", 101]]
+  [1m[36m (2.2ms)[0m  [1mCOMMIT[0m
+Redirected to localhost://?account_confirmation_success=true&client_id=LqYjvRn2VIa4T5Y-gQvddw&config=default&expiry=&token=QJNbqFWch-aQ6exsiJZlvA&uid=tom%40tom.com
+Completed 302 Found in 126ms (ActiveRecord: 10.0ms)
+
+
+Started GET "/auth/confirmation?config=default&confirmation_token=ZxnKs9sGfQCKcUXQzezz&redirect_url=localhost%3A3000" for ::1 at 2016-04-24 19:18:28 -0700
+Processing by DeviseTokenAuth::ConfirmationsController#show as */*
+  Parameters: {"config"=>"default", "confirmation_token"=>"ZxnKs9sGfQCKcUXQzezz", "redirect_url"=>"localhost:3000"}
+  [1m[35mUser Load (1.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."confirmation_token" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["confirmation_token", "ZxnKs9sGfQCKcUXQzezz"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.4ms)[0m  UPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3  [["tokens", "{\"LqYjvRn2VIa4T5Y-gQvddw\":{\"token\":\"$2a$10$UwtBrdLGZ0gSLTjPe/V/pOLVSy61YlRF/hQVo7ovtRSYarn5QYMh2\",\"expiry\":1462760237},\"dJb_QkPgoMo_kndrV9QAzA\":{\"token\":\"$2a$10$mY/vww5lOmlwxc8uBZQeeuQfvE35//L2v0BtpyQzhBz.psACOnLym\",\"expiry\":1462760308}}"], ["updated_at", "2016-04-25 02:18:28.733502"], ["id", 101]]
+  [1m[36m (2.1ms)[0m  [1mCOMMIT[0m
+Redirected to localhost://?account_confirmation_success=true&client_id=dJb_QkPgoMo_kndrV9QAzA&config=default&expiry=&token=QVViRdNGDZnAhR3cyKOxCQ&uid=tom%40tom.com
+Completed 302 Found in 93ms (ActiveRecord: 4.4ms)
+
+
+Started POST "/auth/sign_in?email=tom@tom.com&password=[FILTERED]" for ::1 at 2016-04-24 19:20:20 -0700
+Processing by DeviseTokenAuth::SessionsController#create as */*
+  Parameters: {"email"=>"tom@tom.com", "password"=>"[FILTERED]"}
+Can't verify CSRF token authenticity
+  [1m[35mUser Load (2.4ms)[0m  SELECT  "users".* FROM "users" WHERE (email = 'tom@tom.com' AND provider='email')  ORDER BY "users"."id" ASC LIMIT 1
+  [1m[36m (0.3ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  UPDATE "users" SET "tokens" = $1, "updated_at" = $2 WHERE "users"."id" = $3  [["tokens", "{\"LqYjvRn2VIa4T5Y-gQvddw\":{\"token\":\"$2a$10$UwtBrdLGZ0gSLTjPe/V/pOLVSy61YlRF/hQVo7ovtRSYarn5QYMh2\",\"expiry\":1462760237},\"dJb_QkPgoMo_kndrV9QAzA\":{\"token\":\"$2a$10$mY/vww5lOmlwxc8uBZQeeuQfvE35//L2v0BtpyQzhBz.psACOnLym\",\"expiry\":1462760308},\"05ItMmIg8aWQW79TlHrKZw\":{\"token\":\"$2a$10$3RRU9IsckzmWa5juf2KrxuVGaX9Sh0paHb69MOq/r56iDjY//7k2S\",\"expiry\":1462760420}}"], ["updated_at", "2016-04-25 02:20:20.415369"], ["id", 101]]
+  [1m[36m (2.5ms)[0m  [1mCOMMIT[0m
+  [1m[35m (0.3ms)[0m  BEGIN
+  [1m[36mSQL (0.4ms)[0m  [1mUPDATE "users" SET "last_sign_in_at" = $1, "current_sign_in_at" = $2, "last_sign_in_ip" = $3, "current_sign_in_ip" = $4, "sign_in_count" = $5, "updated_at" = $6 WHERE "users"."id" = $7[0m  [["last_sign_in_at", "2016-04-25 02:20:20.422642"], ["current_sign_in_at", "2016-04-25 02:20:20.422642"], ["last_sign_in_ip", "::1"], ["current_sign_in_ip", "::1"], ["sign_in_count", 1], ["updated_at", "2016-04-25 02:20:20.424866"], ["id", 101]]
+  [1m[35m (2.2ms)[0m  COMMIT
+Completed 200 OK in 269ms (Views: 1.1ms | ActiveRecord: 8.7ms)
+
+
+Started POST "/auth/sign_in?email=12s;dfkja9@gmail.com&password=[FILTERED]" for ::1 at 2016-04-24 19:28:13 -0700
+Processing by DeviseTokenAuth::SessionsController#create as */*
+  Parameters: {"email"=>"12s", "dfkja9@gmail.com"=>nil, "password"=>"[FILTERED]"}
+Can't verify CSRF token authenticity
+Unpermitted parameter: dfkja9@gmail.com
+Unpermitted parameter: dfkja9@gmail.com
+  [1m[36mUser Load (1.9ms)[0m  [1mSELECT  "users".* FROM "users" WHERE (email = '12s' AND provider='email')  ORDER BY "users"."id" ASC LIMIT 1[0m
+Completed 401 Unauthorized in 30ms (Views: 2.3ms | ActiveRecord: 1.9ms)
