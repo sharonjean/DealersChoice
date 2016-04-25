@@ -2,10 +2,8 @@ class TagsController < ApplicationController
 
   def index
     # tag choosing logic
-    # update logic
     if !params[:id]
       @tag1 = Tag.find(1)
-      p "WENT THROUGH THE LOOOOOOOP"
       @tag2 = Tag.find(36)
       return render json: [@tag1, @tag2]
     else
