@@ -4,7 +4,6 @@ class CreateDrinks < ActiveRecord::Migration
       t.string :name
       t.text :description
       t.integer :bar_id
-      t.references :reviewable, polymorphic: true, index: true
 
       t.timestamps null: false
     end
