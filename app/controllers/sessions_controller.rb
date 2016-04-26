@@ -1,4 +1,4 @@
-class Users::SessionsController < Devise::SessionsController
+class SessionsController < Devise::SessionsController
 before_action :configure_sign_in_params, only: [:create]
 
   # GET /resource/sign_in
@@ -9,11 +9,14 @@ before_action :configure_sign_in_params, only: [:create]
   # POST /resource/sign_in
   def create
     resource = User.find_for_database_authentication(email: params[:email])
+    return invalid_login_attempt unless resource
 
     if resource.valid_password?(params[:password])
-      render json: {:success=>true, :auth_token=>resource.confirmation_token, :email=>resource.email, :id => resource.id}
+      sign_in("user", resource)
+      render json: {:success=>true, :auth_token=>resource.confirmation_token, :email=>resource.email}
+      return
     end
-    "failed"
+    invalid_login_attempt
   end
 
   # DELETE /resource/sign_out
