@@ -112,35 +112,35 @@ end
 
 
 cocktails = {
-    Bitter_Giuseppe: { tags: [ 6, 9, 11, 1, 7], description: "With a big pour of Cynar and a touch of sweet vermouth, this shim (low alchohol cocktail) packs big, bold, bitter flavor with a dark caramel hint.", name: "Bitter Giuseppe"} ,
+    Bitter_Giuseppe: { tags: [ 6, 9, 11, 1, 7], description: "With a big pour of Cynar and a touch of sweet vermouth, this shim (low alchohol cocktail) packs big, bold, bitter flavor with a dark caramel hint.", name: "Bitter Giuseppe", url: "http://bit.ly/1VV9xHd"} ,
 
-    :"1794" => { tags: [ 12, 9, 1, 7], description: "Rye Whiskey focused, with a bitter dark chocolate kick.", name: "1794"} ,
+    :"1794" => { tags: [ 12, 9, 1, 7], description: "Rye Whiskey focused, with a bitter dark chocolate kick.", name: "1794", url: "http://bit.ly/1QzleLM"} ,
 
-    Corpse_Reviver_2: { tags: [36, 20, 23, 15, 31 ] , description: "Refreshing with a good kick of citrus. This drink will help wake you up with a powerful absinthe aroma.", name: "Corpse Reviver #2"},
+    Corpse_Reviver_2: { tags: [36, 20, 23, 15, 31 ] , description: "Refreshing with a good kick of citrus. This drink will help wake you up with a powerful absinthe aroma.", name: "Corpse Reviver #2", url: "http://bit.ly/241hZJW"},
 
-    Old_Fashioned: { tags: [ 4, 12 , 1, 2] , description: "The original, the famous, the great, the Old Fashioned. This drink will give you a good kick of whiskey, with just a hint of sweetnes and a nose of citrus", name: "Old Fashioned"},
+    Old_Fashioned: { tags: [ 4, 12 , 1, 2] , description: "The original, the famous, the great, the Old Fashioned. This drink will give you a good kick of whiskey, with just a hint of sweetnes and a nose of citrus", name: "Old Fashioned", url: "http://www.seriouseats.com/recipes/assets_c/2014/01/20131212rumoldfashioned-thumb-625xauto-375855.jpg"},
 
-    Sazerac: { tags: [ 4, 12 ,1 , 2], description: "In the same family as the Old Fashioned. This keeps the powerful whiskey kick, and adds a touch of anise and citrus nose.", name: "Sazerac"} ,
+    Sazerac: { tags: [ 4, 12 ,1 , 2], description: "In the same family as the Old Fashioned. This keeps the powerful whiskey kick, and adds a touch of anise and citrus nose.", name: "Sazerac", url: "http://cdn.skim.gs/images/op5cuu7g9kpscj62ehjf/mad-men-20-classic-cocktails-that-will-never-go-out-of-style-sazerac"} ,
 
-    Clover_Club: { tags: [29 ,20 ,22, 36, 15], description: "Raspberry, Sugar, Gin, Lemon, Egg white", name: "Clover Club"} ,
+    Clover_Club: { tags: [29 ,20 ,22, 36, 15], description: "Raspberry, Sugar, Gin, Lemon, Egg white", name: "Clover Club", url: "http://liquor.s3.amazonaws.com/wp-content/uploads/2014/10/Nolet-Cover-Club.jpg"} ,
 
-    Williams: { tags: [3 ,2 ,1 ,12 ], description: "Scotch, Yellow Chartreuse, Scotch, Dry Vermouth, Scotch, Orange Bitters, Scotch", name: "Williams"} ,
+    Williams: { tags: [3 ,2 ,1 ,12 ], description: "Scotch, Yellow Chartreuse, Scotch, Dry Vermouth, Scotch, Orange Bitters, Scotch", name: "Williams", url: "http://giuseppegallo.co.uk/wp-content/uploads/2011/02/medium_Cure-Cocktail12.jpg"} ,
 
-    Derby: { tags: [ 21, 36, 23, 15], description: "Sweet Vermouth, Bourbon, Lime Juice, Orange Curacao", name: "Derby"} ,
+    Derby: { tags: [ 21, 36, 23, 15], description: "Sweet Vermouth, Bourbon, Lime Juice, Orange Curacao", name: "Derby", url: "http://punchdrink.com/wp-content/uploads/2015/03/brown-derby.jpg"} ,
 
-    Monte_Cassino: { tags: [ 7, 3, 36, 14], description: "Yellow Chartruese, Benedictine, Lemon Juice, Rye Whiskey", name: "Monte Cassino"} ,
+    Monte_Cassino: { tags: [ 7, 3, 36, 14], description: "Yellow Chartruese, Benedictine, Lemon Juice, Rye Whiskey", name: "Monte Cassino", url: "http://liquor.s3.amazonaws.com/wp-content/uploads/2011/03/cinquecento1.jpg"} ,
 
-    Monte_Carlo: { tags: [ 4, 12, 1, 2], description: "Bourbon, Benedictine, Angostura Bitters", name: "Monte Carlo"} ,
+    Monte_Carlo: { tags: [ 4, 12, 1, 2], description: "Bourbon, Benedictine, Angostura Bitters", name: "Monte Carlo", url: "http://i1074.photobucket.com/albums/w411/frederix3/montecarlo283.jpg"} ,
 
-    Last_Word: { tags: [36 , 14, 15, 18], description: "Gin, Green Chartreuse, Lime Juice, Luxardo", name: "Last Word"} ,
+    Last_Word: { tags: [36 , 14, 15, 18], description: "Gin, Green Chartreuse, Lime Juice, Luxardo", name: "Last Word", url: "http://punchdrink.com/wp-content/uploads/2013/09/Last-Word.jpg"} ,
 
-    Martini: { tags: [ 1, 5, 4, 2], description: "Gin, Dry Vermouth", name: "Martini"} ,
+    Martini: { tags: [ 1, 5, 4, 2], description: "Gin, Dry Vermouth", name: "Martini", url: "https://drinkstraightup.files.wordpress.com/2014/03/shamrock-cocktail-3.jpg"} ,
 
-    Zim_Zala_Bim: { tags: [ 1, 7, 8], description: "Reposado Tequila, Regan's Orange Bitters, Yellow Chartreuse, Sugar", name: "Zim Zala Bim"} ,
+    Zim_Zala_Bim: { tags: [ 1, 7, 8], description: "Reposado Tequila, Regan's Orange Bitters, Yellow Chartreuse, Sugar", name: "Zim Zala Bim", url: "https://i2.wp.com/farm3.static.flickr.com/2411/2230667706_ecaf71667c.jpg"} ,
 
-    Purgatory: { tags: [ 1, 7, 8, 12], description: "Rye Whiskey, Green Chartreuse, Benedictine", name: "Purgatory"} ,
+    Purgatory: { tags: [ 1, 7, 8, 12], description: "Rye Whiskey, Green Chartreuse, Benedictine", name: "Purgatory", url: "http://images1.villagevoice.com/imager/u/blog/8067376/archer-cocktail-adam-robb.jpg"} ,
 
-    Basil_Gimlet: { tags: [ 20, 23, 36, 15], description: "Gin, Basil, Lime Juice, Sugar", name: "Basil Gimlet"} ,
+    Basil_Gimlet: { tags: [ 20, 23, 36, 15], description: "Gin, Basil, Lime Juice, Sugar", name: "Basil Gimlet", url: "http://saltandwind.com/media/_versions/recipes/150210-cucumber-basil-gimlet_large.jpg"} ,
 
     Orange_Whip: { tags: [36 , 15, 22 ,28, 20] , description: "Gin, Egg Whites, Orange Curacao, Orange Juice, Sugar", name: "Orange Whip", url: "http://bit.ly/1SvKJmF"},
 
