@@ -105,35 +105,35 @@ end
 
 
 cocktails = {
-    Bitter_Giuseppe: { tags: [ 6, 9, 11, 1, 7], description: "With a big pour of Cynar and a touch of sweet vermouth, this shim (low alchohol cocktail) packs big, bold, bitter flavor with a dark caramel hint.", name: "Bitter Giuseppe", url: "http://bit.ly/1VV9xHd"} ,
+    Bitter_Giuseppe: { tags: [ 6, 9, 11, 1, 7], description: "With a big pour of Cynar and a touch of sweet vermouth, this shim (low alchohol cocktail) packs big, bold, bitter flavor with a dark caramel hint.", name: "Bitter Giuseppe", image_url: "http://images1.laweekly.com/imager/bitter-giuseppe/u/original/4254998/bitter_giuseppe_corner_door.jpg"} ,
 
-    :"1794" => { tags: [ 12, 9, 1, 7], description: "Rye Whiskey focused, with a bitter dark chocolate kick.", name: "1794", url: "http://bit.ly/1QzleLM"} ,
+    :"1794" => { tags: [ 12, 9, 1, 7], description: "Rye Whiskey focused, with a bitter dark chocolate kick.", name: "1794", image_url: "https://dmford.files.wordpress.com/2014/12/wpid16667-lucien-gaudin-20141203-0986.jpg?w=1216"} ,
 
-    Corpse_Reviver_2: { tags: [36, 20, 23, 15, 31 ] , description: "Refreshing with a good kick of citrus. This drink will help wake you up with a powerful absinthe aroma.", name: "Corpse Reviver #2", url: "http://bit.ly/241hZJW"},
+    Corpse_Reviver_2: { tags: [36, 20, 23, 15, 31 ] , description: "Refreshing with a good kick of citrus. This drink will help wake you up with a powerful absinthe aroma.", name: "Corpse Reviver #2", image_url: "http://www.eatburprepeat.com/wp-content/uploads/2014/10/corpse_reviver_2_1013_0013.jpg"},
 
-    Old_Fashioned: { tags: [ 4, 12 , 1, 2] , description: "The original, the famous, the great, the Old Fashioned. This drink will give you a good kick of whiskey, with just a hint of sweetnes and a nose of citrus", name: "Old Fashioned", url: "http://www.seriouseats.com/recipes/assets_c/2014/01/20131212rumoldfashioned-thumb-625xauto-375855.jpg"},
+    Old_Fashioned: { tags: [ 4, 12 , 1, 2] , description: "The original, the famous, the great, the Old Fashioned. This drink will give you a good kick of whiskey, with just a hint of sweetnes and a nose of citrus", name: "Old Fashioned", image_url: "http://www.seriouseats.com/recipes/assets_c/2014/01/20131212rumoldfashioned-thumb-625xauto-375855.jpg"},
 
-    Sazerac: { tags: [ 4, 12 ,1 , 2], description: "In the same family as the Old Fashioned. This keeps the powerful whiskey kick, and adds a touch of anise and citrus nose.", name: "Sazerac", url: "http://cdn.skim.gs/images/op5cuu7g9kpscj62ehjf/mad-men-20-classic-cocktails-that-will-never-go-out-of-style-sazerac"} ,
+    Sazerac: { tags: [ 4, 12 ,1 , 2], description: "In the same family as the Old Fashioned. This keeps the powerful whiskey kick, and adds a touch of anise and citrus nose.", name: "Sazerac", image_url: "http://cdn.skim.gs/images/op5cuu7g9kpscj62ehjf/mad-men-20-classic-cocktails-that-will-never-go-out-of-style-sazerac"} ,
 
-    Clover_Club: { tags: [29 ,20 ,22, 36, 15], description: "Raspberry, Sugar, Gin, Lemon, Egg white", name: "Clover Club", url: "http://liquor.s3.amazonaws.com/wp-content/uploads/2014/10/Nolet-Cover-Club.jpg"} ,
+    Clover_Club: { tags: [29 ,20 ,22, 36, 15], description: "Raspberry, Sugar, Gin, Lemon, Egg white", name: "Clover Club", image_url: "http://liquor.s3.amazonaws.com/wp-content/uploads/2014/10/Nolet-Cover-Club.jpg"} ,
 
-    Williams: { tags: [3 ,2 ,1 ,12 ], description: "Scotch, Yellow Chartreuse, Scotch, Dry Vermouth, Scotch, Orange Bitters, Scotch", name: "Williams", url: "http://giuseppegallo.co.uk/wp-content/uploads/2011/02/medium_Cure-Cocktail12.jpg"} ,
+    Williams: { tags: [3 ,2 ,1 ,12 ], description: "Scotch, Yellow Chartreuse, Scotch, Dry Vermouth, Scotch, Orange Bitters, Scotch", name: "Williams", image_url: "http://giuseppegallo.co.uk/wp-content/uploads/2011/02/medium_Cure-Cocktail12.jpg"} ,
 
-    Derby: { tags: [ 21, 36, 23, 15], description: "Sweet Vermouth, Bourbon, Lime Juice, Orange Curacao", name: "Derby", url: "http://punchdrink.com/wp-content/uploads/2015/03/brown-derby.jpg"} ,
+    Derby: { tags: [ 21, 36, 23, 15], description: "Sweet Vermouth, Bourbon, Lime Juice, Orange Curacao", name: "Derby", image_url: "http://punchdrink.com/wp-content/uploads/2015/03/brown-derby.jpg"} ,
 
-    Monte_Cassino: { tags: [ 7, 3, 36, 14], description: "Yellow Chartruese, Benedictine, Lemon Juice, Rye Whiskey", name: "Monte Cassino", url: "http://liquor.s3.amazonaws.com/wp-content/uploads/2011/03/cinquecento1.jpg"} ,
+    Monte_Cassino: { tags: [ 7, 3, 36, 14], description: "Yellow Chartruese, Benedictine, Lemon Juice, Rye Whiskey", name: "Monte Cassino", image_url: "http://liquor.s3.amazonaws.com/wp-content/uploads/2011/03/cinquecento1.jpg"} ,
 
-    Monte_Carlo: { tags: [ 4, 12, 1, 2], description: "Bourbon, Benedictine, Angostura Bitters", name: "Monte Carlo", url: "http://i1074.photobucket.com/albums/w411/frederix3/montecarlo283.jpg"} ,
+    Monte_Carlo: { tags: [ 4, 12, 1, 2], description: "Bourbon, Benedictine, Angostura Bitters", name: "Monte Carlo", image_url: "http://i1074.photobucket.com/albums/w411/frederix3/montecarlo283.jpg"} ,
 
-    Last_Word: { tags: [36 , 14, 15, 18], description: "Gin, Green Chartreuse, Lime Juice, Luxardo", name: "Last Word", url: "http://punchdrink.com/wp-content/uploads/2013/09/Last-Word.jpg"} ,
+    Last_Word: { tags: [36 , 14, 15, 18], description: "Gin, Green Chartreuse, Lime Juice, Luxardo", name: "Last Word", image_url: "http://punchdrink.com/wp-content/uploads/2013/09/Last-Word.jpg"} ,
 
-    Martini: { tags: [ 1, 5, 4, 2], description: "Gin, Dry Vermouth", name: "Martini", url: "https://drinkstraightup.files.wordpress.com/2014/03/shamrock-cocktail-3.jpg"} ,
+    Martini: { tags: [ 1, 5, 4, 2], description: "Gin, Dry Vermouth", name: "Martini", image_url: "https://drinkstraightup.files.wordpress.com/2014/03/shamrock-cocktail-3.jpg"} ,
 
-    Zim_Zala_Bim: { tags: [ 1, 7, 8], description: "Reposado Tequila, Regan's Orange Bitters, Yellow Chartreuse, Sugar", name: "Zim Zala Bim", url: "https://i2.wp.com/farm3.static.flickr.com/2411/2230667706_ecaf71667c.jpg"} ,
+    Zim_Zala_Bim: { tags: [ 1, 7, 8], description: "Reposado Tequila, Regan's Orange Bitters, Yellow Chartreuse, Sugar", name: "Zim Zala Bim", image_url: "https://i2.wp.com/farm3.static.flickr.com/2411/2230667706_ecaf71667c.jpg"} ,
 
-    Purgatory: { tags: [ 1, 7, 8, 12], description: "Rye Whiskey, Green Chartreuse, Benedictine", name: "Purgatory", url: "http://images1.villagevoice.com/imager/u/blog/8067376/archer-cocktail-adam-robb.jpg"} ,
+    Purgatory: { tags: [ 1, 7, 8, 12], description: "Rye Whiskey, Green Chartreuse, Benedictine", name: "Purgatory", image_url: "http://images1.villagevoice.com/imager/u/blog/8067376/archer-cocktail-adam-robb.jpg"} ,
 
-    Basil_Gimlet: { tags: [ 20, 23, 36, 15], description: "Gin, Basil, Lime Juice, Sugar", name: "Basil Gimlet", url: "http://saltandwind.com/media/_versions/recipes/150210-cucumber-basil-gimlet_large.jpg"} ,
+    Basil_Gimlet: { tags: [ 20, 23, 36, 15], description: "Gin, Basil, Lime Juice, Sugar", name: "Basil Gimlet", image_url: "http://saltandwind.com/media/_versions/recipes/150210-cucumber-basil-gimlet_large.jpg"} ,
 
     Orange_Whip: { tags: [36 , 15, 22 ,28, 20] , description: "Gin, Egg Whites, Orange Curacao, Orange Juice, Sugar", name: "Orange Whip", url: "https://s-media-cache-ak0.pinimg.com/736x/00/32/05/0032059b5e187bc63204d4d7069012d4.jpg"},
 
@@ -164,10 +164,11 @@ cocktails = {
     Chocolate_Flip: { tags: [36, 15, 21, 24], description: "Dark Rum, Tia Maria, Whole Egg, Sugar", name: "Chocolate Flip", url: "http://punchdrink.com/wp-content/uploads/2016/03/Article-Flip-Cocktail-Ale-Sherry-Brandy-Drinks-History-Recipe-Elephant-Flip-Pouring-Ribbons-Franklin-Bar-Philadelphia-NYC.jpg"},
 
     Jim_Jam: { tags: [36, 15, 21, 25, 32, 34], description: "Averna, Apry, Lemon Juice", name: "Jim Jam", url: "http://www.miami.com/sites/migration.miami.com/files/images/summerjam.jpg"}
+
 }
 
 cocktails.each do |key, value|
-  drink = Drink.create(name: value[:name], description: value[:description], bar_id: 1)
+  drink = Drink.create(name: value[:name], description: value[:description], bar_id: 1, image_url: value[:image_url])
   drink.reviews.create(user_id: rand(1..100), description: "Wow, this drink was the best one I have ever had. I wish I could get another one.")
   drink.reviews.create(user_id: rand(1..100), description: "I can't believe I have never tried this drink before. I have been missing out.")
   value[:tags].each {|tag| DrinksTag.create(drink_id: drink.id, tag_id: tag)}
