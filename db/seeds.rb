@@ -142,35 +142,35 @@ cocktails = {
 
     Basil_Gimlet: { tags: [ 20, 23, 36, 15], description: "Gin, Basil, Lime Juice, Sugar", name: "Basil Gimlet"} ,
 
-    Orange_Whip: { tags: [36 , 15, 22 ,28, 20] , description: "Gin, Egg Whites, Orange Curacao, Orange Juice, Sugar", name: "Orange Whip"},
+    Orange_Whip: { tags: [36 , 15, 22 ,28, 20] , description: "Gin, Egg Whites, Orange Curacao, Orange Juice, Sugar", name: "Orange Whip", url: "http://bit.ly/1SvKJmF"},
 
-    Trinidad_Sour: { tags: [36 ,14, 17, 27], description: "Rye Whiskey, Angostura Bitters, Lemon Juice, Orgeat", name: "Trinidad Sour"} ,
+    Trinidad_Sour: { tags: [36 ,14, 17, 27], description: "Rye Whiskey, Angostura Bitters, Lemon Juice, Orgeat", name: "Trinidad Sour", url: "http://bit.ly/1NDxno6"} ,
 
-    Negroni: { tags: [ 7, 1, 9, 11], description: "Gin, Campari, Sweet Vermouth", name: "Negroni"} ,
+    Negroni: { tags: [ 7, 1, 9, 11], description: "Gin, Campari, Sweet Vermouth", name: "Negroni", url: "http://nyti.ms/1TyS2Je"} ,
 
-    Americano: { tags: [36 ,2 , 17], description: "Campari, Sweet Vermouth, Soda Water", name: "Americano"} ,
+    Americano: { tags: [36 ,2 , 17], description: "Campari, Sweet Vermouth, Soda Water", name: "Americano", url: "http://bit.ly/1WV81UV"} ,
 
-    Ephemeral: { tags: [ 7, 1, 8], description: "Gin, Dolin Blanc, St Germain, Celery Bitters", name: "Ephemeral"} ,
+    Ephemeral: { tags: [ 7, 1, 8], description: "Gin, Dolin Blanc, St Germain, Celery Bitters", name: "Ephemeral", url: "http://bit.ly/24mYSqy"} ,
 
-    Martinez: { tags: [ 6, 1, 2], description: "Old Tom Gin, Sweet Vermouth, Luxardo, Angostura Bitters, Regan's Orange Bitters", name: "Martinez"} ,
+    Martinez: { tags: [ 6, 1, 2], description: "Old Tom Gin, Sweet Vermouth, Luxardo, Angostura Bitters, Regan's Orange Bitters", name: "Martinez", url: "http://bit.ly/1QDia0Z"} ,
 
-    Cucumber_Cooler: { tags: [15, 20, 23, 30, 36], description: "Gin, Aperol, Lime Juice, Sugar, Soda Water", name: "Cucumber Cooler"} ,
+    Cucumber_Cooler: { tags: [15, 20, 23, 30, 36], description: "Gin, Aperol, Lime Juice, Sugar, Soda Water", name: "Cucumber Cooler", url: "http://bit.ly/1TgDHhZ"} ,
 
-    Gin_Gin_Mule: { tags: [ 20, 36, 23, 15, 30], description: "Gin, Lime Juice, Sugar, Ginger Beer", name: "Gin Gin Mule"} ,
+    Gin_Gin_Mule: { tags: [ 20, 36, 23, 15, 30], description: "Gin, Lime Juice, Sugar, Ginger Beer", name: "Gin Gin Mule", url: "http://bit.ly/1VE5wXK"} ,
 
-    Favela: { tags: [ 36, 2, 17], description: "Gin, Cocchi Americano, Campari, Falernum, Lemon Juice, Grapefruit Bitters", name: "Favela"} ,
+    Favela: { tags: [ 36, 2, 17], description: "Gin, Cocchi Americano, Campari, Falernum, Lemon Juice, Grapefruit Bitters", name: "Favela", url: "http://bit.ly/1NDzjNp"} ,
 
-    Royal_Hawaiian: { tags: [36 ,20, 22, 28, 15], description: "Gin, Pineapple Juice, Orgeat, Lemon Juice", name: "Royal Hawaiian"} ,
+    Royal_Hawaiian: { tags: [36 ,20, 22, 28, 15], description: "Gin, Pineapple Juice, Orgeat, Lemon Juice", name: "Royal Hawaiian", url: "http://bit.ly/1pKVPsn"} ,
 
-    Penicillin: { tags: [ 36, 14, 19], description: "Scothc, Ginger, Honey, Lemon", name: "Penicillin"} ,
+    Penicillin: { tags: [ 36, 14, 19], description: "Scothc, Ginger, Honey, Lemon", name: "Penicillin", url: "http://bit.ly/1TyTviQ"} ,
 
-    Unlucky_Italian: { tags: [36, 17, 14], description: "Cynar, Averna, Honey, Cinnamon, Lemon Juice, Egg White", name: "Unlucky Italian"} ,
+    Unlucky_Italian: { tags: [36, 17, 14], description: "Cynar, Averna, Honey, Cinnamon, Lemon Juice, Egg White", name: "Unlucky Italian", url: "http://bit.ly/2470s2W"} ,
 
-    Jack_Rose: { tags: [ 21, 36, 25, 15, 32, 35], description: "Apple Brandy, Lemon Juice, Grenadine", name: "Jack Rose"},
+    Jack_Rose: { tags: [ 21, 36, 25, 15, 32, 35], description: "Apple Brandy, Lemon Juice, Grenadine", name: "Jack Rose", url: "http://bit.ly/1STnepH"},
 
-    Chocolate_Flip: { tags: [36, 15, 21, 24], description: "Dark Rum, Tia Maria, Whole Egg, Sugar", name: "Chocolate Flip"},
+    Chocolate_Flip: { tags: [36, 15, 21, 24], description: "Dark Rum, Tia Maria, Whole Egg, Sugar", name: "Chocolate Flip", url: "http://bit.ly/24n1lRy"},
 
-    Jim_Jam: { tags: [36, 15, 21, 25, 32, 34], description: "Averna, Apry, Lemon Juice", name: "Jim Jam"}
+    Jim_Jam: { tags: [36, 15, 21, 25, 32, 34], description: "Averna, Apry, Lemon Juice", name: "Jim Jam", url: "http://hrld.us/1N3BEkP"}
 }
 
 cocktails.each do |key, value|
