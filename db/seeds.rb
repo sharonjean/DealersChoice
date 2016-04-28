@@ -1,11 +1,4 @@
 
-# first_gen = Tag.create(name: Faker::Hipster.word, description: Faker::Hipster.sentence)
-
-# second_gen = []
-# second_gen << 2.times {first_gen.children.create(name: Faker::Hipster.word, description: Faker::Hipster.sentence)}
-
-# third_gen = []
-# third_gen = second_gen.each do {|tag| 2.times {tag.children.create(name: Faker::Hipster.word, description: Faker::Hipster.sentence)}}
 
 tags = [
   { name: "Spirituous", description: "Robust and spirit forward."},
@@ -142,35 +135,36 @@ cocktails = {
 
     Basil_Gimlet: { tags: [ 20, 23, 36, 15], description: "Gin, Basil, Lime Juice, Sugar", name: "Basil Gimlet", image_url: "http://saltandwind.com/media/_versions/recipes/150210-cucumber-basil-gimlet_large.jpg"} ,
 
-    Orange_Whip: { tags: [36 , 15, 22 ,28, 20] , description: "Gin, Egg Whites, Orange Curacao, Orange Juice, Sugar", name: "Orange Whip", image_url: "http://bit.ly/1SvKJmF"},
+    Orange_Whip: { tags: [36 , 15, 22 ,28, 20] , description: "Gin, Egg Whites, Orange Curacao, Orange Juice, Sugar", name: "Orange Whip", url: "https://s-media-cache-ak0.pinimg.com/736x/00/32/05/0032059b5e187bc63204d4d7069012d4.jpg"},
 
-    Trinidad_Sour: { tags: [36 ,14, 17, 27], description: "Rye Whiskey, Angostura Bitters, Lemon Juice, Orgeat", name: "Trinidad Sour", image_url: "http://bit.ly/1NDxno6"} ,
+    Trinidad_Sour: { tags: [36 ,14, 17, 27], description: "Rye Whiskey, Angostura Bitters, Lemon Juice, Orgeat", name: "Trinidad Sour", url: "http://www.squirrelfarts.com/sfblog/wp-content/uploads/2012/07/rule37trinidadsour.jpg"} ,
 
-    Negroni: { tags: [ 7, 1, 9, 11], description: "Gin, Campari, Sweet Vermouth", name: "Negroni", image_url: "http://nyti.ms/1TyS2Je"} ,
+    Negroni: { tags: [ 7, 1, 9, 11], description: "Gin, Campari, Sweet Vermouth", name: "Negroni", url: "http://graphics8.nytimes.com/images/2013/12/30/t-magazine/30spagliato-rowan1/30spagliato-rowan1-tmagArticle.jpg"} ,
 
-    Americano: { tags: [36 ,2 , 17], description: "Campari, Sweet Vermouth, Soda Water", name: "Americano", image_url: "http://bit.ly/1WV81UV"} ,
+    Americano: { tags: [36 ,2 , 17], description: "Campari, Sweet Vermouth, Soda Water", name: "Americano", url: "http://cf.ltkcdn.net/cocktails/images/std/178410-230x307-Americano-drink-IS.jpg"} ,
 
-    Ephemeral: { tags: [ 7, 1, 8], description: "Gin, Dolin Blanc, St Germain, Celery Bitters", name: "Ephemeral", image_url: "http://bit.ly/24mYSqy"} ,
+    Ephemeral: { tags: [ 7, 1, 8], description: "Gin, Dolin Blanc, St Germain, Celery Bitters", name: "Ephemeral", url: "http://3.bp.blogspot.com/-pILVIwU8Hfs/VbTk1vaqGYI/AAAAAAAAOMg/JBBzN8akTvQ/s1600/Ephemeral%2Bcocktail.jpg"} ,
 
-    Martinez: { tags: [ 6, 1, 2], description: "Old Tom Gin, Sweet Vermouth, Luxardo, Angostura Bitters, Regan's Orange Bitters", name: "Martinez", image_url: "http://bit.ly/1QDia0Z"} ,
+    Martinez: { tags: [ 6, 1, 2], description: "Old Tom Gin, Sweet Vermouth, Luxardo, Angostura Bitters, Regan's Orange Bitters", name: "Martinez", url: "http://punchdrink.com/wp-content/uploads/2013/12/Martinez.jpg"} ,
 
-    Cucumber_Cooler: { tags: [15, 20, 23, 30, 36], description: "Gin, Aperol, Lime Juice, Sugar, Soda Water", name: "Cucumber Cooler", image_url: "http://bit.ly/1TgDHhZ"} ,
+    Cucumber_Cooler: { tags: [15, 20, 23, 30, 36], description: "Gin, Aperol, Lime Juice, Sugar, Soda Water", name: "Cucumber Cooler", url: "http://images.tastespotting.com/uploads/thumbnail/496534.jpg"} ,
 
-    Gin_Gin_Mule: { tags: [ 20, 36, 23, 15, 30], description: "Gin, Lime Juice, Sugar, Ginger Beer", name: "Gin Gin Mule", image_url: "http://bit.ly/1VE5wXK"} ,
+    Gin_Gin_Mule: { tags: [ 20, 36, 23, 15, 30], description: "Gin, Lime Juice, Sugar, Ginger Beer", name: "Gin Gin Mule", url: "http://summitsips.com/wp-content/uploads/2011/05/IMG_1901.jpg"} ,
 
-    Favela: { tags: [ 36, 2, 17], description: "Gin, Cocchi Americano, Campari, Falernum, Lemon Juice, Grapefruit Bitters", name: "Favela", image_url: "http://bit.ly/1NDzjNp"} ,
+    Favela: { tags: [ 36, 2, 17], description: "Gin, Cocchi Americano, Campari, Falernum, Lemon Juice, Grapefruit Bitters", name: "Favela", url: "https://putneyfarm.files.wordpress.com/2013/03/plane6.jpg"} ,
 
-    Royal_Hawaiian: { tags: [36 ,20, 22, 28, 15], description: "Gin, Pineapple Juice, Orgeat, Lemon Juice", name: "Royal Hawaiian", image_url: "http://bit.ly/1pKVPsn"} ,
+    Royal_Hawaiian: { tags: [36 ,20, 22, 28, 15], description: "Gin, Pineapple Juice, Orgeat, Lemon Juice", name: "Royal Hawaiian", url: "https://s-media-cache-ak0.pinimg.com/236x/43/00/97/43009757583753eac9464f082c412c36.jpg"} ,
 
-    Penicillin: { tags: [ 36, 14, 19], description: "Scothc, Ginger, Honey, Lemon", name: "Penicillin", image_url: "http://bit.ly/1TyTviQ"} ,
+    Penicillin: { tags: [ 36, 14, 19], description: "Scothc, Ginger, Honey, Lemon", name: "Penicillin", url: "http://www.snackish.com/wp-content/uploads/2012/03/penicillin_cocktail_recipe.jpg"} ,
 
-    Unlucky_Italian: { tags: [36, 17, 14], description: "Cynar, Averna, Honey, Cinnamon, Lemon Juice, Egg White", name: "Unlucky Italian", image_url: "http://bit.ly/2470s2W"} ,
+    Unlucky_Italian: { tags: [36, 17, 14], description: "Cynar, Averna, Honey, Cinnamon, Lemon Juice, Egg White", name: "Unlucky Italian", url: "https://s-media-cache-ak0.pinimg.com/236x/ac/5e/92/ac5e92fa4e875d7c1c88563c22ba14e6.jpg"} ,
 
-    Jack_Rose: { tags: [ 21, 36, 25, 15, 32, 35], description: "Apple Brandy, Lemon Juice, Grenadine", name: "Jack Rose", image_url: "http://bit.ly/1STnepH"},
+    Jack_Rose: { tags: [ 21, 36, 25, 15, 32, 35], description: "Apple Brandy, Lemon Juice, Grenadine", name: "Jack Rose", url: "https://daddyosmartinis.files.wordpress.com/2015/02/jack-rose-cocktail.jpg"},
 
-    Chocolate_Flip: { tags: [36, 15, 21, 24], description: "Dark Rum, Tia Maria, Whole Egg, Sugar", name: "Chocolate Flip", image_url: "http://bit.ly/24n1lRy"},
+    Chocolate_Flip: { tags: [36, 15, 21, 24], description: "Dark Rum, Tia Maria, Whole Egg, Sugar", name: "Chocolate Flip", url: "http://punchdrink.com/wp-content/uploads/2016/03/Article-Flip-Cocktail-Ale-Sherry-Brandy-Drinks-History-Recipe-Elephant-Flip-Pouring-Ribbons-Franklin-Bar-Philadelphia-NYC.jpg"},
 
-    Jim_Jam: { tags: [36, 15, 21, 25, 32, 34], description: "Averna, Apry, Lemon Juice", name: "Jim Jam", image_url: "http://hrld.us/1N3BEkP"}
+    Jim_Jam: { tags: [36, 15, 21, 25, 32, 34], description: "Averna, Apry, Lemon Juice", name: "Jim Jam", url: "http://www.miami.com/sites/migration.miami.com/files/images/summerjam.jpg"}
+
 }
 
 cocktails.each do |key, value|
