@@ -24,13 +24,13 @@ View live demo [here](https://www.youtube.com/watch?v=1FEwZP5MRuA)
 
 ##Slides
 
-[search bar](public/search_bar.png)
-[home](public/home.png)
-[drink menu](public/drink_menu.png)
-[round 1](public/round_1_tree.png)
-[round 2](public/round_2_tree.png)
-[round 3](public/round_3_tree.png)
-[dealer's choice](public/dealers_choice.png)
+![search bar](public/search_bar.png)
+![home](public/home.png)
+![drink menu](public/drink_menu.png)
+![round 1](public/round_1_tree.png)
+![round 2](public/round_2_tree.png)
+![round 3](public/round_3_tree.png)
+![dealer's choice](public/dealers_choice.png)
 
 ## License
 MIT License
