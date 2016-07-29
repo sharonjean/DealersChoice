@@ -42,7 +42,7 @@ First sample round of questions
 
 Second round of questions 
 
-![round_2](/app/assets/images/round_2_tree.png)
+![round_2](app/assets/images/round_2_tree.png)
 
 Third sample round of questions
 
