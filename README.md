@@ -22,36 +22,6 @@ Dealers-Choice.herokuapp.com
 
 View live demo [here](https://www.youtube.com/watch?v=1FEwZP5MRuA)
 
-##Slides
-
-Search for one of the top 15 cocktail bars in your area using the Yelp search API
-
-![search_bar](app/assets/images/search_bar.png)
-
-Check out the bar's menu - or - take Dealer's choice for a spin!
-
-![home](app/assets/images/home.png)
-
-Take a look at the menu
-
-![drink_menu](app/assets/images/drink_menu.png)
-
-First sample round of questions
-
-![round_1](app/assets/images/round_1_tree.png)
-
-Second round of questions 
-
-![round_2](app/assets/images/round_2_tree.png)
-
-Third sample round of questions
-
-![round_3](app/assets/images/round_3_tree.png)
-
-Dealer's choice(s)!
-
-![dealers_choice](app/assets/images/dealers_choice.png)
-
 ## License
 MIT License
 
